@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Comparaison de différents outils de test de charges | Blog d&#39;un Apprenti</title>
+  <title>Comparaison de différents outils de test de charges open-source | Le blog de l&#39;apprenti de la boîte d&#39;à coté</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="shortcut icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="/css/app.css">
@@ -25,7 +25,7 @@
   <main class="post">
   <article>
   <h1 class="article-title">
-    <a href="/2016/10/05/LoadTestingComparison/">Comparaison de différents outils de test de charges</a>
+    <a href="/2016/10/05/LoadTestingComparison/">Comparaison de différents outils de test de charges open-source</a>
   </h1>
 
   <section class="article-meta">
@@ -33,7 +33,143 @@
   </section>
 
   <section class="article-entry">
-    <p>Article en construction.</p>
+    <p><img src="/img/bannerLoadTesting.png" alt="Banner for load testing article"></p>
+<h3>Un outil de test de montée en charge est un outil permettant de simuler un grand nombre d'utilisateurs sur une application dans le but de savoir si celle-ci va tenir la charge, c'est à dire pour savoir si celle-ci sera capable de gérer toutes les requêtes des utilisateurs et fournir un service répondant aux critères de qualités fixés ( temps de réponse satisfaisant, contenu des réponses correct etc...). Il existe une multitude d'outils permettant cela mais il est intéressant de comparer ces différents outils car selon les machines disponibles pour exécuter ces tests, certains outils sont plus adaptés que d'autres.</h3>
+<h2>Les solutions open-source</h2>
+<p><img src="/img/OpenSourceComparison.jpg" alt="Comparaison des outils Open Sources"></p>
+<p>Cette image tirée d'un article du blog de Redline13 <a href="https://www.redline13.com/blog/" target="_blank" rel="external">https://www.redline13.com/blog/</a> montre les différentes fonctionnalités des divers outils open-source de test de montée en charge. Nous ne nous intéresserons qu'aux solutions proposant toutes les fonctionnalités du comparatif, c'est à dire les solutions distribuées, avec un recorder (outil permettant d'enregistrer un scénario), proposant des graphiques, des plugins et pouvant être intégré avec Jenkins.
+On peut donc s'intéresser à :</p>
+<ul>
+<li>Gatling : développé en Scala et basé sur <a href="http://akka.io/" target="_blank" rel="external">Akka</a> et <a href="http://netty.io/" target="_blank" rel="external">Netty</a>.</li>
+<li>JMeter : développé à 100% en Java.</li>
+<li>Grinder : Également développé en Java.</li>
+</ul>
+<hr>
+<p>Exécuter un test de charge n'est clairement pas la chose la plus compliquée à faire. Les experts en performances sont conscient que le plus difficile reste l'interprétation des résultats de ces tests. C'est pourquoi l'un de nos critère sera tout simplement la qualité du rapport final de chaque test. En suite, un autre critère sera la capacité de la technologie à Scaler et à générer des utilisateurs simultanéments.</p>
+<p>JMeter, Grinder et beaucoup d'autres outils de tests de charges utilisent un thread par utilisateur virtuel ce qui n'est pas le cas de Gatling qui lui utilise Akka qui est basé sur la programmation concurrente acteur. Concrètement cela permet en théorie à Gatling de générer une charge très importante, voir plus importante que les autres outils. Cependant, en parcourant divers articles et forums, beaucoup montre que les performances de gatling ne sont pas aussi supérieur que celles de JMeter ou d'autres outils comme on pourrait le croire, on peut même noter <a href="https://www.blazemeter.com/blogs-on-author/669" target="_blank" rel="external">Dmitri Tikhanski</a> qui publie des résultats de tests dans <a href="https://www.blazemeter.com/blog/open-source-load-testing-tools-which-one-should-you-use" target="_blank" rel="external">cet article de Blazemeter</a> :</p>
+<p><img src="/img/Blog_LoadComp_13.png" alt="Comparaison des outils open sources"></p>
+<p>Ces résultats qui sont la comparaison du nombre de requêtes par minute pour chaque logiciel nous montre que JMeter est clairement au dessus de Gatling et Grinder (Et tsung dont nous ne parlerons pas dans cet article). Le scénario du test était simple, une requête HTTP avec 20 threads et 100000 itérations exécutée avec un client ayant un CPU 4 coeurs à 2.7Ghz, 4 GO de RAM et Ubuntu. Le résultat est donc sans appel et JMeter remporte le jeu haut la main. Cependant, ici nous ne parlons que d'exécuter une requête et pas de simuler des utilisateurs avec un véritable scénario, donc on ne peut pas se baser que sur cette étude.
+J'ai donc rechercher d'autres études montrant les trois technos, mais j'ai été forcé à reconnaître que je n'en trouverai pas sans m'aventurer dans les méandres de la 50ème page de google. J'ai donc trouvé une paire  d'article  de <a href="flood.io">Flood.io</a> qui est un service permettant de déployer des tests avec Gatling et Jmeter.
+Ces deux articles sont deux tests différents :</p>
+<ul>
+<li>Le premier test est un scénario où nous allons simuler 10k utilisateurs et 30k requêtes par minutes.</li>
+<li>Le deuxième est un scénario où nous allons simuler 20k puis 40k utilisateurs.</li>
+</ul>
+<p>Ces deux tests sont exécutés sur une JVM ayant 4GB de RAM et on peut voir dans le premier test que JMeter est toujours meilleur que Gatling au niveau du temps de réponse :</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Benchmark</th>
+<th>Mean RT +/- SDev</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gatling-1.5.3</td>
+<td>10,000 Users</td>
+<td>1788 +/- 362 ms</td>
+</tr>
+<tr>
+<td>JMeter-2.9</td>
+<td>10,000 Users</td>
+<td>1625 +/- 322 ms</td>
+</tr>
+<tr>
+<td>JMeter-2.10</td>
+<td>10,000 Users</td>
+<td>1698 +/- 31 ms</td>
+</tr>
+</tbody>
+</table>
+<p>Cependant, dans le deuxième cas, les valeurs sont tout autre :</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Benchmark</th>
+<th>Mean RT +/- SDev</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JMeter-2.9</td>
+<td>20,000 Users</td>
+<td>2637 +/- 1015 ms</td>
+</tr>
+<tr>
+<td>JMeter-2.10</td>
+<td>20,000 Users</td>
+<td>2143 +/- 446 ms</td>
+</tr>
+<tr>
+<td>Gatling-1.5.3</td>
+<td>20,000 Users</td>
+<td>1702 +/- 28 ms</td>
+</tr>
+</tbody>
+</table>
+<p>Ce deuxième test nous montre donc que Gatling est capable de supporter le double d'utilisateur sans perdre en qualité de temps de réponse, ce qui n'est pas étonnant étant donné qu'il est basé sur Akka qui est fait pour supporter de grandes charges concurrentes. JMeter lui voit son temps de réponse se dégrader significativement. On peut donc imaginer que Gatling peut générer plus de charge.
+Le test ne s'arrête pas là, Flood.io a décidé de tester à 40k utilisateurs et les résultats montrent que Gatling, malgrès une dégradation de ses performances, est capable de tenir la charge alors que JMeter voit la mémoire de sa JVM saturer.</p>
+<p>Avec ces sources, on peut voir que les deux solutions qui dominent le marché Open Source au niveau des performances sont Gatling et JMeter et selon Flood.io, Gatling serait capable de générer plus de charge.</p>
+<hr>
+<p>Notre deuxième critères est basé sur la qualité des rapports produit à la fin du test de charges. Pour cela nous allons tout simplement regarder les rapports produits par ces trois technologies.</p>
+<h3>JMeter</h3>
+<p>JMeter permet de générer des rapports personnalisés grâce à un simple fichier de configuration qui ressemble à ceci :
+<figure class="highlight plain"><figcaption><span>Documentation de JMeter -</span><a href="http://jmeter.apache.org/usermanual/generating-dashboard.html" target="_blank" rel="external">link</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">jmeter.save.saveservice.bytes = true</div><div class="line">jmeter.save.saveservice.label = true</div><div class="line">jmeter.save.saveservice.latency = true</div><div class="line">jmeter.save.saveservice.response_code = true</div><div class="line">jmeter.save.saveservice.response_message = true</div><div class="line">jmeter.save.saveservice.successful = true</div><div class="line">jmeter.save.saveservice.thread_counts = true</div><div class="line">jmeter.save.saveservice.thread_name = true</div><div class="line">jmeter.save.saveservice.time = true</div><div class="line"></div><div class="line">#the timestamp format must include</div><div class="line">#the time and should include the date.</div><div class="line"></div><div class="line">#For example the default, which</div><div class="line">#is milliseconds since the epoch:</div><div class="line"></div><div class="line">jmeter.save.saveservice.timestamp_format = ms</div><div class="line"></div><div class="line">#Or the following would also be suitable</div><div class="line"></div><div class="line">jmeter.save.saveservice.timestamp_format=yyyy/MM/dd HH:mm:ss</div><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>On peut trouver ce tableau sur la documentation de JMETER :</p>
+<p><img src="/img/JMETERCHARTLIST.png" alt="Liste des charts de JMeter"></p>
+<p>Cela montre qu'il y a un bon nombre de données disponibles &quot;out of the box&quot;, comme</p>
+<ul>
+<li>le code et les messages des réponses aux requêtes</li>
+<li>la latence</li>
+<li>Est-ce que la requêtes est un succès</li>
+<li>le temps d'exécution des requêtes</li>
+<li>le nom du thread</li>
+<li>le nombre de threads</li>
+<li>La date et l'heure d'exécution des requêtes</li>
+</ul>
+<p>Il y a également d'autres paramètres pour générer des rapports un peu plus personnalisé avec un titre précis, des graphs d'une certaine forme, des limites de l'APDEX (Application Performance Index), la granularité des graphs, changer le nom/dossier d'export du rapport...</p>
+<p>En ce qui concerne les charts, je ne vais pas montrer toutes les charts montrée dans la documentation de JMeter cela serait contre productif mais vous pouvez aller consulter la documentation (source n°5). Voici un exemple charts généré :
+<img src="/img/report_latencies_over_time.png" alt="Exemple de chart généré par JMETER">
+On peut voir que ces charts sont plutôt modernes, lisibles, et le rapport permet de zoomer sur celles-ci et afficher cacher des informations pour permettre une meilleure visibilité et donc une plus grande facilité dans l'interprétation et la mise en valeur des données récupérées.</p>
+<h3>Grinder</h3>
+<p>Grinder est, comme JMeter, Développé en Java. Celui-ci ne propose pas de solutions pour créer des graphs &quot;out of the box&quot;. Cependant celui propose quand même de relever certaines données. Selon la documentation :</p>
+<ul>
+<li>Les requêtes ayant réussi.</li>
+<li>Des statistiques sur les temps de réponses</li>
+<li>Relever des statistiques personnalisés</li>
+</ul>
+<p>Ces statistiques sont visible dans la console de Grinder et dans le terminal (selon comment on lance le script) mais par contre il n'y a pas de graphiques fournis. Par contre il existe quand même des solutions comme g2g permettant de générer des graphiques facilement.</p>
+<p><img src="/img/all_response_times_2.png" alt="Solution de graphique pour grinder G2G">
+<a href="http://grinder-to-graphite.readthedocs.io/en/latest/gallery.html" target="_blank" rel="external">Documentation de Grinder</a></p>
+<h3>Gatling</h3>
+<p>Gatling propose nous propose beaucoup de métriques :</p>
+<ul>
+<li>Nombres de requêtes faites triés en fonction du temps de réponses (définissable avec les threshold).</li>
+<li>Des statistiques sur les temps de réponses (min, max, moyenne, médiane).</li>
+<li>Les codes erreurs trouvés et le nombre de fois où on les a trouvé.</li>
+<li>Nombre de requêtes et nombre de réponses par secondes.</li>
+<li>D'autres agrégations des du nombre de requêtes.</li>
+</ul>
+<p>Ces données sont agencées de deux manières, soit dans un graphe comme les différents temps d'exécution des requêtes :</p>
+<p><img src="/img/Gatling_chart.png" alt="Gatling chart"></p>
+<p>Soit dans un tableau comme les statistiques :</p>
+<p><img src="/img/Gatling_Statistiques.png" alt="Gatling statistiques"></p>
+<p>Dans tous les cas, Gatling présente autant de données que JMeter et Grinder mais a un rendu des rapports différents, ses rapports sont plus facile à interpréter que la console de Grinder. Enfin, les Graphes de Gatling sont sensiblement aussi facile à interpréter que ceux de JMeter.</p>
+<h3>Donc finalement quel outil open source ?</h3>
+<p>Et bien comme d'habitude, ça dépend ! Gatling est plus capable pour scaler sur une seule machine du fait de son architecture basée sur Akka, mais celui-ci utilise le langage Scala pour ses scripts qui, même si il se popularise beaucoup, reste peu inconnu pour de nombreux développeur. Grinder et JMeter eux sont utilisent respectivement le Jython et le Java ce qui les rends plus facile à scripter pour la plupart des gens. Je recommanderai quand même JMeter ou Galing pour la simple est bonne raison qu'avoir des graphes out of the box est vraiment bien. Je rappel que ces deux solutions peuvent être distribuée, intégrée avec Jenkins,  possèdent un recorder pour les scénarios, et possèdent des plugins.</p>
+<h2>Les solutions commercial</h2>
+<p>Pour cette comparaison nous allons faire entrer un nouveau critère en jeu, LE PRIX ! En effet les solutions que nous allons comparés sont les solutions que j'ai pu observer en entreprise. Nous allons donc pouvoir parler de Load Runner, Neoload et Silk Performer. Malheureusement les prix de silk performer ne sont pas publiés et à part quelques commentaires sur des forums (Donc une source pas vraiment sûre) on ne peut pas vraiment connaître le prix exact car celui-ci est aparrement négociable avec Borland. On comparera donc les prix entre Neoload et HP Load Runner !</p>
+<h2>Sources</h2>
+<ol>
+<li><a href="https://www.redline13.com/blog/2015/09/9-open-source-load-testing-review/" target="_blank" rel="external">https://www.redline13.com/blog/2015/09/9-open-source-load-testing-review/</a></li>
+<li><a href="https://www.blazemeter.com/blog/open-source-load-testing-tools-which-one-should-you-use" target="_blank" rel="external">https://www.blazemeter.com/blog/open-source-load-testing-tools-which-one-should-you-use</a></li>
+<li><a href="https://blog.flood.io/benchmarking-jmeter-and-gatling/" target="_blank" rel="external">https://blog.flood.io/benchmarking-jmeter-and-gatling/</a></li>
+<li><a href="https://blog.flood.io/stress-testing-jmeter-and-gatling/" target="_blank" rel="external">https://blog.flood.io/stress-testing-jmeter-and-gatling/</a></li>
+<li><a href="http://jmeter.apache.org/usermanual/generating-dashboard.html" target="_blank" rel="external">http://jmeter.apache.org/usermanual/generating-dashboard.html</a></li>
+<li><a href="http://www.coderewind.com/2014/07/top-6-performance-testing-tools/" target="_blank" rel="external">http://www.coderewind.com/2014/07/top-6-performance-testing-tools/</a></li>
+</ol>
 
   </section>
 </article>
@@ -42,7 +178,7 @@
   <section class="profile grid-item grid">
     <img class="avatar" src="/img/avatar.png" alt="avatar" />
     <div class="grid-item">
-      <p class="title"> Blog d'un Apprenti </p>
+      <p class="title"> Le blog de l'apprenti de la boîte d'à coté </p>
       <p class="subtitle">  </p>
     <div>
   </section>
@@ -53,7 +189,7 @@
   class="twitter-share-button"
   data-size="large"
   data-via="CamilleGR"
-  href="https://twitter.com/intent/tweet?text=Article en construct"
+  href="https://twitter.com/intent/tweet?text=<img src="/img/banne"
 >
   Tweet
 </a>

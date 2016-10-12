@@ -18,18 +18,28 @@ html {
   font-size: 16px; }
 
 /* line 14, /home/Camille/Workspaces/blog_github/themes/again/source/css/_base.scss */
+blockquote {
+  text-align: left; }
+
+/* line 19, /home/Camille/Workspaces/blog_github/themes/again/source/css/_base.scss */
 body {
   margin: 0;
   font-family: PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+  text-align: justify;
   -webkit-font-smoothing: antialiased; }
 
-/* line 20, /home/Camille/Workspaces/blog_github/themes/again/source/css/_base.scss */
+/* line 26, /home/Camille/Workspaces/blog_github/themes/again/source/css/_base.scss */
+img {
+  width: 100%;
+  height: auto; }
+
+/* line 31, /home/Camille/Workspaces/blog_github/themes/again/source/css/_base.scss */
 a {
   text-decoration: none;
   color: inherit; }
 
 /* https://github.com/twitter/twemoji#inline-styles */
-/* line 26, /home/Camille/Workspaces/blog_github/themes/again/source/css/_base.scss */
+/* line 37, /home/Camille/Workspaces/blog_github/themes/again/source/css/_base.scss */
 img.emoji {
   height: 1em;
   width: 1em;
