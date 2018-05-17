@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Pourquoi intégrer la performance dans le cycle de vie applicatif ? | Le blog du consultant de la boîte d&#39;à coté</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Aujourd’hui, nous sommes capables de tester les applications en continue. Les tests fonctionnels et les tests unitaires font déjà partie intégrante de l’intégration continue mais même avec la multipl">
+<meta name="keywords" content="Performance, Devops, Application, CI, IT, Load, test, monitoring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pourquoi intégrer la performance dans le cycle de vie applicatif ?">
+<meta property="og:url" content="http://camillegr.github.io/2018/05/16/Pourquoi-integrer-la-performance-dans-le-cycle-de-vie-applicatif/index.html">
+<meta property="og:site_name" content="Le blog du consultant de la boîte d&#39;à coté">
+<meta property="og:description" content="Aujourd’hui, nous sommes capables de tester les applications en continue. Les tests fonctionnels et les tests unitaires font déjà partie intégrante de l’intégration continue mais même avec la multipl">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://camillegr.github.io/2018/05/16/Pourquoi-integrer-la-performance-dans-le-cycle-de-vie-applicatif/img/perf_banner.png">
+<meta property="og:updated_time" content="2018-05-17T12:26:44.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pourquoi intégrer la performance dans le cycle de vie applicatif ?">
+<meta name="twitter:description" content="Aujourd’hui, nous sommes capables de tester les applications en continue. Les tests fonctionnels et les tests unitaires font déjà partie intégrante de l’intégration continue mais même avec la multipl">
+<meta name="twitter:image" content="http://camillegr.github.io/2018/05/16/Pourquoi-integrer-la-performance-dans-le-cycle-de-vie-applicatif/img/perf_banner.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Le blog du consultant de la boîte d&#39;à coté" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Le blog du consultant de la boîte d&#39;à coté</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://camillegr.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Pourquoi-integrer-la-performance-dans-le-cycle-de-vie-applicatif" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/16/Pourquoi-integrer-la-performance-dans-le-cycle-de-vie-applicatif/" class="article-date">
+  <time datetime="2018-05-16T20:30:00.000Z" itemprop="datePublished">2018-05-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Pourquoi intégrer la performance dans le cycle de vie applicatif ?
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="img/perf_banner.png" alt="Bannière"></p>
+<p>Aujourd’hui, nous sommes capables de tester les applications en continue. Les tests fonctionnels et les tests unitaires font déjà partie intégrante de l’intégration continue mais même avec la multiplication des environnements (développement, qualification, pré-production) nous en oublions qu’il est possible d’y intégrer les tests de performances, les tests de charges, et le monitoring des performances au sein du cycle de vie applicatif.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Aujourd’hui on nous parle de DevOps, de Paas, d’IaC, d’architecture cloud, et autres techniques novatrices. Mais posons une question : “Vous utilisez toutes ces techniques, très bien, si 500 utilisateurs se connectent dans une heure l’application va-t-elle tenir ? Combien cela va vous coûter si elle tombe ? Combien cela va vous coûter si elle tient ?”. Que cela soit une surconsommation de ressources clouds, une indisponibilité de l’application ou des utilisateurs insatisfait, le risque de surcoût est élevé.<br>Une application possède seulement quelques étapes dans son cycle de vie : conception, implémentation, tests, et mise en production. Les tests unitaires et fonctionnels font partie intégrante de ce cycle de vie mais ne permettent pas de déceler tous les problèmes, ils sont indispensable mais pas suffisant.</p>
+<h3 id="Pourquoi-tous-les-problemes-ne-sont-pas-detectes"><a href="#Pourquoi-tous-les-problemes-ne-sont-pas-detectes" class="headerlink" title="Pourquoi tous les problèmes ne sont pas détectés ?"></a>Pourquoi tous les problèmes ne sont pas détectés ?</h3><p>Parce que certains problèmes, on le sait, n’apparaissent qu’à partir du moment où le système atteint une certaine charge. Par exemple il vous sera difficile de savoir que vous avez une fuite mémoire ou un problème de garbage collection avec l’activité des 15 développeurs travaillant sur l’application.</p>
+<h3 id="Pourquoi-nous-n’integrons-pas-ces-tests"><a href="#Pourquoi-nous-n’integrons-pas-ces-tests" class="headerlink" title="Pourquoi nous n’intégrons pas ces tests ?"></a>Pourquoi nous n’intégrons pas ces tests ?</h3><p>Parce que la performance est un secteur de niche. Sorti d’école d’ingénieur, je connais beaucoup d’autres personnes ayant fait ce type d’école ou d’autres formations en informatique. Le fait est là : Aucune des écoles que je connais ne parles d’autres types de tests que les tests fonctionnels et unitaires. De facto, peu de gens s’orientent vers ce secteur à la sortie de l’école, donc il y a peu d’experts sur le marché, donc les experts coûtent cher, donc beaucoup de petites entreprises ne font tout simplement pas ces tests alors qu’elles le pourraient.</p>
+<h2 id="Couts-Durees-Risques"><a href="#Couts-Durees-Risques" class="headerlink" title="Coûts, Durées, Risques"></a>Coûts, Durées, Risques</h2><p>Vous lancez une campagne de tests de performances facturée à la journée à un sous-traitant. Des problèmes se posent :</p>
+<ul>
+<li>Combien de temps la campagne va prendre ?<ul>
+<li>Combien de temps vos environnements risques d’êtres immobiliser pour les tests ?</li>
+<li>Combien de temps allez vous mobiliser vos équipes pour qu’elles fournissent aux testeurs les données dont ils ont besoins ?</li>
+<li>Quel est le retard potentiel que peut subir la mise en production ?</li>
+</ul>
+</li>
+<li>Quel sera le coût de la campagne ?<ul>
+<li>Combien de jours vont être facturé par l’entreprise de prestations ? (coûts humains)</li>
+<li>Les licenses des outils utilisés devront être acquises pour combien de temps ? (coûts matériels)</li>
+</ul>
+</li>
+<li>Est-ce qu’on peut se fier aux résultats ?<ul>
+<li>Est-ce que la campagne a été correctement menée ?</li>
+<li>Est-ce que la couverture des tests a été optimale ?</li>
+</ul>
+</li>
+</ul>
+<p>Pour avoir participé à plusieurs campagnes de tests : il y a toujours un risque pour que la campagne s’allonge. Certaines applications sont tout simplement un enfer à tester car mal développée, mal conçue, ou trop instable.<br>Cependant, les tests étant indispensables, votre campagne ne fera que s’allonger, les coûts de la prestation augmenter, et la date de mise en production repoussée. C’est pour cela qu’il faut savoir plusieurs choses :</p>
+<ul>
+<li>Quels sont les problèmes les plus important à tester/résoudre ? Quels sont les problèmes que vous auriez pu anticiper ?</li>
+<li>Quand êtes vous prêts à lancer votre campagne de test ?</li>
+<li>Comment tester les performances de VOTRE application ?</li>
+</ul>
+<p>Tout cela, vous le saurez en intégrant les tests de performances dès votre environnement de développement et jusqu’à la plateforme de qualification :</p>
+<ul>
+<li>Vous saurez quoi tester car les problèmes simples à régler l’auront été en amont de la campagne de test par vos développeurs et/ou vos opérationnels.</li>
+<li>Vous saurez que vous pouvez tester quand vos tests de charges ne seront pas victime de l’instabilité de votre application.</li>
+<li>Vous saurez comment tester, parce qu’une partie du travail est déjà faites.</li>
+</ul>
+<p>En termes de maîtrise des coûts, cette approche permettrait une meilleure gestion des coûts humains et matériels grâce à des estimations plus précise de la durée et de la difficulté des différentes tâches. De cette façon, vous évitez les retards, vous évitez le surcoût, et vous évitez les doutes.</p>
+<h2 id="La-possibilite"><a href="#La-possibilite" class="headerlink" title="La possibilité"></a>La possibilité</h2><p>Être innovant, ce n’est pas forcément faire quelque chose parce qu’on en a besoin. Parfois c’est faire quelque chose simplement parce qu’on en a la possibilité. Aujourd’hui on automatise le déploiement d’infrastructures complètes ou de containers applicatifs alors que les tests de charges sont toujours exécutés à la main. Pourquoi ne pas lancer un test de charge automatiquement à chaque déploiement d’une infrastructure sur une plateforme de qualification ? Est-ce mieux d’attendre 1 jour, 1 semaine ou 1 mois pour déceler un problème qui entrainera une régression de l’application ?<br>En aggrégeant les outils d’aujourdhui, vous pouvez déployer vos machines de tests en même temps que votre environnement de qualification et lancez vos tests de charges dans la foulée. Pourquoi ne pas le faire ?</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>Demandez à votre DevOps combien de temps cela va lui prendre d’intégrer une nouvelle étape dans l’intégration continue de votre application.<br>Demandez à vos développeurs combien de temps cela leur prendrait de faire des scripts avec JMeter ou Gatling.<br>Demandez à vos opérationnels si il existe des plages horaires où votre environnement de qualification est disponible.<br>Vous mettrez cela en place.<br>À la fin de votre prochaine campagne de test : comparez le coût et la durée de la campagne avec la durée des précédentes. Votre équipe IT ne mérite t’elle pas une invitation au restaurant et un jour de congé ?</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://camillegr.github.io/2018/05/16/Pourquoi-integrer-la-performance-dans-le-cycle-de-vie-applicatif/" data-id="cjhaifop70001d30o41mkofr9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Performance-Devops-Application-CI-IT-Load-test-monitoring/">Performance, Devops, Application, CI, IT, Load, test, monitoring</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/10/13/Comparatif-des-outils-de-test-de-charge-opensource/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Comparatif des outils de tests de charge Open Source</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Performance-Application-IT-Loadtest-Test-Opensource/">Performance, Application, IT, Loadtest, Test, Opensource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Performance-Devops-Application-CI-IT-Load-test-monitoring/">Performance, Devops, Application, CI, IT, Load, test, monitoring</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Performance-Application-IT-Loadtest-Test-Opensource/" style="font-size: 10px;">Performance, Application, IT, Loadtest, Test, Opensource</a> <a href="/tags/Performance-Devops-Application-CI-IT-Load-test-monitoring/" style="font-size: 10px;">Performance, Devops, Application, CI, IT, Load, test, monitoring</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/">2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/16/Pourquoi-integrer-la-performance-dans-le-cycle-de-vie-applicatif/">Pourquoi intégrer la performance dans le cycle de vie applicatif ?</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/13/Comparatif-des-outils-de-test-de-charge-opensource/">Comparatif des outils de tests de charge Open Source</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Camille Gerin-Roze<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
