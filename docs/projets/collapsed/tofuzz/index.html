@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="fr-fr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+ToFuzz is an opensource Fuzzing tool able to use the tor network to limit the footprint on the targetted server and escape the attack detection by IP Filter.
+
+  Installation
+  
+  #
+  
+
+pip install .
+
+  Help
+  
+  #
+  
+
+$ tofuzz -h
+
+___________     _____
+\__    ___/____/ ____\_ __________________
+  |    | /  _ \   __\  |  \___   /\___   /
+  |    |(  &lt;_&gt; )  | |  |  //    /  /    / 
+  |____| \____/|__| |____//_____ \/_____ \
+                                \/      \/
+usage: ToFuzz [-h] [-X METHOD] -u URL [-H HEADERS] [-b BODY] -w WORDLIST [--fuzztoken FUZZTOKEN] [-t THREADS] [-v]
+              [-T] [--tor-host TOR_HOST] [--tor-port TOR_PORT]
+
+ToFuzz – is a multi-threaded fuzzing tool which allow users to use tor network.
+
+options:
+  -h, --help            show this help message and exit
+  -X, --method METHOD   HTTP method to use (default: GET)
+  -u, --url URL         Target URL with FUZZ token
+  -H, --headers HEADERS
+                        HTTP headers as JSON string
+  -b, --body BODY       HTTP body as raw string or JSON string
+  -w, --wordlist        Path to the wordlist to use (Will be automatically splitted by thread)
+                        Path to wordlist file
+  --fuzztoken FUZZTOKEN
+                        Token to replace in URL/body (default: FUZZ)
+  -t, --threads THREADS
+                        Number of threads
+  -v, --verbose         Verbose Mode
+  -T, --tor             Use Tor network
+  --tor-host TOR_HOST   Tor SOCKS5 proxy host (default: 127.0.0.1)
+  --tor-port TOR_PORT   Tor SOCKS5 proxy port (default: 9050)
+Simple usage with GET request :">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="//localhost:1313/docs/projets/collapsed/tofuzz/">
+  <meta property="og:site_name" content="@camillegr">
+  <meta property="og:title" content="ToFuzz">
+  <meta property="og:description" content="ToFuzz is an opensource Fuzzing tool able to use the tor network to limit the footprint on the targetted server and escape the attack detection by IP Filter.
+Installation # pip install . Help # $ tofuzz -h ___________ _____ \__ ___/____/ ____\_ __________________ | | / _ \ __\ | \___ /\___ / | |( &lt;_&gt; ) | | | // / / / |____| \____/|__| |____//_____ \/_____ \ \/ \/ usage: ToFuzz [-h] [-X METHOD] -u URL [-H HEADERS] [-b BODY] -w WORDLIST [--fuzztoken FUZZTOKEN] [-t THREADS] [-v] [-T] [--tor-host TOR_HOST] [--tor-port TOR_PORT] ToFuzz – is a multi-threaded fuzzing tool which allow users to use tor network. options: -h, --help show this help message and exit -X, --method METHOD HTTP method to use (default: GET) -u, --url URL Target URL with FUZZ token -H, --headers HEADERS HTTP headers as JSON string -b, --body BODY HTTP body as raw string or JSON string -w, --wordlist Path to the wordlist to use (Will be automatically splitted by thread) Path to wordlist file --fuzztoken FUZZTOKEN Token to replace in URL/body (default: FUZZ) -t, --threads THREADS Number of threads -v, --verbose Verbose Mode -T, --tor Use Tor network --tor-host TOR_HOST Tor SOCKS5 proxy host (default: 127.0.0.1) --tor-port TOR_PORT Tor SOCKS5 proxy port (default: 9050) Simple usage with GET request :">
+  <meta property="og:locale" content="fr_fr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>ToFuzz | @camillegr</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="//localhost:1313/docs/projets/collapsed/tofuzz/">
+<link rel="stylesheet" href="/book.min.d60d65c9fd57805d29fb9d7109cb03a93c46852bac9bb8cdfec366ee739b3605.css" integrity="sha256-1g1lyf1XgF0p&#43;51xCcsDqTxGhSusm7jN/sNm7nObNgU=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.3671301ee6fb1487ce7a6bab94716a2d17725b696cb95ccbf01433f0f1bb1c31.js" integrity="sha256-NnEwHub7FIfOemurlHFqLRdyW2lsuVzL8BQz8PG7HDE=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>@camillegr</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ad93f8b4ee98a57a6224ee06f39153b9" class="toggle" checked />
+    <label for="section-ad93f8b4ee98a57a6224ee06f39153b9" class="flex">
+      <a role="button" class="flex-auto ">Projets Personnels</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projets/collapsed/tofuzz/" class="active">ToFuzz</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-72538655c7e4bb37bc80c6f43d7e4b3b" class="toggle"  />
+    <label for="section-72538655c7e4bb37bc80c6f43d7e4b3b" class="flex">
+      <a href="/docs/writeups/" class="flex-auto ">Writeups</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-14ed21d169f82c1f4e9784c42f27b9c3" class="toggle"  />
+    <label for="section-14ed21d169f82c1f4e9784c42f27b9c3" class="flex">
+      <a href="/docs/writeups/rootmepro2025/" class="flex-auto ">CTF 2025 | Root-Me Pro x DGSE</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission1/" class="">Mission 1 - IA</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission2/" class="">Mission 2 - SOC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission3/" class="">Mission 3 - Forensic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission4/" class="">Mission 4 - Pentest</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission5/" class="">Mission 5 - Mobile</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission6/" class="">Mission 6 - OSINT</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-661913a3e27635165633fb2069bf836f" class="toggle"  />
+    <label for="section-661913a3e27635165633fb2069bf836f" class="flex">
+      <a href="/docs/writeups/vm/" class="flex-auto ">Virtual Machines</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/vm/collapsed/mrrobot/" class="">Mr Robot</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Divers</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/divers/blogs/" class="">Blogs</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>ToFuzz</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#help">Help</a></li>
+    <li><a href="#tor-usage">Tor Usage</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p><img src="../img/tofuzz-transparent-banner.png" alt="Banniere" /></p>
+<p>ToFuzz is an opensource Fuzzing tool able to use the tor network to limit the footprint on the targetted server and escape the attack detection by IP Filter.</p>
+<h2 id="installation">
+  Installation
+  
+  <a class="anchor" href="#installation">#</a>
+  
+</h2>
+<pre tabindex="0"><code>pip install .
+</code></pre><h2 id="help">
+  Help
+  
+  <a class="anchor" href="#help">#</a>
+  
+</h2>
+<pre tabindex="0"><code>$ tofuzz -h
+
+___________     _____
+\__    ___/____/ ____\_ __________________
+  |    | /  _ \   __\  |  \___   /\___   /
+  |    |(  &lt;_&gt; )  | |  |  //    /  /    / 
+  |____| \____/|__| |____//_____ \/_____ \
+                                \/      \/
+usage: ToFuzz [-h] [-X METHOD] -u URL [-H HEADERS] [-b BODY] -w WORDLIST [--fuzztoken FUZZTOKEN] [-t THREADS] [-v]
+              [-T] [--tor-host TOR_HOST] [--tor-port TOR_PORT]
+
+ToFuzz – is a multi-threaded fuzzing tool which allow users to use tor network.
+
+options:
+  -h, --help            show this help message and exit
+  -X, --method METHOD   HTTP method to use (default: GET)
+  -u, --url URL         Target URL with FUZZ token
+  -H, --headers HEADERS
+                        HTTP headers as JSON string
+  -b, --body BODY       HTTP body as raw string or JSON string
+  -w, --wordlist        Path to the wordlist to use (Will be automatically splitted by thread)
+                        Path to wordlist file
+  --fuzztoken FUZZTOKEN
+                        Token to replace in URL/body (default: FUZZ)
+  -t, --threads THREADS
+                        Number of threads
+  -v, --verbose         Verbose Mode
+  -T, --tor             Use Tor network
+  --tor-host TOR_HOST   Tor SOCKS5 proxy host (default: 127.0.0.1)
+  --tor-port TOR_PORT   Tor SOCKS5 proxy port (default: 9050)
+</code></pre><p>Simple usage with GET request :</p>
+<pre tabindex="0"><code>tofuzz -X GET -u http://www.myapp.com?q=FUZZ -w .\tofuzz\resources\test_wordlist.txt --threads 5 
+    
+___________     _____
+\__    ___/____/ ____\_ __________________
+  |    | /  _ \   __\  |  \___   /\___   /
+  |    |(  &lt;_&gt; )  | |  |  //    /  /    /
+  |____| \____/|__| |____//_____ \/_____ \
+                                \/      \/
+
+
+METHOD    : GET
+URL       : http://www.myapp.com?q=FUZZ
+WORDLIST  : .\tofuzz\resources\test_wordlist.txt (15)
+FUZZ URL  : True
+FUZZ BODY : False
+--------------------------------------------------
+PAYLOAD=BBBBBBBBBB                |     HTTP 200 |      len = 17676
+PAYLOAD=CCCCCCCCCCCCCCCCCCCC      |     HTTP 200 |      len = 17263
+PAYLOAD=AAAAA                     |     HTTP 200 |      len = 17671
+PAYLOAD=EEEEEEEEEE                |     HTTP 200 |      len = 17216
+PAYLOAD=DDDDD                     |     HTTP 200 |      len = 17678
+PAYLOAD=CCCCCCCCCC                |     HTTP 200 |      len = 17612
+PAYLOAD=DDDDDDDDDDDDDDDDDDDD      |     HTTP 200 |      len = 17221
+PAYLOAD=EEEEE                     |     HTTP 200 |      len = 17604
+PAYLOAD=AAAAAAAAAAAAAAAAAAAA      |     HTTP 200 |      len = 17670
+PAYLOAD=BBBBB                     |     HTTP 200 |      len = 17681
+PAYLOAD=DDDDDDDDDD                |     HTTP 200 |      len = 17711
+PAYLOAD=EEEEEEEEEEEEEEEEEEEE      |     HTTP 200 |      len = 17295
+PAYLOAD=AAAAAAAAAA                |     HTTP 200 |      len = 17222
+PAYLOAD=CCCCC                     |     HTTP 200 |      len = 17177
+PAYLOAD=BBBBBBBBBBBBBBBBBBBB      |     HTTP 200 |      len = 17686
+
+
+
+Terminated with success
+Execution time : 0.17 seconds
+</code></pre><h2 id="tor-usage">
+  Tor Usage
+  
+  <a class="anchor" href="#tor-usage">#</a>
+  
+</h2>
+<p>To use this fuzzer with tor :</p>
+<ul>
+<li>Start Tor Browser with the proxy</li>
+<li>Add the arguments to commandline <code>--tor</code></li>
+<li>start the fuzzing</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/writeups/" class="flex align-center book-icon">
+        <span>Writeups</span>
+        <img src="/svg/forward.svg" class="book-icon" alt="Next" title="Writeups" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+
+<aside class="book-toc">
+  <div class="book-toc-content">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#help">Help</a></li>
+    <li><a href="#tor-usage">Tor Usage</a></li>
+  </ul>
+</nav>
+
+
+
+  </div>
+</aside>
+
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

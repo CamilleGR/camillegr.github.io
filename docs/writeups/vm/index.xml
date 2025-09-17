@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Virtual Machines on @camillegr</title>
+    <link>//localhost:1313/docs/writeups/vm/</link>
+    <description>Recent content in Virtual Machines on @camillegr</description>
+    <generator>Hugo</generator>
+    <language>fr-fr</language>
+    <atom:link href="//localhost:1313/docs/writeups/vm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mr Robot</title>
+      <link>//localhost:1313/docs/writeups/vm/collapsed/mrrobot/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/writeups/vm/collapsed/mrrobot/</guid>
+      <description>&lt;h1 id=&#34;mr-robot&#34;&gt;&#xA;  Mr Robot&#xA;  &#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#mr-robot&#34;&gt;#&lt;/a&gt;&#xA;  &#xA;&lt;/h1&gt;&#xA;&lt;p&gt;&lt;img src=&#34;../img/mrrobot_illu.png&#34; alt=&#34;Screenshot de l&amp;rsquo;application&#34; /&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;reconnaissance&#34;&gt;&#xA;  Reconnaissance&#xA;  &#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#reconnaissance&#34;&gt;#&lt;/a&gt;&#xA;  &#xA;&lt;/h2&gt;&#xA;&lt;p&gt;La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me&amp;hellip;) . Cette machine nous demande de récupérer 3 drapeaux.&lt;/p&gt;&#xA;&lt;h2 id=&#34;acces-a-lapplication&#34;&gt;&#xA;  Acces a l&amp;rsquo;application&#xA;  &#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#acces-a-lapplication&#34;&gt;#&lt;/a&gt;&#xA;  &#xA;&lt;/h2&gt;&#xA;&lt;p&gt;On accede à l&amp;rsquo;application depuis le port HTTP. A partir de là l&amp;rsquo;application se présente comme un terminal. quelques options sont disponible mais l&amp;rsquo;application nous montre majoritairement des videos et du texte.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
