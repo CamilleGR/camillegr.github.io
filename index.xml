@@ -161,7 +161,26 @@
  &lt;a class="anchor" href="#acces-a-lapplication"&gt;#&lt;/a&gt;
  
 &lt;/h2&gt;
-&lt;p&gt;On accede à l&amp;rsquo;application depuis le port HTTP. A partir de là l&amp;rsquo;application se présente comme un terminal. quelques options sont disponible mais l&amp;rsquo;application nous montre majoritairement des videos et du texte.&lt;/p&gt;</description></item><item><title>ToFuzz</title><link>//localhost:1313/docs/projets/collapsed/tofuzz/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>//localhost:1313/docs/projets/collapsed/tofuzz/</guid><description>&lt;p&gt;&lt;img src="../img/tofuzz-transparent-banner.png" alt="Banniere" /&gt;&lt;/p&gt;
+&lt;p&gt;On accede à l&amp;rsquo;application depuis le port HTTP. A partir de là l&amp;rsquo;application se présente comme un terminal. quelques options sont disponible mais l&amp;rsquo;application nous montre majoritairement des videos et du texte.&lt;/p&gt;</description></item><item><title>RootMe</title><link>//localhost:1313/docs/writeups/vm/collapsed/rootme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>//localhost:1313/docs/writeups/vm/collapsed/rootme/</guid><description>&lt;p&gt;&lt;img src="../img/rootme_banner.png" alt="Application" /&gt;&lt;/p&gt;
+&lt;p&gt;La box RootMe est une box facile de la plateforme TryHackMe. Il y a deux drapeau à récupérer et pour commencer, il nous est fournit une adresse IP.&lt;/p&gt;
+&lt;h1 id="reconnaissance"&gt;
+ Reconnaissance
+ 
+ &lt;a class="anchor" href="#reconnaissance"&gt;#&lt;/a&gt;
+ 
+&lt;/h1&gt;
+&lt;p&gt;Commençons par une simple reconnaissance, en plus d’accéder directement via le navigateur, on va voir quels ports sont ouverts sur la machine :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;nmap -sT 10.10.49.213
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Starting Nmap 7.91 &lt;span style="color:#f92672"&gt;(&lt;/span&gt; https://nmap.org &lt;span style="color:#f92672"&gt;)&lt;/span&gt; at 2025-09-30 21:44 CEST
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Nmap scan report &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; 10.10.49.213
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Host is up &lt;span style="color:#f92672"&gt;(&lt;/span&gt;0.14s latency&lt;span style="color:#f92672"&gt;)&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Not shown: &lt;span style="color:#ae81ff"&gt;998&lt;/span&gt; closed ports
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;PORT STATE SERVICE
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;22/tcp open ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;80/tcp open http
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Nmap &lt;span style="color:#66d9ef"&gt;done&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; IP address &lt;span style="color:#f92672"&gt;(&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; host up&lt;span style="color:#f92672"&gt;)&lt;/span&gt; scanned in 37.01 seconds
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;On voit qu’il y a 2 ports ouverts : le port SSH et le port HTTP qui correspond à l’application web. En accédant à l’application on arrive sur la page dont la capture d’écran sert de bannière, on va donc énumérer les dossiers avec gobuster :&lt;/p&gt;</description></item><item><title>ToFuzz</title><link>//localhost:1313/docs/projets/collapsed/tofuzz/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>//localhost:1313/docs/projets/collapsed/tofuzz/</guid><description>&lt;p&gt;&lt;img src="../img/tofuzz-transparent-banner.png" alt="Banniere" /&gt;&lt;/p&gt;
 &lt;p&gt;ToFuzz is an opensource Fuzzing tool able to use the tor network to limit the footprint on the targetted server and escape the attack detection by IP Filter.&lt;/p&gt;
 &lt;h2 id="installation"&gt;
  Installation
