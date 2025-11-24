@@ -424,10 +424,10 @@ https://github.com/alex-shpak/hugo-book
     </li>
     <li><a href="#exploitation">Exploitation</a>
       <ul>
-        <li><a href="#controunement-des-limitation">Controunement des limitation</a></li>
+        <li><a href="#contournement-des-limitations">Contournement des limitations</a></li>
         <li><a href="#réinitialisation-du-mot-de-passe">Réinitialisation du mot de passe</a></li>
         <li><a href="#commandes-dadministration">Commandes d&rsquo;administration</a></li>
-        <li><a href="#local-enumération">Local Enumération</a></li>
+        <li><a href="#enumération-locale">Enumération locale</a></li>
       </ul>
     </li>
   </ul>
@@ -541,10 +541,10 @@ https://github.com/alex-shpak/hugo-book
   
 </h2>
 <p>On observe que la fonctionnalité de réinitialisation du mot de passe utilise un rate limit. on va automatiser le brute-force du reset de mot de passe (l’envoie du code pin à 4 digits) et essayer de contourner la limitation.</p>
-<h3 id="controunement-des-limitation">
-  Controunement des limitation
+<h3 id="contournement-des-limitations">
+  Contournement des limitations
   
-  <a class="anchor" href="#controunement-des-limitation">#</a>
+  <a class="anchor" href="#contournement-des-limitations">#</a>
   
 </h3>
 <p>Pour contourner le Send-Rate-Limit, on essai ces différentes options :</p>
@@ -635,10 +635,10 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>	print<span style="color:#f92672">(</span>stdout.json<span style="color:#f92672">()[</span><span style="color:#e6db74">&#34;output&#34;</span><span style="color:#f92672">])</span>
 </span></span><span style="display:flex;"><span>except : 
 </span></span><span style="display:flex;"><span>	print<span style="color:#f92672">(</span>stdout.json<span style="color:#f92672">()[</span><span style="color:#e6db74">&#34;error&#34;</span><span style="color:#f92672">])</span>
-</span></span></code></pre></div><h3 id="local-enumération">
-  Local Enumération
+</span></span></code></pre></div><h3 id="enumération-locale">
+  Enumération locale
   
-  <a class="anchor" href="#local-enum%c3%a9ration">#</a>
+  <a class="anchor" href="#enum%c3%a9ration-locale">#</a>
   
 </h3>
 <p>Cela nous permet d’énumérer les commandes possibles et on s’aperçoit que seule la commande ls est autorisée. La suite du problème sera donc dans les fichiers disponibles dans notre dossier.</p>
@@ -793,10 +793,10 @@ On sait que notre application se trouve dans <strong>/var/www/html</strong> comm
     </li>
     <li><a href="#exploitation">Exploitation</a>
       <ul>
-        <li><a href="#controunement-des-limitation">Controunement des limitation</a></li>
+        <li><a href="#contournement-des-limitations">Contournement des limitations</a></li>
         <li><a href="#réinitialisation-du-mot-de-passe">Réinitialisation du mot de passe</a></li>
         <li><a href="#commandes-dadministration">Commandes d&rsquo;administration</a></li>
-        <li><a href="#local-enumération">Local Enumération</a></li>
+        <li><a href="#enumération-locale">Enumération locale</a></li>
       </ul>
     </li>
   </ul>
