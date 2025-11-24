@@ -1,4 +1,9 @@
-<!doctype html><html lang=fr-fr dir=ltr><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+<!DOCTYPE html>
+<html lang="fr-fr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
   Mission 5 : Exploitation Mobile
   
   #
@@ -26,130 +31,668 @@ On nous fournit un APK, qui provient d&rsquo;une saisie lors d&rsquo;une arresta
   #
   
 
-Pour commencer, on va décompiler l&rsquo;APK fournit. On s&rsquo;aperçoit que la clé de chiffrement est composé de la marque et du modèle de la tablette."><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#343a40"><meta name=color-scheme content="light dark"><meta property="og:url" content="//localhost:1313/docs/writeups/rootmepro2025/collapsed/mission5/"><meta property="og:site_name" content="@camillegr"><meta property="og:title" content="Mission 5 - Mobile"><meta property="og:description" content="Mission 5 : Exploitation Mobile # Introduction # On nous fournit un APK, qui provient d’une saisie lors d’une arrestation d’un membre du groupe NullVastation. Certains des messages sont chiffrés et un d’entre eux doit contenir notre drapeau.
-Retro-ingénierie # Pour commencer, on va décompiler l’APK fournit. On s’aperçoit que la clé de chiffrement est composé de la marque et du modèle de la tablette."><meta property="og:locale" content="fr_fr"><meta property="og:type" content="article"><meta property="article:section" content="docs"><title>Mission 5 - Mobile | @camillegr</title><link rel=icon href=/favicon.png><link rel=manifest href=/manifest.json><link rel=canonical href=//localhost:1313/docs/writeups/rootmepro2025/collapsed/mission5/><link rel=stylesheet href=/book.min.bb3e87f07d36c204e64f36f7b234cbfca24038b4a3f644b253b84740bc8ac74b.css integrity="sha256-uz6H8H02wgTmTzb3sjTL/KJAOLSj9kSyU7hHQLyKx0s=" crossorigin=anonymous><script defer src=/fuse.min.js></script><script defer src=/en.search.min.93d6633a78dacfa6129026b437f37946ad7e9d6f7fe46845365e41653b480082.js integrity="sha256-k9ZjOnjaz6YSkCa0N/N5Rq1+nW9/5GhFNl5BZTtIAII=" crossorigin=anonymous></script></head><body dir=ltr class="book-kind-page book-type-docs"><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>@camillegr</span></a></h2><div class="book-search hidden"><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script><ul><li><input type=checkbox id=section-ad93f8b4ee98a57a6224ee06f39153b9 class=toggle>
-<label for=section-ad93f8b4ee98a57a6224ee06f39153b9 class=flex><a role=button class=flex-auto>Projets Personnels</a></label><ul><li><a href=/docs/projets/collapsed/tofuzz/>ToFuzz</a></li></ul></li><li><input type=checkbox id=section-72538655c7e4bb37bc80c6f43d7e4b3b class=toggle checked>
-<label for=section-72538655c7e4bb37bc80c6f43d7e4b3b class=flex><a href=/docs/writeups/ class=flex-auto>Writeups</a></label><ul><li><input type=checkbox id=section-14ed21d169f82c1f4e9784c42f27b9c3 class=toggle checked>
-<label for=section-14ed21d169f82c1f4e9784c42f27b9c3 class=flex><a href=/docs/writeups/rootmepro2025/ class=flex-auto>CTF 2025 | Root-Me Pro x DGSE</a></label><ul><li><a href=/docs/writeups/rootmepro2025/collapsed/mission1/>Mission 1 - IA</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission2/>Mission 2 - SOC</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission3/>Mission 3 - Forensic</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission4/>Mission 4 - Pentest</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission5/ class=active>Mission 5 - Mobile</a></li><li><a href=/docs/writeups/rootmepro2025/collapsed/mission6/>Mission 6 - OSINT</a></li></ul></li><li><input type=checkbox id=section-661913a3e27635165633fb2069bf836f class=toggle>
-<label for=section-661913a3e27635165633fb2069bf836f class=flex><a href=/docs/writeups/vm/ class=flex-auto>Virtual Machines</a></label><ul><li><a href=/docs/writeups/vm/collapsed/mrrobot/>Mr Robot</a></li><li><a href=/docs/writeups/vm/collapsed/rootme/>RootMe</a></li><li><a href=/docs/writeups/vm/collapsed/wonderlands/>Wonderlands</a></li></ul></li></ul></li><li class=book-section-flat><span>Divers</span><ul><li><a href=/docs/divers/blogs/>Blogs</a></li></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label><h3>Mission 5 - Mobile</h3><label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#retro-ingénierie>Retro-ingénierie</a></li><li><a href=#brute-force>Brute Force</a></li></ul></nav></aside></header><article class="markdown book-article"><h1 id=mission-5--exploitation-mobile>Mission 5 : Exploitation Mobile
-<a class=anchor href=#mission-5--exploitation-mobile>#</a></h1><h2 id=introduction>Introduction
-<a class=anchor href=#introduction>#</a></h2><style>.book-columns-0>ul>li:nth-child(1){flex-grow:1}.book-columns-0>ul>li:nth-child(2){flex-grow:2}</style><div class="book-columns book-columns-0"><ul><li><p><img src=../img/encrypted-app.png alt="Application déchiffrée"></p></li><li><p>On nous fournit un APK, qui provient d&rsquo;une saisie lors d&rsquo;une arrestation d&rsquo;un membre du groupe NullVastation. Certains des messages sont chiffrés et un d&rsquo;entre eux doit contenir notre drapeau.</p></li></ul></div><h2 id=retro-ingénierie>Retro-ingénierie
-<a class=anchor href=#retro-ing%c3%a9nierie>#</a></h2><p>Pour commencer, on va décompiler l&rsquo;APK fournit. On s&rsquo;aperçoit que la clé de chiffrement est composé de la marque et du modèle de la tablette.</p><p>La tablette saisie est, comme indiqué dans l&rsquo;énnoncé, une tablette google.</p><h2 id=brute-force>Brute Force
-<a class=anchor href=#brute-force>#</a></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#f92672>import</span> base64<span style=color:#f92672>,</span>sys
-</span></span><span style=display:flex><span><span style=color:#f92672>import</span> hashlib<span style=color:#f92672>,</span> urllib
-</span></span><span style=display:flex><span><span style=color:#f92672>import</span> requests
-</span></span><span style=display:flex><span><span style=color:#f92672>from</span> Crypto.Cipher <span style=color:#f92672>import</span> AES
-</span></span><span style=display:flex><span><span style=color:#f92672>from</span> Crypto.Util.Padding <span style=color:#f92672>import</span> unpad
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># === Configuration ===</span>
-</span></span><span style=display:flex><span>STATIC_SALT <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;s3cr3t_s@lt&#34;</span>
-</span></span><span style=display:flex><span>STATIC_IV <span style=color:#f92672>=</span> base64<span style=color:#f92672>.</span>b64decode(<span style=color:#e6db74>&#34;LJo+0sanl6E3cvCHCRwyIg==&#34;</span>)
-</span></span><span style=display:flex><span>AESMODE <span style=color:#f92672>=</span> AES<span style=color:#f92672>.</span>MODE_CBC
-</span></span><span style=display:flex><span>CSV_MODEL_COLUMN<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>
-</span></span><span style=display:flex><span>CSV_BRAND_COLUMN<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>
-</span></span><span style=display:flex><span>CSV_SEPARATOR<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;,&#34;</span>
-</span></span><span style=display:flex><span>DIC<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;android-devices-catalog.csv&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>load_devices</span>(file): 
-</span></span><span style=display:flex><span>    loaded_devices <span style=color:#f92672>=</span> {}
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>with</span> open(file, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8&#34;</span>) <span style=color:#66d9ef>as</span> f: 
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> l <span style=color:#f92672>in</span> f<span style=color:#f92672>.</span>readlines() : 
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> l<span style=color:#f92672>.</span>split(CSV_SEPARATOR)[CSV_BRAND_COLUMN]<span style=color:#f92672>.</span>strip() <span style=color:#f92672>not</span> <span style=color:#f92672>in</span> loaded_devices<span style=color:#f92672>.</span>keys() : 
-</span></span><span style=display:flex><span>                loaded_devices[l<span style=color:#f92672>.</span>split(CSV_SEPARATOR)[CSV_BRAND_COLUMN]<span style=color:#f92672>.</span>strip()] <span style=color:#f92672>=</span> []
-</span></span><span style=display:flex><span>            loaded_devices[l<span style=color:#f92672>.</span>split(CSV_SEPARATOR)[CSV_BRAND_COLUMN]<span style=color:#f92672>.</span>strip()]<span style=color:#f92672>.</span>append(l<span style=color:#f92672>.</span>split(CSV_SEPARATOR)[CSV_MODEL_COLUMN]<span style=color:#f92672>.</span>strip())
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> loaded_devices
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># === Fonctions ===</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>hash_device_id</span>(model, brand):
-</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Génère l&#39;identifiant du device (base64(SHA256(model:brand)))&#34;&#34;&#34;</span>
-</span></span><span style=display:flex><span>    raw <span style=color:#f92672>=</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{</span>model<span style=color:#e6db74>}</span><span style=color:#e6db74>:</span><span style=color:#e6db74>{</span>brand<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#34;utf-8&#34;</span>)
-</span></span><span style=display:flex><span>    digest <span style=color:#f92672>=</span> hashlib<span style=color:#f92672>.</span>sha256(raw)<span style=color:#f92672>.</span>digest()
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> base64<span style=color:#f92672>.</span>b64encode(digest)<span style=color:#f92672>.</span>decode()
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>derive_key</span>(device_id, salt):
-</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Dérive une clé AES 256 bits depuis l&#39;ID + salt (SHA256)&#34;&#34;&#34;</span>
-</span></span><span style=display:flex><span>    raw <span style=color:#f92672>=</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{</span>device_id<span style=color:#e6db74>}</span><span style=color:#e6db74>:</span><span style=color:#e6db74>{</span>salt<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#34;utf-8&#34;</span>)
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> hashlib<span style=color:#f92672>.</span>sha256(raw)<span style=color:#f92672>.</span>digest()
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>decrypt_message</span>(cipher_b64, key):
-</span></span><span style=display:flex><span>    cipher_bytes <span style=color:#f92672>=</span> base64<span style=color:#f92672>.</span>b64decode(cipher_b64)
-</span></span><span style=display:flex><span>    cipher <span style=color:#f92672>=</span> AES<span style=color:#f92672>.</span>new(key, AESMODE, STATIC_IV)
-</span></span><span style=display:flex><span>    plaintext <span style=color:#f92672>=</span> unpad(cipher<span style=color:#f92672>.</span>decrypt(cipher_bytes), AES<span style=color:#f92672>.</span>block_size)
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> plaintext<span style=color:#f92672>.</span>decode(<span style=color:#e6db74>&#34;utf-8&#34;</span>)
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_device</span>(model, brand, messages, ignore<span style=color:#f92672>=</span>[]):
-</span></span><span style=display:flex><span>    device_id <span style=color:#f92672>=</span> hash_device_id(model, brand)
-</span></span><span style=display:flex><span>    key <span style=color:#f92672>=</span> derive_key(device_id, STATIC_SALT)
-</span></span><span style=display:flex><span>    <span style=color:#75715e>#print(f&#34;\n🧪 Test: MODEL={model}, BRAND={brand}, KEY={hash_device_id(model,brand)}&#34;)</span>
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    found <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> i,msg <span style=color:#f92672>in</span> enumerate(messages):
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>try</span> : 
-</span></span><span style=display:flex><span>            decrypted <span style=color:#f92672>=</span> decrypt_message(msg, key)
-</span></span><span style=display:flex><span>            print(decrypted)
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> decrypted <span style=color:#f92672>and</span> i <span style=color:#f92672>not</span> <span style=color:#f92672>in</span> ignore :
-</span></span><span style=display:flex><span>                <span style=color:#75715e>#print(f&#34;[✅] Déchiffré : {decrypted}&#34;)</span>
-</span></span><span style=display:flex><span>                found <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> found <span style=color:#f92672>!=</span> <span style=color:#ae81ff>0</span> :
-</span></span><span style=display:flex><span>                print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;🎉 </span><span style=color:#e6db74>{</span>found<span style=color:#e6db74>}</span><span style=color:#e6db74> message(s) déchiffré(s) avec succès.&#34;</span>)
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span> <span style=color:#66d9ef>as</span> e:
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>None</span>
-</span></span><span style=display:flex><span>            <span style=color:#75715e>#print(f&#34;⚠️ Erreur : {e}&#34;)</span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> found
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># === Main ===</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;__main__&#34;</span>:
-</span></span><span style=display:flex><span>    total_hits <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
-</span></span><span style=display:flex><span>    total_test <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>   
-</span></span><span style=display:flex><span>    messages<span style=color:#f92672>=</span>[
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;5fLWsL8nbBPnBJWjuCqqOj7Ek6GeYQndIIcnbeNdnHrgCtn1LhbCkcabYDLKjuQe3DlWJdB7NyQY3QjwgYYbs8H2ZEzgL3oALAafWi3E3Iir36Svgn7yI6Jr6rfxmriy&#34;</span>,<span style=color:#75715e>#Pixel C:google --&gt; Temoins</span>
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;M2geCVKOzPlyug9p9DvthxPip0oe9BPiT2sDfFhWy7iC3+JQI4SfO7+SLAlFSUmu8LoGj1hrUWil/uNXvc+5mKBMrRNFQT8ijBK14P0Z8qA=&#34;</span>,
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;//5PBsYWhHlgqhVgG1omUyevzmlErLZVsTCLO78Rbb9qBMPnsKCS5/RZ4GEdWRBPiZ4BtO5h7j2PuIutfqf7ag==&#34;</span>,
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;2uNMSnJZa5JExhYgNA+V3RAiafhuLkj8Jnr4U+lSZOrrpMWjyA13w0Do3IIPcVBgK070rmweRKX/GkCAxat4i3JfWk1UvWNSmEZbHQlFznR7VFW6FKK84iJKhiDOp8Tk&#34;</span>,
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Swz/ycaTlv3JM9iKJHaY+f1SRyKvfQ5miG6I0/tUb8bvbOO+wyU5hi+bGsmcJD3141FrmrDcBQhtWpYimospymABi3bzvPPi01rPI8pNBq8=&#34;</span>,
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;NAe44oieygG7xzLQT3j0vN+0NoPNUu0TAaid9Az3IlpcKwR0lSKaPT8F4y1zpbArWFIGpgzsPZtPAwL50qocTRMG/g5u+/wcc1nxmhBjCbg=&#34;</span>,
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;dfeKlZP/gIntHySBYine2YUlNiX3LjlMOLu7y9tgprFyJIIcQpfghlQXut6cJUG2wtzGBVQUm7ITdpLNeVaZjamQHhPWEtNIJE/xtFg66Klui1qCKYKSrmZ4wm1CG/ZPy4csqbM28Ur8dts7XoV5FA==&#34;</span>,
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;YtCWZ+aCufaqpQQbOIATWkkfjMGCS7HnxlOT/5cPcm+uk3dNZMHgd3RouUmx318X89CbiSwFyho3/8QYeJyJjTNUD8OJw4MPqbCUBr53bD+zL7GU8wCkhVFIimNvKOVb&#34;</span>,
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;HSGe6zbjRpnuAsfGjeAcVMYwrUyKd3Klz3mopTnmbr3zum9y6NcJa/itMSP97yHMLPQmwHwhtHPowcK6Gl8LCoHvDgo56ACLuqB3VeE2kbg=&#34;</span>,
-</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;osYcTbYc3k6gTKhStBnw1xrYTzGnHScw/pvz6HnAUvukUJujdtf+2C7sCowiVGTC0kGyxWVOo8EmQEGlbyBHaugz5lDB30VlpNDG9MHWIuT+RBwN63QzsW3wJt2BJlKf&#34;</span>]
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    devices<span style=color:#f92672>=</span>load_devices(DIC)
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#75715e>#%2B83VAJU5MwlVSZEQ978mQ6xVuIptn46haMb4In97qY0%3D</span>
-</span></span><span style=display:flex><span>   <span style=color:#75715e># print(hash_device_id(&#34;Pixel C&#34;,&#34;google&#34;))</span>
-</span></span><span style=display:flex><span>   <span style=color:#75715e># print(test_device(&#34;Pixel C&#34;, &#34;google&#34;, messages, ignore=[0,1,2]))</span>
-</span></span><span style=display:flex><span>    <span style=color:#75715e>#print(test_device(&#34;google&#34;, &#34;Pixel C&#34;, messages, ignore=[0,1,2]))</span>
-</span></span><span style=display:flex><span>    <span style=color:#75715e>#print(test_device(&#34;google&#34;, &#34;Pixel C&#34;, messages, ignore=[0,1,2]))</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> brand <span style=color:#f92672>in</span> devices<span style=color:#f92672>.</span>keys():
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> model <span style=color:#f92672>in</span> devices[brand]:
-</span></span><span style=display:flex><span>           <span style=color:#75715e># print(f&#34;[*] Test {brand} - {model}&#34;)</span>
-</span></span><span style=display:flex><span>            hits <span style=color:#f92672>=</span> test_device(model<span style=color:#f92672>.</span>upper(), brand<span style=color:#f92672>.</span>upper(), messages, ignore<span style=color:#f92672>=</span>[])
-</span></span><span style=display:flex><span>            total_hits <span style=color:#f92672>+=</span> hits
-</span></span><span style=display:flex><span>            hits <span style=color:#f92672>=</span> test_device(model<span style=color:#f92672>.</span>lower(), brand<span style=color:#f92672>.</span>lower(), messages, ignore<span style=color:#f92672>=</span>[])
-</span></span><span style=display:flex><span>            total_hits <span style=color:#f92672>+=</span> hits
-</span></span><span style=display:flex><span>            hits <span style=color:#f92672>=</span> test_device(model, brand, messages, ignore<span style=color:#f92672>=</span>[])
-</span></span><span style=display:flex><span>            total_hits <span style=color:#f92672>+=</span> hits
-</span></span><span style=display:flex><span>            total_test <span style=color:#f92672>+=</span> <span style=color:#ae81ff>3</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>🔎 Bruteforce terminé. </span><span style=color:#e6db74>{</span>total_hits<span style=color:#e6db74>}</span><span style=color:#e6db74> messages déchiffrés sur </span><span style=color:#e6db74>{</span>total_test<span style=color:#e6db74>}</span><span style=color:#e6db74> testés.&#34;</span>)
-</span></span></code></pre></div><p>Après exécutions avec plusieurs dictionnaire, on trouve la clé qui est composée de Google et Yellowstone.</p><h1 id=bonus>Bonus
-<a class=anchor href=#bonus>#</a></h1><style>.book-columns-1>ul>li:nth-child(1){flex-grow:1}.book-columns-1>ul>li:nth-child(2){flex-grow:2}</style><div class="book-columns book-columns-1"><p>En modifiant les champs BUILD et MODEL dans notre VM Android :</p><p><img src=../img/decryted-app.png alt="Application déchiffrée"></p></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><div class="flex flex-wrap justify-between"><span><a href=/docs/writeups/rootmepro2025/collapsed/mission4/ class="flex align-center book-icon"><img src=/svg/backward.svg class=book-icon alt=Previous title="Mission 4 - Pentest">
-<span>Mission 4 - Pentest</span>
-</a></span><span><a href=/docs/writeups/rootmepro2025/collapsed/mission6/ class="flex align-center book-icon"><span>Mission 6 - OSINT</span>
-<img src=/svg/forward.svg class=book-icon alt=Next title="Mission 6 - OSINT"></a></span></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#retro-ingénierie>Retro-ingénierie</a></li><li><a href=#brute-force>Brute Force</a></li></ul></nav></div></aside></main></body></html>
+Pour commencer, on va décompiler l&rsquo;APK fournit. On s&rsquo;aperçoit que la clé de chiffrement est composé de la marque et du modèle de la tablette.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="//localhost:1313/docs/writeups/rootmepro2025/collapsed/mission5/">
+  <meta property="og:site_name" content="@camillegr">
+  <meta property="og:title" content="Mission 5 - Mobile">
+  <meta property="og:description" content="Mission 5 : Exploitation Mobile # Introduction # On nous fournit un APK, qui provient d’une saisie lors d’une arrestation d’un membre du groupe NullVastation. Certains des messages sont chiffrés et un d’entre eux doit contenir notre drapeau.
+Retro-ingénierie # Pour commencer, on va décompiler l’APK fournit. On s’aperçoit que la clé de chiffrement est composé de la marque et du modèle de la tablette.">
+  <meta property="og:locale" content="fr_fr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Mission 5 - Mobile | @camillegr</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="//localhost:1313/docs/writeups/rootmepro2025/collapsed/mission5/">
+<link rel="stylesheet" href="/book.min.bb3e87f07d36c204e64f36f7b234cbfca24038b4a3f644b253b84740bc8ac74b.css" integrity="sha256-uz6H8H02wgTmTzb3sjTL/KJAOLSj9kSyU7hHQLyKx0s=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.90d94b57b0b3b02cf3a1affad34e88fe32c0b74b4fb192ed05465041e53256de.js" integrity="sha256-kNlLV7CzsCzzoa/6006I/jLAt0tPsZLtBUZQQeUyVt4=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>@camillegr</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ad93f8b4ee98a57a6224ee06f39153b9" class="toggle"  />
+    <label for="section-ad93f8b4ee98a57a6224ee06f39153b9" class="flex">
+      <a role="button" class="flex-auto ">Projets Personnels</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projets/collapsed/tofuzz/" class="">ToFuzz</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-72538655c7e4bb37bc80c6f43d7e4b3b" class="toggle" checked />
+    <label for="section-72538655c7e4bb37bc80c6f43d7e4b3b" class="flex">
+      <a href="/docs/writeups/" class="flex-auto ">Writeups</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-14ed21d169f82c1f4e9784c42f27b9c3" class="toggle" checked />
+    <label for="section-14ed21d169f82c1f4e9784c42f27b9c3" class="flex">
+      <a href="/docs/writeups/rootmepro2025/" class="flex-auto ">CTF 2025 | Root-Me Pro x DGSE</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission1/" class="">Mission 1 - IA</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission2/" class="">Mission 2 - SOC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission3/" class="">Mission 3 - Forensic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission4/" class="">Mission 4 - Pentest</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission5/" class="active">Mission 5 - Mobile</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission6/" class="">Mission 6 - OSINT</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-661913a3e27635165633fb2069bf836f" class="toggle"  />
+    <label for="section-661913a3e27635165633fb2069bf836f" class="flex">
+      <a href="/docs/writeups/vm/" class="flex-auto ">Virtual Machines</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/vm/collapsed/hammer/" class="">Hammer</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/vm/collapsed/mrrobot/" class="">Mr Robot</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/vm/collapsed/rootme/" class="">RootMe</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/vm/collapsed/wonderlands/" class="">Wonderlands</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Divers</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/divers/blogs/" class="">Blogs</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Mission 5 - Mobile</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#retro-ingénierie">Retro-ingénierie</a></li>
+    <li><a href="#brute-force">Brute Force</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="mission-5--exploitation-mobile">
+  Mission 5 : Exploitation Mobile
+  
+  <a class="anchor" href="#mission-5--exploitation-mobile">#</a>
+  
+</h1>
+<h2 id="introduction">
+  Introduction
+  
+  <a class="anchor" href="#introduction">#</a>
+  
+</h2>
+<style>
+  .book-columns-0>ul>li:nth-child(1){
+    flex-grow: 1;
+  }
+
+  .book-columns-0>ul>li:nth-child(2){
+    flex-grow: 2;
+  }
+</style><div class="book-columns book-columns-0 ">
+<ul>
+<li>
+<p><img src="../img/encrypted-app.png" alt="Application déchiffrée" /></p>
+</li>
+<li>
+<p>On nous fournit un APK, qui provient d&rsquo;une saisie lors d&rsquo;une arrestation d&rsquo;un membre du groupe NullVastation. Certains des messages sont chiffrés et un d&rsquo;entre eux doit contenir notre drapeau.</p>
+</li>
+</ul>
+</div>
+<h2 id="retro-ingénierie">
+  Retro-ingénierie
+  
+  <a class="anchor" href="#retro-ing%c3%a9nierie">#</a>
+  
+</h2>
+<p>Pour commencer, on va décompiler l&rsquo;APK fournit. On s&rsquo;aperçoit que la clé de chiffrement est composé de la marque et du modèle de la tablette.</p>
+<p>La tablette saisie est, comme indiqué dans l&rsquo;énnoncé, une tablette google.</p>
+<h2 id="brute-force">
+  Brute Force
+  
+  <a class="anchor" href="#brute-force">#</a>
+  
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64<span style="color:#f92672">,</span>sys
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib<span style="color:#f92672">,</span> urllib
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Cipher <span style="color:#f92672">import</span> AES
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.Padding <span style="color:#f92672">import</span> unpad
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># === Configuration ===</span>
+</span></span><span style="display:flex;"><span>STATIC_SALT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s3cr3t_s@lt&#34;</span>
+</span></span><span style="display:flex;"><span>STATIC_IV <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(<span style="color:#e6db74">&#34;LJo+0sanl6E3cvCHCRwyIg==&#34;</span>)
+</span></span><span style="display:flex;"><span>AESMODE <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>MODE_CBC
+</span></span><span style="display:flex;"><span>CSV_MODEL_COLUMN<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>CSV_BRAND_COLUMN<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>CSV_SEPARATOR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span>
+</span></span><span style="display:flex;"><span>DIC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;android-devices-catalog.csv&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">load_devices</span>(file): 
+</span></span><span style="display:flex;"><span>    loaded_devices <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(file, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>) <span style="color:#66d9ef">as</span> f: 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> l <span style="color:#f92672">in</span> f<span style="color:#f92672">.</span>readlines() : 
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> l<span style="color:#f92672">.</span>split(CSV_SEPARATOR)[CSV_BRAND_COLUMN]<span style="color:#f92672">.</span>strip() <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> loaded_devices<span style="color:#f92672">.</span>keys() : 
+</span></span><span style="display:flex;"><span>                loaded_devices[l<span style="color:#f92672">.</span>split(CSV_SEPARATOR)[CSV_BRAND_COLUMN]<span style="color:#f92672">.</span>strip()] <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>            loaded_devices[l<span style="color:#f92672">.</span>split(CSV_SEPARATOR)[CSV_BRAND_COLUMN]<span style="color:#f92672">.</span>strip()]<span style="color:#f92672">.</span>append(l<span style="color:#f92672">.</span>split(CSV_SEPARATOR)[CSV_MODEL_COLUMN]<span style="color:#f92672">.</span>strip())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> loaded_devices
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># === Fonctions ===</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hash_device_id</span>(model, brand):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Génère l&#39;identifiant du device (base64(SHA256(model:brand)))&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    raw <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>model<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>brand<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#34;utf-8&#34;</span>)
+</span></span><span style="display:flex;"><span>    digest <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256(raw)<span style="color:#f92672">.</span>digest()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> base64<span style="color:#f92672">.</span>b64encode(digest)<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">derive_key</span>(device_id, salt):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Dérive une clé AES 256 bits depuis l&#39;ID + salt (SHA256)&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    raw <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>device_id<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>salt<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#34;utf-8&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hashlib<span style="color:#f92672">.</span>sha256(raw)<span style="color:#f92672">.</span>digest()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt_message</span>(cipher_b64, key):
+</span></span><span style="display:flex;"><span>    cipher_bytes <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(cipher_b64)
+</span></span><span style="display:flex;"><span>    cipher <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AESMODE, STATIC_IV)
+</span></span><span style="display:flex;"><span>    plaintext <span style="color:#f92672">=</span> unpad(cipher<span style="color:#f92672">.</span>decrypt(cipher_bytes), AES<span style="color:#f92672">.</span>block_size)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> plaintext<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#34;utf-8&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_device</span>(model, brand, messages, ignore<span style="color:#f92672">=</span>[]):
+</span></span><span style="display:flex;"><span>    device_id <span style="color:#f92672">=</span> hash_device_id(model, brand)
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> derive_key(device_id, STATIC_SALT)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#print(f&#34;\n🧪 Test: MODEL={model}, BRAND={brand}, KEY={hash_device_id(model,brand)}&#34;)</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    found <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i,msg <span style="color:#f92672">in</span> enumerate(messages):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> : 
+</span></span><span style="display:flex;"><span>            decrypted <span style="color:#f92672">=</span> decrypt_message(msg, key)
+</span></span><span style="display:flex;"><span>            print(decrypted)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> decrypted <span style="color:#f92672">and</span> i <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> ignore :
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">#print(f&#34;[✅] Déchiffré : {decrypted}&#34;)</span>
+</span></span><span style="display:flex;"><span>                found <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> found <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> :
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;🎉 </span><span style="color:#e6db74">{</span>found<span style="color:#e6db74">}</span><span style="color:#e6db74"> message(s) déchiffré(s) avec succès.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">#print(f&#34;⚠️ Erreur : {e}&#34;)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> found
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># === Main ===</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    total_hits <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    total_test <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>    messages<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;5fLWsL8nbBPnBJWjuCqqOj7Ek6GeYQndIIcnbeNdnHrgCtn1LhbCkcabYDLKjuQe3DlWJdB7NyQY3QjwgYYbs8H2ZEzgL3oALAafWi3E3Iir36Svgn7yI6Jr6rfxmriy&#34;</span>,<span style="color:#75715e">#Pixel C:google --&gt; Temoins</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;M2geCVKOzPlyug9p9DvthxPip0oe9BPiT2sDfFhWy7iC3+JQI4SfO7+SLAlFSUmu8LoGj1hrUWil/uNXvc+5mKBMrRNFQT8ijBK14P0Z8qA=&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;//5PBsYWhHlgqhVgG1omUyevzmlErLZVsTCLO78Rbb9qBMPnsKCS5/RZ4GEdWRBPiZ4BtO5h7j2PuIutfqf7ag==&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;2uNMSnJZa5JExhYgNA+V3RAiafhuLkj8Jnr4U+lSZOrrpMWjyA13w0Do3IIPcVBgK070rmweRKX/GkCAxat4i3JfWk1UvWNSmEZbHQlFznR7VFW6FKK84iJKhiDOp8Tk&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Swz/ycaTlv3JM9iKJHaY+f1SRyKvfQ5miG6I0/tUb8bvbOO+wyU5hi+bGsmcJD3141FrmrDcBQhtWpYimospymABi3bzvPPi01rPI8pNBq8=&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;NAe44oieygG7xzLQT3j0vN+0NoPNUu0TAaid9Az3IlpcKwR0lSKaPT8F4y1zpbArWFIGpgzsPZtPAwL50qocTRMG/g5u+/wcc1nxmhBjCbg=&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;dfeKlZP/gIntHySBYine2YUlNiX3LjlMOLu7y9tgprFyJIIcQpfghlQXut6cJUG2wtzGBVQUm7ITdpLNeVaZjamQHhPWEtNIJE/xtFg66Klui1qCKYKSrmZ4wm1CG/ZPy4csqbM28Ur8dts7XoV5FA==&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;YtCWZ+aCufaqpQQbOIATWkkfjMGCS7HnxlOT/5cPcm+uk3dNZMHgd3RouUmx318X89CbiSwFyho3/8QYeJyJjTNUD8OJw4MPqbCUBr53bD+zL7GU8wCkhVFIimNvKOVb&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;HSGe6zbjRpnuAsfGjeAcVMYwrUyKd3Klz3mopTnmbr3zum9y6NcJa/itMSP97yHMLPQmwHwhtHPowcK6Gl8LCoHvDgo56ACLuqB3VeE2kbg=&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;osYcTbYc3k6gTKhStBnw1xrYTzGnHScw/pvz6HnAUvukUJujdtf+2C7sCowiVGTC0kGyxWVOo8EmQEGlbyBHaugz5lDB30VlpNDG9MHWIuT+RBwN63QzsW3wJt2BJlKf&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    devices<span style="color:#f92672">=</span>load_devices(DIC)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#%2B83VAJU5MwlVSZEQ978mQ6xVuIptn46haMb4In97qY0%3D</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e"># print(hash_device_id(&#34;Pixel C&#34;,&#34;google&#34;))</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e"># print(test_device(&#34;Pixel C&#34;, &#34;google&#34;, messages, ignore=[0,1,2]))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#print(test_device(&#34;google&#34;, &#34;Pixel C&#34;, messages, ignore=[0,1,2]))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#print(test_device(&#34;google&#34;, &#34;Pixel C&#34;, messages, ignore=[0,1,2]))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> brand <span style="color:#f92672">in</span> devices<span style="color:#f92672">.</span>keys():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> model <span style="color:#f92672">in</span> devices[brand]:
+</span></span><span style="display:flex;"><span>           <span style="color:#75715e"># print(f&#34;[*] Test {brand} - {model}&#34;)</span>
+</span></span><span style="display:flex;"><span>            hits <span style="color:#f92672">=</span> test_device(model<span style="color:#f92672">.</span>upper(), brand<span style="color:#f92672">.</span>upper(), messages, ignore<span style="color:#f92672">=</span>[])
+</span></span><span style="display:flex;"><span>            total_hits <span style="color:#f92672">+=</span> hits
+</span></span><span style="display:flex;"><span>            hits <span style="color:#f92672">=</span> test_device(model<span style="color:#f92672">.</span>lower(), brand<span style="color:#f92672">.</span>lower(), messages, ignore<span style="color:#f92672">=</span>[])
+</span></span><span style="display:flex;"><span>            total_hits <span style="color:#f92672">+=</span> hits
+</span></span><span style="display:flex;"><span>            hits <span style="color:#f92672">=</span> test_device(model, brand, messages, ignore<span style="color:#f92672">=</span>[])
+</span></span><span style="display:flex;"><span>            total_hits <span style="color:#f92672">+=</span> hits
+</span></span><span style="display:flex;"><span>            total_test <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">🔎 Bruteforce terminé. </span><span style="color:#e6db74">{</span>total_hits<span style="color:#e6db74">}</span><span style="color:#e6db74"> messages déchiffrés sur </span><span style="color:#e6db74">{</span>total_test<span style="color:#e6db74">}</span><span style="color:#e6db74"> testés.&#34;</span>)
+</span></span></code></pre></div><p>Après exécutions avec plusieurs dictionnaire, on trouve la clé qui est composée de Google et Yellowstone.</p>
+<h1 id="bonus">
+  Bonus
+  
+  <a class="anchor" href="#bonus">#</a>
+  
+</h1>
+<style>
+  .book-columns-1>ul>li:nth-child(1){
+    flex-grow: 1;
+  }
+
+  .book-columns-1>ul>li:nth-child(2){
+    flex-grow: 2;
+  }
+</style><div class="book-columns book-columns-1 ">
+<p>En modifiant les champs BUILD et MODEL dans notre VM Android :</p>
+<p><img src="../img/decryted-app.png" alt="Application déchiffrée" /></p>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/writeups/rootmepro2025/collapsed/mission4/" class="flex align-center book-icon">
+        <img src="/svg/backward.svg" class="book-icon" alt="Previous" title="Mission 4 - Pentest" />
+        <span>Mission 4 - Pentest</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/writeups/rootmepro2025/collapsed/mission6/" class="flex align-center book-icon">
+        <span>Mission 6 - OSINT</span>
+        <img src="/svg/forward.svg" class="book-icon" alt="Next" title="Mission 6 - OSINT" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+
+<aside class="book-toc">
+  <div class="book-toc-content">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#retro-ingénierie">Retro-ingénierie</a></li>
+    <li><a href="#brute-force">Brute Force</a></li>
+  </ul>
+</nav>
+
+
+
+  </div>
+</aside>
+
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

