@@ -540,14 +540,14 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#exploitation">#</a>
   
 </h2>
-<p>On observe que la fonctionnalité de réinitialisation du mot de passe utilise un rate limit. on va automatiser le brute-force du reset de mot de passe (l’envoie du code pin à 4 digits) et essayer de contourner la limitation.</p>
+<p>On observe que la fonctionnalité de réinitialisation du mot de passe utilise un rate limit. on va automatiser le brute-force du reset de mot de passe (l’envoi du code pin à 4 digits) et essayer de contourner la limitation.</p>
 <h3 id="contournement-des-limitations">
   Contournement des limitations
   
   <a class="anchor" href="#contournement-des-limitations">#</a>
   
 </h3>
-<p>Pour contourner le Send-Rate-Limit, on essai ces différentes options :</p>
+<p>Pour contourner le Send-Rate-Limit, on essaie ces différentes options :</p>
 <ul>
 <li><strong>Parameter Pollution</strong> : KO —&gt; Impossible d’élever la limite ou alors de définir le recovery_code à la main</li>
 <li><strong>Changement de User-Agent</strong> : KO —&gt; La limite reste</li>
