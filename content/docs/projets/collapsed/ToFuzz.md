@@ -3,10 +3,16 @@ title: ToFuzz
 weight: 1
 ---
 
+# ToFuzz
 
-![Banniere](../img/tofuzz-transparent-banner.png)
+{{% columns ratio="1:3" %}}
 
-ToFuzz is an opensource Fuzzing tool able to use the tor network to limit the footprint on the targetted server and escape the attack detection by IP Filter.
+  - ![Banniere](../img/tofuzz-transparent-banner.png)
+  - <br/>ToFuzz is an opensource Fuzzing tool able to use the tor network to limit the footprint on the targetted server and escape the attack detection by IP Filter.
+
+
+{{% /columns %}}
+
 
 ## Installation 
 
