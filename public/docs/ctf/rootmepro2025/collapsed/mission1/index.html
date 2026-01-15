@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr-fr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Mission 1 : Intelligence Artificielle# Introduction# Le groupe NullVastation a attaqué plusieurs entreprises et met à leur disposition une application pour qu’ils puissent payer une rançon. L’objectif est de corrompre l’IA pour que celle-ci nous donne les données d’une des victimes.
+Reconaissance# En arrivant sur l’application on trouve une IA sous forme de chat bot. en discutant avec elle, elle nous demande d’envoyer la rançon vers un portefeuille cryptomonnaie. On doit pouvoir lui faire croire que la transaction a été faite.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/ctf/rootmepro2025/collapsed/mission1/">
+  <meta property="og:site_name" content="Blog de @camillegr">
+  <meta property="og:title" content="Mission 1 - IA">
+  <meta property="og:description" content="Mission 1 : Intelligence Artificielle# Introduction# Le groupe NullVastation a attaqué plusieurs entreprises et met à leur disposition une application pour qu’ils puissent payer une rançon. L’objectif est de corrompre l’IA pour que celle-ci nous donne les données d’une des victimes.
+Reconaissance# En arrivant sur l’application on trouve une IA sous forme de chat bot. en discutant avec elle, elle nous demande d’envoyer la rançon vers un portefeuille cryptomonnaie. On doit pouvoir lui faire croire que la transaction a été faite.">
+  <meta property="og:locale" content="fr_fr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+
+  <meta itemprop="name" content="Mission 1 - IA">
+  <meta itemprop="description" content="Mission 1 : Intelligence Artificielle# Introduction# Le groupe NullVastation a attaqué plusieurs entreprises et met à leur disposition une application pour qu’ils puissent payer une rançon. L’objectif est de corrompre l’IA pour que celle-ci nous donne les données d’une des victimes.
+Reconaissance# En arrivant sur l’application on trouve une IA sous forme de chat bot. en discutant avec elle, elle nous demande d’envoyer la rançon vers un portefeuille cryptomonnaie. On doit pouvoir lui faire croire que la transaction a été faite.">
+  <meta itemprop="wordCount" content="153">
+
+<title>Mission 1 - IA | Blog de @camillegr</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/ctf/rootmepro2025/collapsed/mission1/">
+<link rel="stylesheet" href="/book.min.8be08ee19c78fece5778ccbad7b7920c47943153ee0c9e856094873c56dca415.css" integrity="sha256-i&#43;CO4Zx4/s5XeMy617eSDEeUMVPuDJ6FYJSHPFbcpBU=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.d93274015fd756ee1b2ddb7a2a99505608309d9d79c0e9cad39a3da054fb0ad4.js" integrity="sha256-2TJ0AV/XVu4bLdt6KplQVggwnZ15wOnK05o9oFT7CtQ=" crossorigin="anonymous"></script>
+
+
+
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>Blog de @camillegr</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a1af4a996fb1fd454470e4444972e4f9" class="toggle" checked />
+    <label for="section-a1af4a996fb1fd454470e4444972e4f9" class="flex">
+      <a href="/docs/ctf/" class="">
+        CTF</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f3561ec6727758028b3a2ef314dd5169" class="toggle" checked />
+    <label for="section-f3561ec6727758028b3a2ef314dd5169" class="flex">
+      <a href="/docs/ctf/rootmepro2025/" class="">
+        CTF 2025 | Root-Me Pro x DGSE</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission1/" class="active">
+      Mission 1 - IA</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission2/" class="">
+      Mission 2 - SOC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission3/" class="">
+      Mission 3 - Forensic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission4/" class="">
+      Mission 4 - Pentest</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission5/" class="">
+      Mission 5 - Mobile</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/ctf/rootmepro2025/collapsed/mission6/" class="">
+      Mission 6 - OSINT</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ba5e9fca78bb6e1afcafc6aba970bb3e" class="toggle"  />
+    <label for="section-ba5e9fca78bb6e1afcafc6aba970bb3e" class="flex">
+      <a role="button" class="">
+        Projets Personnels</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projets/collapsed/tofuzz/" class="">
+      ToFuzz</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c65aa4e708b6bdd64019a9cd49da31df" class="toggle"  />
+    <label for="section-c65aa4e708b6bdd64019a9cd49da31df" class="flex">
+      <a href="/docs/tryhackme/" class="">
+        TryHackMe</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/hammer/" class="">
+      Hammer</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/mrrobot/" class="">
+      Mr Robot</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/rootme/" class="">
+      RootMe</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/tokyog/" class="">
+      Tokyo Ghoul</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/wonderlands/" class="">
+      Wonderlands</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a>
+      Divers</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/divers/blogs/" class="">
+      Blogs</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Mission 1 - IA</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#mission-1--intelligence-artificielle">Mission 1 : Intelligence Artificielle</a>
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#reconaissance">Reconaissance</a></li>
+        <li><a href="#exploitation">Exploitation</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="mission-1--intelligence-artificielle">Mission 1 : Intelligence Artificielle<a class="anchor" href="#mission-1--intelligence-artificielle">#</a></h1>
+<h2 id="introduction">Introduction<a class="anchor" href="#introduction">#</a></h2>
+<p>Le groupe NullVastation a attaqué plusieurs entreprises et met à leur disposition une application pour qu&rsquo;ils puissent payer une rançon. L&rsquo;objectif est de corrompre l&rsquo;IA pour que celle-ci nous donne les données d&rsquo;une des victimes.</p>
+<h2 id="reconaissance">Reconaissance<a class="anchor" href="#reconaissance">#</a></h2>
+<p>En arrivant sur l&rsquo;application on trouve une IA sous forme de chat bot. en discutant avec elle, elle nous demande d&rsquo;envoyer la rançon vers un portefeuille cryptomonnaie. On doit pouvoir lui faire croire que la transaction a été faite.</p>
+<h2 id="exploitation">Exploitation<a class="anchor" href="#exploitation">#</a></h2>
+<p>On essaie dans un premier temps de lui dire que la transaction a bien été faite. Cependant cela est insuffisant et l&rsquo;IA nous demande un lien vers la transaction.</p>
+<p>En lui envoyant un lien vers une transaction de la blockchain le chatbot nous donne une clé poiur déchiffrer les données qui sont dans une archive protégée par mot de passe.</p>
+<p>En ouvrant l&rsquo;archive on trouve un document qui contient le drapeau.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/ctf/rootmepro2025/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>CTF 2025 | Root-Me Pro x DGSE</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/ctf/rootmepro2025/collapsed/mission2/" class="flex align-center">
+        <span>Mission 2 - SOC</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#mission-1--intelligence-artificielle">Mission 1 : Intelligence Artificielle</a>
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#reconaissance">Reconaissance</a></li>
+        <li><a href="#exploitation">Exploitation</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

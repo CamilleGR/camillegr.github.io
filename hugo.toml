@@ -1,0 +1,31 @@
+baseURL = 'https://camillegr.github.io/'
+languageCode = 'fr-fr'
+title = 'Blog de @camillegr'
+theme = "hugo-book"
+
+[module]
+[[module.imports]]
+path = 'hugo-book'
+
+[markup]
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  startLevel = 1
+
+[markup.highlight]
+  style = 'base16-snazzy'
+
+
+disablePathToLower = true
+
+enableGitInfo = true
+
+disableKinds = ['taxonomy', 'taxonomyTerm']
+
+[params]
+  BookTheme = 'dark'
+  BookToC = true
+  BookSection = 'docs'
+
