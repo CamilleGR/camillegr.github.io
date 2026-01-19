@@ -16,6 +16,7 @@ Cette section comprend tous les writeups que j'ai pu écrire pour des challenges
 
 ## Quelques Writeups 
 * [{{< badge style="warning" title="Hammer" value="medium room" >}}](./collapsed/hammer) : Compromission via une authentification vulnérable
+* [{{< badge style="warning" title="Sequence" value="medium room" >}}](./collapsed/sequence) : XSS, CSRF, LFI et container escape.. Sacré programme
 * [{{< badge style="warning" title="Mr Robot" value="medium room" >}}](./collapsed/mrrobot) : Boot to Root sur un wordpress vulnérable
 * [{{< badge style="warning" title="Alice In Wonderlands" value="medium room" >}}](./collapsed/wonderlands) : Énumération et multiples escalades de privilèges
 * [{{< badge style="warning" title="Tokyo Ghoul" value="medium room" >}}](./collapsed/tokyog) : Enumération, Steghanographie, LFI et Obfuscation
