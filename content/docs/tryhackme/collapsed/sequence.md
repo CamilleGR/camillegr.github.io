@@ -55,7 +55,7 @@ Serving HTTP on 0.0.0.0 port 8888 (http://0.0.0.0:8888/) ...
 On accès alors à plusieurs pages, dont un chat. On observe également que si on clique sur "View Feedback", notre payload xss est exécuté. Nous allons donc envoyer le lien de review à l'admin via le chat : 
 
 
-![pwn admin](../img/sequence_trapAdmin.png)
+![pwn admin](../img/sequence_trapadmin.png)
 ```bash
 root@ip-10-81-76-213:~/workspace# python3 -m http.server 8888
 Serving HTTP on 0.0.0.0 port 8888 (http://0.0.0.0:8888/) ...
