@@ -2,6 +2,7 @@
 title: TryHackMe
 weight: 1
 bookCollapseSection: true
+bookToc: false
 ---
 
 <div class="book-hero">

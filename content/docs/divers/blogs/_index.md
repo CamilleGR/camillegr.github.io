@@ -1,6 +1,27 @@
-# Articles de blogs 
+---
+title: Blog
+bookToc: false
+---
 
-J'ai eu la chance de pouvoir écrire plusieurs articles de blogs sur des sujets divers et variés. En voici la liste : 
+
+# Blog
+
+## 🛡️ Cybersécurité 🛡️
+
+{{% columns %}}
+ - {{< card href="./collapsed/vscode-trust.md" >}}
+   <center> <image src="./collapsed/img/broken-vs-code.png" width="150px">  
+    <h3> VSCode : Don't trust authors ! </h3>
+        Risques à considérer avant de faire confiance à l'auteur d'un projet utilisant VSCode
+
+    </center>
+   {{< /card >}}
+ - 
+ - 
+ - 
+{{% /columns %}}
+
+## ♾️ Devops & Performance ♾️
 
 - [Modernisation des applications : Evolution & Enjeux](https://medium.com/leanovia/modernisation-des-syst%C3%A8mes-dinformation-evolution-enjeux-5346cceb4059)
 - [Test de charge : Quel outil open source pour générer une forte charge ?](https://medium.com/leanovia/test-de-charge-quel-outil-open-source-pour-g%C3%A9n%C3%A9rer-une-forte-charge-ecfb0fbbad98)
