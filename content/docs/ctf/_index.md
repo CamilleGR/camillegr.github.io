@@ -2,17 +2,17 @@
 title: CTF
 weight: 1
 bookCollapseSection: true
+bookToc: false
 ---
 
-<div class="book-hero">
 
-# CTF
-
+<center>
+<h1> 🚩 CTF 🚩 </h1>
+</center>
 
 
 Dans cette section, vous trouverez quelques write-ups à propos des CTF auxquels j'ai pu participer. 
 
-## CTF
   - [Root-Me X DGSE](./rootmepro2025/)
 
 

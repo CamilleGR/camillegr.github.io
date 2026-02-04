@@ -7,12 +7,14 @@ bookToc: false
 
 <div class="book-hero">
 
-<center> <h1>👋 Bienvenue</h1> </center>
+<center>  <img src="docs/ctf/img/banner.png" alt="Your Image Badge" /></center>
 
 <br/>
 
-Vous trouverez ici un ensemble de **writeups de CTF**, de **résolutions de défis** ainsi que des **projets personnels**.
-Ce dépôt a pour objectif de centraliser mes travaux, mes expérimentations et mes recherches dans ce domaine.
+Bienvenue ! 
+
+Vous trouverez ici un ensemble de **writeups**, de **résolutions de rooms** ainsi que des **projets personnels**.
+Ce blog a pour objectif de centraliser mes travaux, mes expérimentations et mes recherches dans ce domaine.
 
 
 {{% columns ratio="1:1" %}}
@@ -22,7 +24,7 @@ Ce dépôt a pour objectif de centraliser mes travaux, mes expérimentations et 
   <img src="https://tryhackme-badges.s3.amazonaws.com/camgrz.png" alt="Your Image Badge" />
 
   Je documente mes démarches, mes découvertes et parfois mes erreurs, avec l'objectif de constituer un protfolio mais aussi je l'espère à aider les personnes qui se retrouveraient ici par hasard. 
-  [{{<badge style="danger" title="TryHackMe">}}](docs/tryhackme) [{{<badge style="warning" title="CTF">}}](docs/ctf)
+  [{{<badge style="danger" title="TryHackMe">}}](docs/tryhackme) [{{<badge style="warning" title="CTF">}}](docs/ctf) [{{<badge style="success" title="HackTheBox">}}](docs/hackthebox)
 
 - ## 🛠️ Projets personnels
 
