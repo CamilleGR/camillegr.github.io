@@ -1,6 +1,6 @@
 baseURL = 'https://camillegr.github.io/'
 languageCode = 'fr-fr'
-title = 'Blog de @camillegr'
+title = '@camillegr'
 theme = "hugo-book"
 
 [module]
@@ -29,3 +29,6 @@ disableKinds = ['taxonomy', 'taxonomyTerm']
   BookToC = true
   BookSection = 'docs'
 
+[services]
+  [services.googleAnalytics]
+    id='GTM-WWXW9HD5'
