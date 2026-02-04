@@ -22,8 +22,9 @@ Cette section comprend tous les writeups que j'ai pu écrire pour des challenges
 
 {{% columns %}}
  - {{< card href="./collapsed/codeparttwo" >}}
-   <center> <image src="./collapsed/img/cpt_illu.png" width="150px">  
-    {{< badge style="success" title="CodePartTwo" value="Easy" >}} Service vulnérable et esclade de privilège
+   <center> {{< badge style="success" title="Code Part Two" value="Easy" >}} <br/>
+
+    <image src="./collapsed/img/cpt_illu.png" width="150px"> Service vulnérable et esclade de privilège
 
     </center>
    {{< /card >}}
