@@ -31,4 +31,4 @@ disableKinds = ['taxonomy', 'taxonomyTerm']
 
 [services]
   [services.googleAnalytics]
-    id='GTM-WWXW9HD5'
+    id='G-42699Q27MD'
