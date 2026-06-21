@@ -1,0 +1,73 @@
+---
+title: Tests de performance et sécurité
+description : Frontière entre test de performance et sécurité
+tableOfContents: false
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside type="note">
+Cet article a été tout publié en premier sur le blog de [Leanovia](https://leanovia.com/lab/securite-et-performance)
+</Aside>
+
+# Pourquoi les tests de performance révèlent des failles de sécurité
+Un test de performance ne remplace pas un test de sécurité : ils ne testent pas la même chose et n’ont que peu de points communs. Cependant, les ingénieurs en performances manipulent et observent l’application avant, pendant et après les campagnes de test de performance. Un œil averti peut alors déceler des failles de sécurité, parfois graves, avant leur mise en production.
+
+Ce que manipule réellement un ingénieur performance
+Les objectifs des pentesters sont différents des testeurs en performance. Ces derniers tentent justement de reproduire un utilisateur réel tandis que les pentesters ont pour objectif de produire des comportements anormaux. Cependant les outils qu’ils utilisent pour le pentest web sont similaires car ce ne sont finalement que des clients HTTP : Neoload ou JMeter d’un côté, Burp Suite, et ZAP Proxy de l’autre. Dans les deux cas, nous sommes amenés à manipuler des trames HTTP, analyser du code source, variabiliser des paramètres et des payloads, et c’est précisément en faisant ces actions que nous pouvons déceler des vulnérabilités.
+
+# Vulnérabilités détectables via les tests de performance
+
+## IDOR (Insecure Direct Object Reference)
+Une faille de type IDOR est due à un manque de contrôle des droits d’un utilisateur. Le développeur a contrôlé les droits de manière verticale : on vérifie qu’un utilisateur n’est pas administrateur. Mais il n’a pas contrôlé les droits horizontalement : un utilisateur A peut consulter les données d’un utilisateur B.
+
+<img src="idor.png"/>
+
+Par exemple, durant le scripting, l’ingénieur performance détecte qu’un utilisateur consultant son profil fait la requête suivante :
+
+```http
+GET /user/profil/1000 HTTP/1.1
+Host: myserver.com
+Accept: application/json
+HTTP/1.1 200 OK
+Server: nginx/1.22.0
+Content-Type: application/json
+Content-Length: 128
+Connection: keep-alive
+
+{
+  "id": 1000,
+  "username": "jacques",
+  "email": "jacques@example.com",
+  "role": "user",
+  "created_at": "2024-01-10"
+}
+```
+
+Imaginons que notre testeur en performance ne variabilise pas l’id 1000 et itère sur son jeu de données avec un autre utilisateur. On se retrouve dans le cas où nous sommes connectés avec un utilisateur et nous accédons aux données d’un autre utilisateur. Un utilisateur malveillant pourrait donc extraire tout ou une partie de la base de données.
+
+Du point de vue d’un ingénieur en performance, c’est assez simple à détecter une fois que l’on connait le problème. Il faut cependant y être sensibilisé.
+
+## SSRF (Server-Side Request Forgery)
+Les failles Server-Side Request Forgery (SSRF) sont des vulnérabilités qui permettent à un attaquant de déclencher des requêtes depuis le serveur cible vers une destination arbitraire. Imaginons qu’une application référence du contenu interne via des urls d’un autre service interne. Un attaquant pourrait modifier cette url pour scanner le réseau interne et trouver d’autres API, d’autres sites, ou même des interfaces d’administrations internes :
+
+<img src="ssrf.png"/>
+
+Durant la phase de scripting d’un test de performance, nous pouvons être amenés à identifier des champs faisant des références directes à des urls. On peut alors tenter de modifier ces urls pour identifier un comportement anormal du serveur : Timeout, récupération de contenu sensible, etc… De manière général, il faut se méfier des urls dans les paramètres des requêtes.
+
+## Exposition de stacktraces et erreurs
+C’est peut-être la faille la plus courante, ou du moins celle que l’on peut trouver sans la chercher : l’exposition de stacktrace dans le cas d’erreurs. Les tests de charge peuvent déclencher des erreurs internes du serveur (HTTP 500) durant la phase de scripting et durant les tests à forte charge. Ces erreurs peuvent exposer des stacktrace avec des informations sensibles. Il faut impérativement remonter ces anomalies car certaines informations, dans le cas d’un middleware mal configuré, peuvent être réutilisées par un attaquant pour identifier des failles de sécurité.
+
+## D’autres cas aperçus dans la nature… Mais vous ne me croiriez pas
+Après quelques années dans le domaine des tests de performance, j’ai pu tester beaucoup d’applications, et je tenais à partager un florilège des meilleures failles de sécurité :
+
+SQLi : Une injection SQL n’est pas rare à trouver, même des requêtes SQL complètes codées en javascript et envoyées à un endpoint /exec-sql…
+Authentication Bypass : Une page qui devrait être accessible seulement aux utilisateurs connectés, et qui est en fait accessible à tout le monde.
+DOS : Des requêtes qui remontent tellement de données qu’elles peuvent faire tomber une application complète…
+Bien entendu, il est possible de trouver énormément de failles, il suffit simplement d’être attentif.
+
+## Que faire en cas de détection ?
+Et maintenant que nous avons identifié des failles, il faut réagir correctement. La première étape est de confirmer et de documenter la vulnérabilité : Requêtes, réponses, endpoints impactés, capture d’écran. Toutes les informations sont bonnes à prendre. Ensuite, il est souvent d’usage d’ouvrir un ticket (Jira, Github/Gitlab Issues, Mantis, etc…) pour demander une correction en urgence de l’application. Et enfin en fonction de l’organisation, il faut prévenir les équipes de sécurité pour que celles-ci vérifient que la vulnérabilité n’est pas déjà en production.
+
+# Conclusion
+En aucun cas, détecter des failles de sécurité durant les tests de performance ne remplacera un pentest, un scan de vulnérabilités, ou même une revue de code. Un ingénieur en performance ne remplacera jamais un ingénieur en sécurité. Cependant, les fuites de données provenant d’applications connues et reconnues sont devenues presque quotidiennes et de plus en plus de données personnelles sont stockées en ligne. Cet article vise à sensibiliser sur ce point : l’accélération des livraisons, des développements, et l’utilisation massive des LLMs, va inévitablement augmenter la surface d’attaque des acteurs malveillants. Pour toutes ces raisons, la cybersécurité n’est plus l’affaire d’une seule équipe mais est bien l’affaire de tous.

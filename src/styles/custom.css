@@ -1,0 +1,327 @@
+/* =========================================================================
+   Thème « Dossier » — Camille Gr.
+   Direction : carnet d'enquête / classeur d'archives plutôt que terminal
+   hacker classique. Encre charbon + papier kraft + accent laiton (tampon).
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@layer starlight.base {
+	:root,
+	::backdrop {
+		/* Rampe de gris (dossier sombre, base chaude au lieu du bleu-gris par défaut) */
+		--sl-color-gray-1: hsl(40, 10%, 92%);
+		--sl-color-gray-2: hsl(40, 8%, 76%);
+		--sl-color-gray-3: hsl(40, 6%, 56%);
+		--sl-color-gray-4: hsl(40, 7%, 36%);
+		--sl-color-gray-5: hsl(40, 10%, 23%);
+		--sl-color-gray-6: hsl(40, 14%, 15%);
+		--sl-color-black: hsl(40, 12%, 8%);
+
+		--sl-hue-orange: 36;
+
+		/* Accent laiton (le « tampon ») */
+		--sl-color-accent-low: hsl(36, 45%, 16%);
+		--sl-color-accent: hsl(36, 55%, 54%);
+		--sl-color-accent-high: hsl(36, 60%, 76%);
+
+		--sl-color-text: var(--sl-color-gray-1);
+		--sl-color-bg: hsl(220, 8%, 9%);
+		--sl-color-bg-nav: hsl(220, 9%, 12%);
+		--sl-color-bg-sidebar: hsl(220, 9%, 12%);
+		--sl-color-bg-inline-code: hsl(220, 9%, 15%);
+		--sl-color-hairline: hsl(220, 8%, 19%);
+		--sl-color-hairline-light: hsl(220, 7%, 24%);
+
+		/* Jeton de marque, réutilisés par les composants custom */
+		--df-moss: hsl(110, 16%, 52%);
+		--df-moss-bg: hsl(110, 20%, 14%);
+		--df-rule: repeating-linear-gradient(
+			90deg,
+			var(--sl-color-hairline) 0 6px,
+			transparent 6px 12px
+		);
+
+		--sl-font: 'IBM Plex Sans', var(--sl-font-system);
+		--sl-font-mono: 'IBM Plex Mono', var(--sl-font-system-mono);
+	}
+
+	:root[data-theme='light'],
+	[data-theme='light'] ::backdrop {
+		--sl-color-gray-1: hsl(35, 14%, 14%);
+		--sl-color-gray-2: hsl(35, 10%, 24%);
+		--sl-color-gray-3: hsl(35, 7%, 40%);
+		--sl-color-gray-4: hsl(35, 6%, 58%);
+		--sl-color-gray-5: hsl(38, 16%, 84%);
+		--sl-color-gray-6: hsl(40, 24%, 93%);
+		--sl-color-gray-7: hsl(42, 28%, 96%);
+		--sl-color-black: hsl(0, 0%, 100%);
+
+		--sl-color-accent-low: hsl(36, 55%, 88%);
+		--sl-color-accent: hsl(35, 62%, 36%);
+		--sl-color-accent-high: hsl(35, 70%, 22%);
+
+		--sl-color-bg: hsl(42, 26%, 94%);
+		--sl-color-bg-nav: hsl(40, 22%, 91%);
+		--sl-color-hairline: hsl(38, 18%, 82%);
+		--sl-color-hairline-light: hsl(38, 18%, 86%);
+
+		--df-moss: hsl(110, 24%, 32%);
+		--df-moss-bg: hsl(110, 30%, 90%);
+	}
+}
+
+/* -------------------------------------------------------------------------
+   Typographie : Space Grotesk pour les titres (la « machine à écrire »
+   d'un en-tête de rapport), IBM Plex Sans pour le corps, Plex Mono pour
+   les références de dossier / métadonnées.
+   ---------------------------------------------------------------------- */
+:is(h1, h2, h3, h4, h5, h6) {
+	font-family: 'Space Grotesk', var(--sl-font-system);
+	font-weight: 600;
+	letter-spacing: -0.01em;
+}
+
+.sl-markdown-content h2 {
+	border-bottom: 1px dashed var(--sl-color-hairline);
+	padding-bottom: 0.4rem;
+}
+
+/* -------------------------------------------------------------------------
+   Hero : on fait remonter la référence de dossier au-dessus du titre,
+   et on resserre le ton sous le H1.
+   ---------------------------------------------------------------------- */
+.hero .tagline {
+	order: -1;
+}
+
+.case-ref {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6em;
+	font-family: 'IBM Plex Mono', var(--sl-font-system-mono);
+	font-size: var(--sl-text-xs);
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: var(--sl-color-accent-high);
+}
+
+.case-ref::before {
+	content: '';
+	width: 0.5em;
+	height: 0.5em;
+	border-radius: 999px;
+	background: var(--df-moss);
+	box-shadow: 0 0 0 3px var(--df-moss-bg);
+}
+
+.hero-summary {
+	font-family: 'IBM Plex Sans', var(--sl-font-system);
+	color: var(--sl-color-gray-2);
+	font-size: var(--sl-text-base);
+	line-height: 1.7;
+	max-width: 56ch;
+}
+
+/* -------------------------------------------------------------------------
+   Tampons de statut (Stamp.astro)
+   ---------------------------------------------------------------------- */
+.stamp {
+	--stamp-color: var(--sl-color-accent-high);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	font-family: 'IBM Plex Mono', var(--sl-font-system-mono);
+	font-size: 0.7rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--stamp-color);
+	border: 1.5px solid var(--stamp-color);
+	border-radius: 3px;
+	padding: 0.2em 0.55em;
+	transform: rotate(var(--stamp-rotate, -3deg));
+	white-space: nowrap;
+}
+
+.stamp[data-tone='resolved'] {
+	--stamp-color: var(--df-moss);
+}
+
+.stamp[data-tone='progress'] {
+	--stamp-color: var(--sl-color-gray-3);
+}
+
+/* -------------------------------------------------------------------------
+   Dossiers de catégories (CaseFolder.astro)
+   ---------------------------------------------------------------------- */
+.case-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+	margin-block: 1.5rem 2.5rem;
+}
+
+.case-folder {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	padding: 1.25rem 1.25rem 1.4rem;
+	background: var(--sl-color-bg-nav);
+	border: 1px solid var(--sl-color-hairline);
+	border-top: 3px solid var(--sl-color-accent);
+	border-radius: 4px;
+	text-decoration: none;
+	transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.case-folder:hover {
+	transform: translateY(-3px);
+	border-color: var(--sl-color-accent);
+	box-shadow: var(--sl-shadow-md);
+}
+
+.case-folder__tag {
+	font-family: 'IBM Plex Mono', var(--sl-font-system-mono);
+	font-size: 0.68rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--sl-color-accent-high);
+}
+
+.case-folder__title {
+	font-family: 'Space Grotesk', var(--sl-font-system);
+	font-size: 1.15rem;
+	font-weight: 600;
+	color: var(--sl-color-white);
+}
+
+.case-folder__desc {
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-2);
+	line-height: 1.6;
+	flex-grow: 1;
+}
+
+.case-folder__count {
+	font-family: 'IBM Plex Mono', var(--sl-font-system-mono);
+	font-size: 0.72rem;
+	color: var(--sl-color-gray-3);
+}
+
+/* -------------------------------------------------------------------------
+   Journal des derniers writeups (liste de type « registre »)
+   ---------------------------------------------------------------------- */
+.evidence-log {
+	list-style: none;
+	margin: 1.5rem 0 0;
+	padding: 0;
+	border-top: 1px dashed var(--sl-color-hairline);
+}
+
+.evidence-log li {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.85rem 0;
+	border-bottom: 1px dashed var(--sl-color-hairline);
+}
+
+.evidence-log a {
+	font-family: 'Space Grotesk', var(--sl-font-system);
+	font-weight: 600;
+	color: var(--sl-color-white);
+	text-decoration: none;
+}
+
+.evidence-log a:hover {
+	color: var(--sl-color-accent-high);
+}
+
+.evidence-log time {
+	font-family: 'IBM Plex Mono', var(--sl-font-system-mono);
+	font-size: 0.72rem;
+	color: var(--sl-color-gray-3);
+	white-space: nowrap;
+}
+
+@media (max-width: 30rem) {
+	.evidence-log li {
+		grid-template-columns: 1fr;
+		gap: 0.35rem;
+	}
+}
+
+
+/*
+*/
+
+.writeup-card {
+		--ring-color: var(--df-htb, hsl(140, 35%, 45%));
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 1.5rem 1.25rem 1.4rem;
+		text-align: center;
+		text-decoration: none;
+		background: var(--sl-color-bg-nav);
+		border: 2px solid var(--ring-color);
+		border-radius: 8px;
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.writeup-card[data-platform='tryhackme'] {
+		--ring-color: var(--df-thm, hsl(10, 55%, 46%));
+	}
+
+	.writeup-card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring-color) 28%, transparent);
+	}
+
+	.writeup-card__tag {
+		font-family: 'IBM Plex Mono', var(--sl-font-system-mono, monospace);
+		font-size: 0.65rem;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--ring-color);
+	}
+
+	.writeup-card__illustration {
+		width: 6rem;
+		height: 6rem;
+		margin-block: 0.15rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		border-radius: 999px;
+		background: var(--sl-color-bg);
+		border: 1px solid var(--sl-color-hairline);
+	}
+
+	.writeup-card__illustration :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.writeup-card__title {
+		margin: 0;
+		font-family: 'Space Grotesk', var(--sl-font-system);
+		font-size: 1.05rem;
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	.writeup-card__desc {
+		margin: 0;
+		font-size: var(--sl-text-sm, 0.875rem);
+		line-height: 1.6;
+		color: var(--sl-color-gray-2);
+	}

@@ -1,0 +1,22 @@
+---
+/**
+ * Dossier de catégorie : carte façon chemise cartonnée, utilisée sur la
+ * page d'accueil pour router vers les grandes sections du site.
+ */
+interface Props {
+	href: string;
+	tag: string;
+	title: string;
+	description: string;
+	count?: string;
+}
+
+const { href, tag, title, description, count } = Astro.props;
+---
+
+<a class="case-folder" href={href}>
+	<span class="case-folder__tag">{tag}</span>
+	<span class="case-folder__title">{title}</span>
+	<p class="case-folder__desc">{description}</p>
+	{count && <span class="case-folder__count">{count}</span>}
+</a>

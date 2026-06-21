@@ -1,0 +1,74 @@
+---
+title: Camille Gr.
+description: Writeups CTF, mini-projets et notes techniques — sécurité offensive, automatisation et performance SI.
+template: splash
+hero:
+  title: Camille Gr.
+  tagline: <span class="case-ref">cyber offensive / automatisation / performance</span>
+  image:
+    file: ../../assets/me-round.png
+    alt: Capture de terminal affichant un accès root obtenu, avec un tampon « accès root » apposé par-dessus
+  actions:
+    - text: Parcourir les writeups
+      link: /writeups/
+      icon: right-arrow
+    - text: GitHub
+      link: https://github.com/camillegr
+      icon: external
+      variant: minimal
+---
+
+import CaseFolder from '../../components/CaseFolder.astro';
+
+<p class="hero-summary">
+	Ingénieur en performance des systèmes d'information de métier, j'occupe une bonne partie de mon
+	temps libre à comprendre comment les systèmes cèdent — et à automatiser ce qui peut l'être pour
+	ne plus avoir à le refaire à la main. Ce site rassemble mes writeups de CTF (TryHackMe,
+	HackTheBox), mes projets de home-lab et quelques notes techniques, dans l'ordre où je les
+	écris.
+</p>
+
+
+## Catégories 
+
+<div class="case-grid">
+	<CaseFolder
+		href="/writeups/"
+		tag="Writeups"
+		title="Writeups"
+		description="Machines Linux & Windows, de l'énumération à l'élévation de privilèges — la méthode complète, pas juste le flag."
+		count="machines"
+	/>
+	<CaseFolder
+		href="/writeups/blogs/"
+		tag="blogs"
+		title="Blog"
+		description="Article de blog hébergés sur ce blog et ailleurs."
+		count="rooms"
+	/>
+	<CaseFolder
+		href="/ctf/"
+		tag="ctf"
+		title="CTF"
+		description="Scripts, pipelines et infra de laboratoire : l'automatisation appliquée à la sécurité et à l'exploitation."
+		count="projets"
+	/>
+</div>
+
+## Derniers Write-ups
+
+<ul class="evidence-log">
+	<li>
+		<a href="/writeups/hackthebox/wingdata/">HackTheBox — Write-ups WingData </a>
+		<time datetime="2026-06-27">27 juin 2026</time>
+	</li>
+	<li>
+		<a href="/writeups/hackthebox/codeparttwo/">HackTheBox - Write-ups CodePartTwo</a>
+		<time datetime="2026-03-18">18 mars 2026</time>
+	</li>
+	<li>
+		<a href="/writeups/tryhackme/sequence/"> TryHackMe - Write-ups Sequence </a>
+		<time datetime="2026-02-04">04 février 2026</time>
+	</li>
+</ul>
+
