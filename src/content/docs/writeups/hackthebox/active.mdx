@@ -12,7 +12,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 Active est une machine HackTheBox Windows facile qui permet de pratiquer deux méthodes classiques de compromission de l'Active Directory.
 
-# Reconnaissance
+# Enumeration
 
 ## Port Scan
 
@@ -77,7 +77,7 @@ On voit que l'identification anonyme est possible sur la machine, nous allons do
 
 Nous avons les droits de lecture sur Replication.
 
-### Group Policy Preference
+# Foothold
 
 <Aside type="note">
 Les GPP sont des fichiers de configuration pouvant contenir des utilisateurs et mots de passe. Le problème étant que le mot de passe est chiffré avec une clé fournie par Microsoft. 
@@ -111,7 +111,6 @@ gpp-decrypt -f ./Policies/{31B2F340-016D-11D2-945F-00C04FB984F9}/MACHINE/Prefere
 
 Avec cet utilisateur on peut se connecter via PSExec et récupérer le premier flag. 
 
-# Foothold
 
 # Escalade de privilège
 
