@@ -1,6 +1,6 @@
 ---
 title: Tokyo Ghoul
-weight: 1
+tableOfContents: false
 ---
 
 <center>

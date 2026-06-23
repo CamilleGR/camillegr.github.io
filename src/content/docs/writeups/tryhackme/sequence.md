@@ -1,6 +1,6 @@
 ---
 title: Sequence
-weight: 1
+tableOfContents: false
 ---
 
 

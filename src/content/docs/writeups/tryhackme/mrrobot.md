@@ -1,6 +1,6 @@
 ---
 title: Mr Robot
-weight: 1
+tableOfContents: false
 ---
 
 # Mr Robot
