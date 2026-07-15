@@ -6,7 +6,7 @@ tableOfContents: false
 # VSCode : ne faites pas confiance aux auteurs ! 
 
 <center>
-<img src="broken-vs-code.png" width="200px"/>
+<img src="broken-vs-code.png" width="500px"/>
 </center>
 
 
