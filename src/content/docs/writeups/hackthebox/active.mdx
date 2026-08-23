@@ -83,7 +83,7 @@ Nous avons les droits de lecture sur Replication.
 Les GPP sont des fichiers de configuration pouvant contenir des utilisateurs et mots de passe. Le problème étant que le mot de passe est chiffré avec une clé fournie par Microsoft. 
 </Aside>
 
-Dans Replication, on trouve un fichier XML qui est une GPP. nous allons donc utiliser l'outil [gpp-decrypt](https://github.com/t0thkr1s/gpp-decrypt) pour déchiffrer les identifiants.
+Dans Replication, on trouve un fichier XML qui est une GPP. Nous allons donc utiliser l'outil [gpp-decrypt](https://github.com/t0thkr1s/gpp-decrypt) pour déchiffrer les identifiants.
 
 ```bash
 pip install gpp-decrypt
@@ -132,7 +132,7 @@ LDAP        10.129.25.207   389    DC               krbtgt                      
 LDAP        10.129.25.207   389    DC               SVC_TGS                       2018-07-18 16:14:38 0    
 ```
 
-## Keberoasting
+## Kerberoasting
 
 <Aside type="note">
 Les utilisateurs ayant le champ "Service Principal Name" (SPN) sont vulnérables à une attaque nommée Kerberoast. Ces utilisateurs ont un ticket TGS chiffré grâce à leur mot de passe, l'attaque consiste donc à demander un ticket TGS et à cracker le mot de passe hors ligne.

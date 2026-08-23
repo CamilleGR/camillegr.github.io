@@ -64,7 +64,7 @@ nth paddr      vaddr      len size section type  string
 6   0x00002128 0x00002128 36  37   .rodata ascii Take a look inside of me. rabin2 -z\n
 ```
 
-On peut donc essayer le mot de passe kamishiro qui pourrait être une variable définit au début du binaire. Celui-ci nous donne une clé. 
+On peut donc essayer le mot de passe kamishiro qui pourrait être une variable définie au début du binaire. Celui-ci nous donne une clé. 
 
 
 ## Stéganographie et cryptographie
@@ -78,7 +78,7 @@ steghide extract -sf You_found_1t.jpg
 **Fichier extrait :** `yougotme.txt` (contenant du code Morse).
 
 ### Déchiffrement du code Morse
-Le contenu de `yougotme.txt` peut être facilement déchiffre avec cyberchef, révélant un nouveau mot de passe ou un indice pour la suite de l’exploitation.
+Le contenu de `yougotme.txt` peut être facilement déchiffré avec cyberchef, révélant un nouveau mot de passe ou un indice pour la suite de l’exploitation.
 
 <img src="tokyog.png"/>
 
@@ -148,7 +148,7 @@ kamishiro:$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET
 </html>
 ```
 
-On récupère donc `/etc/passwd` qui révèle l\'utilisateur `kamishiro` et le hash de son mot de passe.
+On récupère donc `/etc/passwd` qui révèle l'utilisateur `kamishiro` et le hash de son mot de passe.
 
 ---
 

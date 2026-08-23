@@ -12,11 +12,11 @@ weight: 1
 - On nous fournit un APK, qui provient d'une saisie lors d'une arrestation d'un membre du groupe NullVastation. Certains des messages sont chiffrés et un d'entre eux doit contenir notre drapeau. 
 {{% /columns %}}
 
-## Retro-ingénierie 
+## Rétro-ingénierie 
 
-Pour commencer, on va décompiler l'APK fournit. On s'aperçoit que la clé de chiffrement est composé de la marque et du modèle de la tablette. 
+Pour commencer, on va décompiler l'APK fourni. On s'aperçoit que la clé de chiffrement est composée de la marque et du modèle de la tablette. 
 
-La tablette saisie est, comme indiqué dans l'énnoncé, une tablette google. 
+La tablette saisie est, comme indiqué dans l'énoncé, une tablette google. 
 
 ## Brute Force 
 
@@ -138,7 +138,7 @@ if __name__ == "__main__":
 
 ```
 
-Après exécutions avec plusieurs dictionnaire, on trouve la clé qui est composée de Google et Yellowstone. 
+Après exécutions avec plusieurs dictionnaires, on trouve la clé qui est composée de Google et Yellowstone. 
 
 
 # Bonus 

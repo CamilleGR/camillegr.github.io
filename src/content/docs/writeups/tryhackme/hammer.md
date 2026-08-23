@@ -85,12 +85,12 @@ Dans le dossier logs on trouve :
 
 On apprend donc : 
 * Qu'il y a un utilisateur ayant pour mail : tester@hammer.thm
-* l'application a pour contexte d'execution le dossier /var/www/html
+* l'application a pour contexte d'exécution le dossier /var/www/html
 
 
 ## Exploitation
 
-On observe que la fonctionnalité de réinitialisation du mot de passe utilise un rate limit. on va automatiser le brute-force du reset de mot de passe (l’envoi du code pin à 4 digits) et essayer de contourner la limitation.
+On observe que la fonctionnalité de réinitialisation du mot de passe utilise un rate limit. On va automatiser le brute-force du reset de mot de passe (l’envoi du code pin à 4 digits) et essayer de contourner la limitation.
 
 ### Contournement des limitations
 

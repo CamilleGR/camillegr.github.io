@@ -7,7 +7,7 @@ Avec toutes les informations récoltées, il nous est maintenant demandé de tro
 
 ## Liste des informations 
 
-Listons les informations que nous avons récolté durant les 5 derniers défis : 
+Listons les informations que nous avons récoltées durant les 5 derniers défis : 
 
 ```markdown
 
@@ -42,7 +42,7 @@ Si l'on se connecte à la machine de la mission 4 avec le compte Operator, on pe
 
 ## Sherlock : VoidSyn42
 
-Avec le pseudo, nous allons utiliser Sherlock qui nous donne la liste de site suivante : 
+Avec le pseudo, nous allons utiliser Sherlock qui nous donne la liste de sites suivante : 
 
 ```
 https://hub.docker.com/u/voidsyn42/
@@ -61,7 +61,7 @@ https://www.hunting.ru/forum/members/?username=voidsyn42
 Total Websites Username Detected On : 13
 ```
 
-## Resultat
+## Résultat
 
 Le premier lien, c'est à dire docker hub nous donne le résultat : 
 

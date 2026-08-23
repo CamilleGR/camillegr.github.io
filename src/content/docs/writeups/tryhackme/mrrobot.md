@@ -9,17 +9,17 @@ tableOfContents: false
 
 ## Reconnaissance
 
-La machine Mr. Robot est disponible sur plusieurs plateforme (Vulnhub, TryHackMe Root me...) . Cette machine nous demande de récupérer 3 drapeaux.  
+La machine Mr. Robot est disponible sur plusieurs plateformes (Vulnhub, TryHackMe Root me...) . Cette machine nous demande de récupérer 3 drapeaux.  
 
-## Acces a l'application 
+## Accès à l'application 
 
-On accede à l'application depuis le port HTTP. A partir de là l'application se présente comme un terminal. quelques options sont disponible mais l'application nous montre majoritairement des videos et du texte. 
+On accède à l'application depuis le port HTTP. À partir de là l'application se présente comme un terminal. Quelques options sont disponibles mais l'application nous montre majoritairement des vidéos et du texte. 
 
 En utilisant gobuster on s'aperçoit également que l'application est en fait un site wordpress. 
 
 ### robots.txt 
 
-en fouillant un petit peu on trouve rapidement le robots.txt qui contient notre premier drapeau mais également un dictionnaire .dic.
+En fouillant un petit peu on trouve rapidement le robots.txt qui contient notre premier drapeau mais également un dictionnaire .dic.
 
 ### Fuzzing & Bruteforce 
 
@@ -53,7 +53,7 @@ On obtient le mot de passe : "ER28-0652".
 ## Shell 
 ### Wordpress Plugin 
 
-Il se trouve qu'Elliot est administrateur du site wordpress. On va donc installer un plugin qui nous permettra d'executer des commandes sur la machine. On installe donc le plugin WPTerm. Après ça on peut récupérer un terminal et lister les utilisateurs via le fichier /etc/passwd
+Il se trouve qu'Elliot est administrateur du site wordpress. On va donc installer un plugin qui nous permettra d'exécuter des commandes sur la machine. On installe donc le plugin WPTerm. Après ça on peut récupérer un terminal et lister les utilisateurs via le fichier /etc/passwd
 
 <img src="mrrobot_passwd.png"/>
 
@@ -71,9 +71,9 @@ hashcat -a 0 -m 0 hash /usr/share/wordlists/rockyou.txt
 
 <img src="mrrobot_hashcat.png"/>
 
-on trouve le mot de passe "abcdefghijklmnopqstruvwxyz". dans robot on trouve egalement notre deuxième drapeau. 
+On trouve le mot de passe "abcdefghijklmnopqstruvwxyz". Dans robot on trouve également notre deuxième drapeau. 
 
-## Escalade de privilege 
+## Escalade de privilège 
 
 Après une énumération manuelle on voit qu'il n'y pas moyen d'exploiter de failles de sudo ni d'exploiter les fichiers de l'utilisateur. On passe à une énumération automatisée.
 

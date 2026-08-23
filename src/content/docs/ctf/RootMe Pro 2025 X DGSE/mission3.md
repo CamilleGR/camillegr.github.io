@@ -13,12 +13,12 @@ L'entreprise vous met à disposition :
 - L'image de la VM compromise
 - Le fichier PCAP contenant une portion du trafic réseau suspect
 
-## Premiere recherches 
+## Premières recherches 
 
 En regardant les logs et en arrivant sur la machine, on s'aperçoit que : 
 - L'attaque a eu lieu entre 14:02 et 14:12 
-- l'utilisateur fournit a les droits root sur la machine
-- il y a eu plusieurs telechargement de fichiers, notamment un fichier install_npdate.sh qui contient du code malveillant.
+- l'utilisateur fourni a les droits root sur la machine
+- il y a eu plusieurs téléchargements de fichiers, notamment un fichier install_npdate.sh qui contient du code malveillant.
 
 ## Analyse de install_npdate.sh 
 
@@ -53,10 +53,10 @@ fi
 chmod +x "$__DST/.sys"
 ```
 
-Ce morceau de code installe un executable python dans ‘/opt/????/.sys‘ nous cherchons donc cet executable et passons à la décompilation.
+Ce morceau de code installe un exécutable python dans ‘/opt/????/.sys‘ nous cherchons donc cet executable et passons à la décompilation.
 
 
-## Decompilation 
+## Décompilation 
 
 Le fichier .pyc compilé, une fois décompilé, donne le résultat suivant : 
 
@@ -178,7 +178,7 @@ if __name__ == "__main__":
 
 ```
 
-On observe que cet executable exfiltre des données vers une autre machine. Le fichier `/root/.secret`, qui doit contenir notre drapeau, est envoyé par ICMP. On observe également que le contenu est chiffré mais l'IV et la clé sont disponibles. 
+On observe que cet exécutable exfiltre des données vers une autre machine. Le fichier `/root/.secret`, qui doit contenir notre drapeau, est envoyé par ICMP. On observe également que le contenu est chiffré mais l'IV et la clé sont disponibles. 
 
 En extrayant les données des paquets via la capture .pcap, on tombe effectivement sur le drapeau que l'on déchiffre avec le code suivant : 
 

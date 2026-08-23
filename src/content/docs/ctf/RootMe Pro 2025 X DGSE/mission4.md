@@ -8,15 +8,15 @@ weight: 1
 
 <img src="nullvastation-m4-doctracker.png"/>
 
-Certainement la mission la plus compliquée de ce challenge.  notre organisation terroriste fictive a publié une application de gestion des documents compromis, celle-ci permet de : 
+Certainement la mission la plus compliquée de ce challenge.  Notre organisation terroriste fictive a publié une application de gestion des documents compromis, celle-ci permet de : 
 - Signer des documents .docx.
 - Vérifier le propriétaire d'un document signé. 
 
-## 1 - Reconaissance 
+## 1 - Reconnaissance 
 
-On commence par envoyer un .docx vide pour le signer. Puis on renvoie le document signé pour vérifier la signature. à ce moment un message d'affiche avec l'identifiant de la victime. 
+On commence par envoyer un .docx vide pour le signer. Puis on renvoie le document signé pour vérifier la signature. À ce moment un message s'affiche avec l'identifiant de la victime. 
 
-Le message affichant l'identifiant de la victime, on peut supposer que l'identifiant est un champ vulnérable pour une injection. En décompressant le .docx on s'aperçoit que l'identifiant de la victime est stocké en dur dans le document.  une modification manuelle permet de confirmer cette hypothèse.
+Le message affichant l'identifiant de la victime, on peut supposer que l'identifiant est un champ vulnérable pour une injection. En décompressant le .docx on s'aperçoit que l'identifiant de la victime est stocké en dur dans le document.  Une modification manuelle permet de confirmer cette hypothèse.
 ## 2 - Injection XXE  
 
 Le champ injectable étant reflété dans l'application on vérifie s'il est possible d'utiliser une vulnérabilité XXE. Le site est bien faillible et on peut automatiser l'injection pour essayer de trouver des fichiers et dossiers intéressants.
@@ -129,13 +129,13 @@ cd templates/
 
 ### SSHD Config
 
-Vérification du SSHD_CONFIG : Service ouvert sur 22222. Avec l'utilisateur et le mot de passe on se connecte et on obtient un shell sur la machine.x 
+Vérification du SSHD_CONFIG : Service ouvert sur 22222. Avec l'utilisateur et le mot de passe on se connecte et on obtient un shell sur la machine. 
 
-## 3 - Escalade de privilege 
+## 3 - Escalade de privilège 
 
-Une fois connecté, il apparaît que l'utilisateur n'a pas un haut niveau de privlège, nous allons donc voir s'il est possible de pivoter vers un autre utilisateur. en vérifiant les privilèges sudo, on voit que la commande screenfetch est exécutable en tant qu'administrator. 
+Une fois connecté, il apparaît que l'utilisateur n'a pas un haut niveau de privilège, nous allons donc voir s'il est possible de pivoter vers un autre utilisateur. En vérifiant les privilèges sudo, on voit que la commande screenfetch est exécutable en tant qu'administrator. 
 
-On tente une escalade de privilège vers l"utilisateur administrator : 
+On tente une escalade de privilège vers l'utilisateur administrator : 
 
 ```bash
 sudo -l 
@@ -147,7 +147,7 @@ shell administrator
 
 - Exfiltration du logo et du vault.kdbx :
 dans /app/app.py (récupérable avec la première faille XXE), on observe que le programme écrit sur 
-/dev/shm/uploads et /dev/shm/work. on peut y écrire avec executor.
+/dev/shm/uploads et /dev/shm/work. On peut y écrire avec executor.
 
 ‘‘‘
 mkdir /dev/shm/mydir
@@ -156,4 +156,4 @@ cp /home/administrator/logo.jpg /dev/shm/mydir
 chmod 777 /dev/shm/mydir -R
 ‘‘‘
 
-Le logo est bien evidemment la clé du coffre-fort où l'on trouve le drapeau.
+Le logo est bien évidemment la clé du coffre-fort où l'on trouve le drapeau.

@@ -23,10 +23,10 @@ Le CTF organisé par Root-Me en partenariat avec la DGSE a été organisé en Av
 - Une compromission d'application Android  
 - Une recherche OSINT
 
-Le scénario est simple et efficace : un groupe terroriste envoie une vidéo menaçante et commence à installer des ransomware dans des grands groupes français pour déstabiliser la société. Vous devez venir en aide aux force de l'ordre. 
+Le scénario est simple et efficace : un groupe terroriste envoie une vidéo menaçante et commence à installer des ransomware dans des grands groupes français pour déstabiliser la société. Vous devez venir en aide aux forces de l'ordre. 
 
 
-## Resultats
+## Résultats
 
 Finalement, après quelques fausses pistes, et quelques difficultés, Tous les challenges sont terminés !
 

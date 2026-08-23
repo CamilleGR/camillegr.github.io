@@ -16,7 +16,7 @@ Dans cette room facile de la saison 9 de HackTheBox, nous allons exploiter des v
 
 ## Port Enum
 
-On commence par une énumération des ports qui révèle un port ssh et une application web sur le port 8000. l'application web utilise Gunicorn et est donc développée en python.
+On commence par une énumération des ports qui révèle un port ssh et une application web sur le port 8000. L'application web utilise Gunicorn et est donc développée en python.
 
 ```bash
 nmap -sS -sV -T5 10.129.10.60 -oN nmap.txt    
@@ -35,7 +35,7 @@ Nmap done: 1 IP address (1 host up) scanned in 10.11 seconds
 
 # Access
 
-Sur le port 8000, nous trouvons une application web dont on peut télécharger le code source. Egalement il est possible de créer un compte et d'exécuter du code javascript.
+Sur le port 8000, nous trouvons une application web dont on peut télécharger le code source. Également il est possible de créer un compte et d'exécuter du code javascript.
 
 En analysant le code source, on voit que l'application utilise Js2Py, et **cette librairie possède une CVE de type RCE connue**.
 
@@ -84,7 +84,7 @@ cHl0aG9uMyAtYyAnaW1wb3J0IG9zLHB0eSxzb2NrZXQ7cz1zb2NrZXQuc29ja2V0KCk7cy5jb25uZWN0
 
 ## Récupération des credentials de Marco
 
-En obtenant un shell, nous ne sommes pas connecté comme un utilisateur connu. Nous allons donc essayer de se connecter avec un autre utilisateur. En enumérant les fichiers de l'application nous trouvons une base SQLLite3. En listant directement les strings de cette base nous obtenons des hash de mot de passe, notamment au format md5 :
+En obtenant un shell, nous ne sommes pas connectés comme un utilisateur connu. Nous allons donc essayer de nous connecter avec un autre utilisateur. En énumérant les fichiers de l'application nous trouvons une base SQLite3. En listant directement les strings de cette base nous obtenons des hash de mot de passe, notamment au format md5 :
 
 ```bash
 $ strings users.db
@@ -146,7 +146,7 @@ $ npbackup 3.0.1-linux-UnknownBuildType-x64-legacy-public-3.8-i 2025032101 - Cop
 
 dans npbackup-cli on voit que : 
 
-- Nous avons besoin d’une nouvelle configuration de backup : on copie l’existante et on modife le dossier de backup (et la taille minimale du backup pour éviter les erreurs)
+- Nous avons besoin d’une nouvelle configuration de backup : on copie l’existante et on modifie le dossier de backup (et la taille minimale du backup pour éviter les erreurs)
 - On lance un nouveau backup
 - on dump le fichier /root/root.txt qui contient le flag :
 

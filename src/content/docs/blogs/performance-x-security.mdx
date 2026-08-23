@@ -53,7 +53,7 @@ Les failles Server-Side Request Forgery (SSRF) sont des vulnérabilités qui per
 
 <img src="ssrf.png"/>
 
-Durant la phase de scripting d’un test de performance, nous pouvons être amenés à identifier des champs faisant des références directes à des urls. On peut alors tenter de modifier ces urls pour identifier un comportement anormal du serveur : Timeout, récupération de contenu sensible, etc… De manière général, il faut se méfier des urls dans les paramètres des requêtes.
+Durant la phase de scripting d’un test de performance, nous pouvons être amenés à identifier des champs faisant des références directes à des urls. On peut alors tenter de modifier ces urls pour identifier un comportement anormal du serveur : Timeout, récupération de contenu sensible, etc… De manière générale, il faut se méfier des urls dans les paramètres des requêtes.
 
 ## Exposition de stacktraces et erreurs
 C’est peut-être la faille la plus courante, ou du moins celle que l’on peut trouver sans la chercher : l’exposition de stacktrace dans le cas d’erreurs. Les tests de charge peuvent déclencher des erreurs internes du serveur (HTTP 500) durant la phase de scripting et durant les tests à forte charge. Ces erreurs peuvent exposer des stacktrace avec des informations sensibles. Il faut impérativement remonter ces anomalies car certaines informations, dans le cas d’un middleware mal configuré, peuvent être réutilisées par un attaquant pour identifier des failles de sécurité.

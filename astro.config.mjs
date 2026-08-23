@@ -23,22 +23,26 @@ export default defineConfig({
 				favicon:"favicon.svg"
 			,
 			sidebar: [
-				
-				{
-					label: 'Writeups',
-					items: [{ autogenerate: { directory: 'writeups' } }],
-				},
 				{
 					label: 'Blogs',
-					items: [{ autogenerate: { directory: 'blogs' } }],
+					collapsed: false,
+					items: [{ autogenerate: { directory: 'blogs', collapsed: true } }],
 				},
 				{
+					label: 'Writeups',
+					collapsed: true,
+					items: [{ autogenerate: { directory: 'writeups', collapsed: true } }],
+				},
+				
+				{
 					label: 'Outils',
-					items: [{ autogenerate: { directory: 'outils' } }],
+					collapsed: true,
+					items: [{ autogenerate: { directory: 'outils', collapsed: true } }],
 				},
 				{
 					label: 'CTF',
-					items: [{ autogenerate: { directory: 'ctf' } }],
+					collapsed: true,
+					items: [{ autogenerate: { directory: 'ctf', collapsed: true } }],
 				}
 
 			],

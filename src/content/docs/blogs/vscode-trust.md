@@ -17,13 +17,13 @@ Aux autres, félicitations vous avez une certaine conscience de la sécurité. M
  <center> <img src="vscode-popup.png"></center>
 
 ## Il était une fois, un développeur innocent...
-Prenons un scénario simple : Un développeur recherche un outil pour trier/parser/filtrer des données. Il poste un message sur un forum et un autre utilisateur lui envoi une archive contenant un outil écrit en python qui répond à son besoin. à l’ouverture du dossier, l’utilisateur clique sur “Yes, I trust the authors”. 
+Prenons un scénario simple : Un développeur recherche un outil pour trier/parser/filtrer des données. Il poste un message sur un forum et un autre utilisateur lui envoie une archive contenant un outil écrit en python qui répond à son besoin. À l’ouverture du dossier, l’utilisateur clique sur “Yes, I trust the authors”. 
 
-A ce moment, et comme l’indique la fenêtre d’avertissement de VSCode, le projet est ouvert avec toutes les fonctionnalités de VSCode, dont la fonctionnalité Tasks qui permet d’automatiser des tâches stockées dans le fichier `.vscode/tasks.json` (evidemment, avec les mêmes droits que l’utilisateur).  
+A ce moment, et comme l’indique la fenêtre d’avertissement de VSCode, le projet est ouvert avec toutes les fonctionnalités de VSCode, dont la fonctionnalité Tasks qui permet d’automatiser des tâches stockées dans le fichier `.vscode/tasks.json` (évidemment, avec les mêmes droits que l’utilisateur).  
 
 ### Côté développeur
 
-Prenons le fichiers tasks suivant :
+Prenons le fichier tasks suivant :
 
 ```json
     {
@@ -46,7 +46,7 @@ Prenons le fichiers tasks suivant :
 ```
 
 On a plusieurs choses intéressantes ici : 
-- La ligne commande contient un reverse shell écrit en python. à l'exécution il va ouvrir une connexion entre la machine de la victime et le serveur contrôlé par l'attaquant. On aurait également pu mettre une commande powershell, bash ou autre.
+- La ligne de commande contient un reverse shell écrit en python. À l'exécution il va ouvrir une connexion entre la machine de la victime et le serveur contrôlé par l'attaquant. On aurait également pu mettre une commande powershell, bash ou autre.
 - On observe la présence du champ `"runOn":"folderOpen"` qui permet de déclencher l'exécution de la commande à l'ouverture du dossier.
 - On a les champs `hide`, `isBackground`, et surtout `"presentation": { "reveal": "never" }` qui permettent de garder l'exécution en arrière plan pour être le plus discret possible.
 
@@ -57,14 +57,14 @@ Et de son côté, l’attaquant voit un shell se connecter sur son port d’éco
 <center><img src="revshell.png" width="400px"/></center>
 
 
-Avec cette simple astuce, notre attaquand a un accès direct à la machine de notre victime. Avec le code fournit dans cet article, la connexion est plutôt précaire, mais il est tout à fait possible d'imaginer un scénario plus réaliste.
+Avec cette simple astuce, notre attaquant a un accès direct à la machine de notre victime. Avec le code fourni dans cet article, la connexion est plutôt précaire, mais il est tout à fait possible d'imaginer un scénario plus réaliste.
 
 ## Un cas plus réaliste...
 
-Dans un cas un peu plus réaliste, le code python aurait télécharger un malware ou un implant C2 pour avoir une connexion stable est persistante comme dans le schéma ci-dessous :  
+Dans un cas un peu plus réaliste, le code python aurait téléchargé un malware ou un implant C2 pour avoir une connexion stable et persistante comme dans le schéma ci-dessous :  
 
 <center><img src="vscode-schema.png" width="800px"/></center>
 
 Cette attaque est bien plus redoutable car elle permet une connexion stable avec la victime et facilite l’exfiltration de données et l’évasion des EDR/XDR. Ainsi, il est même possible que l’utilisateur reste infecté pendant plusieurs semaines avant de s’en rendre compte. 
 
-Pour se prémunir de ce genre d’attaque, il faut systématiquement vérifier les sources et extensions qui ne sont pas de confiance. Egalement, dans VSCode, on peut simple choisir de ne pas cliquer sur cet énorme bouton bleu pour prendre le temps de vérifier que tout est en ordre.
+Pour se prémunir de ce genre d’attaque, il faut systématiquement vérifier les sources et extensions qui ne sont pas de confiance. Également, dans VSCode, on peut simplement choisir de ne pas cliquer sur cet énorme bouton bleu pour prendre le temps de vérifier que tout est en ordre.
