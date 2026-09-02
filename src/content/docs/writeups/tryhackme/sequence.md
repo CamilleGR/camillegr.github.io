@@ -62,6 +62,7 @@ On a alors accès à plusieurs nouvelles pages, dont un chat qui nous permet de 
 
 
 <img src="sequence_trapadmin.png"/>
+
 ```bash
 root@ip-10-81-76-213:~/workspace# python3 -m http.server 8888
 Serving HTTP on 0.0.0.0 port 8888 (http://0.0.0.0:8888/) ...
@@ -74,6 +75,7 @@ L'admin clique bien sur le lien et on récupère alors le deuxième flag.
 ## Reverse Shell
 
 Après cela, nous avons accès à un nouveau dashboard qui inclut un fichier lottery.php. Cependant il n'est pas possible d'exploiter cette inclusion pour inclure des fichiers sensibles. Nous allons donc repasser dans une phase d'énumération avec gobuster et nikto : 
+
 ```bash
 gobuster dir -u http://review.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -x php
 ===============================================================
